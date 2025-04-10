@@ -1,0 +1,40 @@
+.FateRlc {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    flex-direction: column;
+    gap: 30px;
+    background-color: rgb(12, 65, 57);
+    align-items: center;
+    .fateImg {
+        width: 98.5%;
+        height:300px;
+        object-fit: cover;
+        border-radius: 18px;
+    }
+}
+.fuck{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+    .Fate {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        max-width: 1200px; /* Ограничение максимальной ширины */
+        width: 100%;
+    }
+
+
+@media (max-width: 1060px) {
+    .Fate {
+        flex-direction: column;
+        padding: 0 10px;
+    }
+
+    .fateImg {
+        width: 1048px;
+    }
+}

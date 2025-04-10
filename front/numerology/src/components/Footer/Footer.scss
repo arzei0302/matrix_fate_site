@@ -1,0 +1,128 @@
+$primary-color: #073c36;
+$accent-color: #95c9b4;
+$bg-color: #ffffff;
+$page-bg: #fdfdf6;
+$font: 'Georgia', serif;
+
+.footerRlc {
+  background-color: $page-bg;
+  padding: 40px 20px 60px;
+  display: flex;
+  justify-content: center;
+  font-family: $font;
+  color: $primary-color;
+  position: relative;
+  width: 100%;
+
+  .horizontaLine {
+    position: absolute;
+    top: 0;
+    width: 90%;
+    height: 1px;
+    background: $accent-color;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.4;
+  }
+
+  .footerOther {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    max-width: 1150px;
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .docs {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      span {
+        cursor: pointer;
+        font-size: 16px;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $accent-color;
+        }
+      }
+    }
+
+    .help {
+      font-size: 16px;
+      cursor: pointer;
+
+      &:hover {
+        color: $accent-color;
+      }
+    }
+
+    .adress {
+      font-size: 15px;
+      line-height: 1.5;
+      text-align: left;
+      max-width: 300px;
+    }
+
+    .icons {
+      display: flex;
+      gap: 12px;
+
+      img {
+        height: 32px;
+        width: 32px;
+        object-fit: contain;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(7, 60, 54, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    .modal-content {
+      background: $bg-color;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      text-align: left;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      font-size: 22px;
+      color: $primary-color;
+      cursor: pointer;
+    }
+  }
+}

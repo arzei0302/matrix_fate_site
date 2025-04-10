@@ -1,0 +1,160 @@
+$primary-color: #007bff;
+$primary-hover: #0056b3;
+$bg-color: white;
+$border-radius: 20px;
+$shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+.FateRlc {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+    background-color: rgb(12, 65, 57);
+    align-items: center;
+    .accordions{
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        max-width: 1200px; /* Ограничение максимальной ширины */
+        width: 96%;
+        margin-top: 10px;
+    }
+    .trainingCards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); // Две колонки
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        max-width: 900px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        // Размещаем третью карточку в центре
+        & > :nth-child(3) {
+          grid-column: span 2;
+          justify-self: center;
+          margin-top: 20px;
+        }
+      }
+      
+   
+    .FateFirstColumn{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .birthdate-container {
+        display: flex;
+        position: relative;
+        justify-content: center;
+        gap: 15px;
+        padding: 20px;
+        background: $bg-color;
+        border-radius: $border-radius;
+        box-shadow: $shadow;
+        padding-top:50px ;
+        padding-bottom: 70px;
+        height: 250px;
+        .age{
+          position: absolute;
+          bottom: 15px;
+        }
+        .bd-text{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 10px;
+        }
+        button{
+            position: absolute;
+            bottom: 50px;
+            background-color: $primary-color;
+            width: 180px;
+            height: 40px;
+            border-radius: 16px;
+            color: white;
+        }
+        
+        .select-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+    
+          .select-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+            text-align: center;
+          }
+    
+          .custom-select {
+            width: 100px;
+            padding: 10px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            background: $bg-color;
+            text-align: center;
+            font-size: 16px;
+            appearance: none;
+            outline: none;
+          }
+        }
+    }
+    .fateImg {
+        width: 98.5%;
+        height:300px;
+        object-fit: cover;
+        border-radius: 18px;
+    }
+}
+
+
+    .Fate {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        max-width: 1200px; /* Ограничение максимальной ширины */
+        width: 100%;
+        margin-top: 10px;
+    }
+
+
+@media (max-width: 1060px) {
+    .Fate {
+        flex-direction: column;
+        padding: 0 10px;
+    }
+
+    .fateImg {
+        width: 1048px;
+    }
+   
+    .dateDecodingCard{
+        grid-template-columns: repeat(2,1fr) !important;
+    }
+   
+}
+@media (max-width: 1024px) {
+    .dateDecodingCard{
+        grid-template-columns: repeat(1,1fr) !important;
+    }
+   
+}
+@media (max-width: 590px) {
+    .FateRlc{
+        .FateFirstColumn{
+            align-items: center;
+        }
+    .birthdate-container {
+     width: 340px !important;
+     gap: 5px !important;
+     .select-container{
+        justify-content: center !important;
+     }
+        .bd-text{
+            text-wrap: nowrap !important;
+        }   
+    }
+    
+    }
+    }
+

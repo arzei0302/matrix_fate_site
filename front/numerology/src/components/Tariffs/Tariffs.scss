@@ -1,0 +1,87 @@
+
+.tariffsRlc{
+    display: flex;
+    justify-content: center;
+  }
+  .tariffs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    }
+    
+    .card {
+      width: 320px;
+      position: relative;
+      min-height: 400px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(255, 0, 0, 0.1);
+      border: 1px solid #ccc;
+      overflow: hidden;
+      text-align: center;
+    
+      &-header {
+        background: #027a48;
+        color: white;
+        padding: 12px;
+        font-size: 14px;
+        font-weight: bold;
+      }
+    
+      &-body {
+        padding: 24px;
+      }
+    
+      h2 {
+        color: #005bbb;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    
+      .date {
+        color: #027a48;
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 8px;
+      }
+    
+      .features {
+        color: #555;
+        margin-top: 16px;
+        font-size: 14px;
+        list-style: none;
+        padding: 0;
+    
+        li {
+          margin-bottom: 8px;
+        }
+      }
+    
+      .price {
+        color: #027a48;
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 16px;
+      }
+    
+      .buy-button {
+          position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+        background: #005bbb;
+        color: white;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+    
+        &:hover {
+          background: #004b99;
+        }
+      }
+    }

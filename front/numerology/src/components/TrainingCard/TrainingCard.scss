@@ -1,0 +1,73 @@
+.training-card {
+  width: 400px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #029986;
+  text-align: center;
+  padding: 40px 20px 20px;
+  position: relative;
+  overflow: visible; // Важно для отображения иконки за пределами карточки
+
+  &-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -35px; // Выдвигаем значок выше карточки
+    left: 50%;
+    height: 70px;
+    border: 2px solid #029986;
+    border-radius: 50px;
+    transform: translateX(-50%);
+    background: #ffffff;
+   
+    .icon {
+      width: 70px;
+      height: 70px;
+      padding: 10px;
+
+    }
+  }
+
+  &-body {
+    margin-top: 30px;
+
+    h2 {
+      font-size: 18px;
+      font-weight: bold;
+      color: #027a48;
+      margin-bottom: 20px;
+
+      .bold {
+        color: black;
+      }
+
+      .highlight {
+        color: #027a48;
+      }
+    }
+  }
+
+  .training-button {
+    width: 100%;
+    background: #027a48;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: #025b36;
+    }
+  }
+}
+@media (max-width: 590px) {
+  .training-card {
+    width: 340px !important;
+  }
+}

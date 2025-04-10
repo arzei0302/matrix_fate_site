@@ -1,0 +1,32 @@
+$primary-color: #073c36;
+$accent-color: #95c9b4;
+$bg-color: #ffffff;
+$page-bg: #fdfdf6;
+$font: 'Georgia', serif;
+
+.myMatrices {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px 20px;
+  background-color: $page-bg;
+  font-family: $font;
+
+  .column {
+    p {
+      margin: 0;
+      font-size: 22px;
+      color: $primary-color;
+      padding: 10px 0;
+
+      span {
+        background-color: $accent-color;
+        padding: 4px 12px;
+        border-radius: 30px;
+        color: white;
+        font-size: 20px;
+        margin-left: 10px;
+      }
+    }
+  }
+}

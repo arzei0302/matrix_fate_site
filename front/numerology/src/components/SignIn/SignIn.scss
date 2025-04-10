@@ -1,0 +1,120 @@
+$primary-color: #073c36;
+$accent-color: #95c9b4;
+$bg-color: #ffffff;
+$page-bg: #fdfdf6;
+$font: 'Georgia', serif;
+$shadow: 0 10px 20px rgba(7, 60, 54, 0.1);
+
+.signInContentOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(7, 60, 54, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.signInContent {
+  background: $bg-color;
+  border-radius: 16px;
+  padding: 40px 30px 30px;
+  box-shadow: $shadow;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  font-family: $font;
+  position: relative;
+  gap: 20px;
+
+  .signInTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: $primary-color;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  input {
+    height: 44px;
+    padding: 10px 16px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    font-size: 16px;
+    outline: none;
+    background-color: #fafafa;
+
+    &:disabled {
+      background-color: #f3f3f3;
+      color: #999;
+    }
+  }
+
+  .signInButton {
+    background-color: $primary-color;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken($primary-color, 5%);
+    }
+  }
+
+  .signInButtons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    .nextButton,
+    .backButton {
+      flex: 1;
+      padding: 10px 0;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .nextButton {
+      background-color: $primary-color;
+      color: white;
+
+      &:hover {
+        background-color: darken($primary-color, 5%);
+      }
+    }
+
+    .backButton {
+      background-color: #e6e6e6;
+      color: $primary-color;
+
+      &:hover {
+        background-color: #d9d9d9;
+      }
+    }
+  }
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  color: $primary-color;
+  cursor: pointer;
+}

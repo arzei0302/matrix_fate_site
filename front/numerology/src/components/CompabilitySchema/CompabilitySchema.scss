@@ -1,0 +1,259 @@
+.personalInfoLeftMiddle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: white;
+    .elements {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        font-size: 18px;
+
+        .sky span, .earth span {
+          justify-content: center;
+          align-items: center;
+            border: 2px solid black;
+            padding: 3px 6px;
+            border-radius: 50%;
+            
+        }
+    }
+    .result {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+        border: 2px solid black;
+        padding: 3px 6px;
+        width: 30px;
+            height: 30px;
+        border-radius: 50%;
+    }
+}
+.CompabilitySchemaRlc{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+.CompabilitySchema{
+    background-color: white;
+    position: relative;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    width: 530px;
+    height: 540px;
+    margin-bottom: 20px;
+    img{
+        width: 530px;
+        height: 540px;
+    }
+    .top {
+        position: absolute;
+        top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 46.3%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+        background-color: #ae309a;
+        
+        // Создаем зазор с помощью box-shadow
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .rightTop{
+        position: absolute;
+        top: 15%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 15%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+        background-color: white;
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .right1{
+        position: absolute;
+        top: 46.4%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 2%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+        background-color: #eb4b41;
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .right2{
+        position: absolute;
+        top: 48%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 19%;
+        width: 20px;
+        height: 20px;
+        border-radius: 50px;
+        background-color: white;
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .rightBottom1{
+        position: absolute;
+        bottom: 15%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 15%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+        background-color: white;  
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .rightBottom2{
+        position: absolute;
+        bottom: 35%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 35%;
+        width: 20px;
+        height: 20px;
+        border-radius: 50px;
+        background-color: white;     
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .rightBottom3{
+        position: absolute;
+        bottom: 36%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 30%;
+        width: 20px;
+        height: 20px;
+        border-radius: 50px;
+        background-color: white;     
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .rightBottom4{
+        position: absolute;
+        bottom: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 36.3%;
+        width: 20px;
+        height: 20px;
+        border-radius: 50px;
+        background-color: white;     
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .bottom1{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 46.2%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+        background-color: white; 
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .bottom2{
+        position: absolute;
+        bottom: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 47.2%;
+        width: 30px;
+        height: 30px;
+        border-radius: 50px;
+        background-color: white; 
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .bottom3{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 48.2%;
+        width: 20px;
+        height: 20px;
+        border-radius: 50px;
+        background-color: white; 
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .leftBottom{
+        position: absolute;
+        bottom: 15%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 15%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+        background-color: white; 
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .left{
+        position: absolute;
+        bottom: 46.4%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 2%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+        background-color: white; 
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .leftTop{
+        position: absolute;
+        top: 15%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 15%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+        background-color: white; 
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */
+    }
+    .center{
+        position: absolute;
+        top: 46.2%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 46.4%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+        background-color: rgb(204, 4, 4);   
+        box-shadow: 0 0 0 1px white, /* Зазор между */
+                    0 0 0 3px #ae309a; /* "Outline" эффект */ 
+    }
+}
+}

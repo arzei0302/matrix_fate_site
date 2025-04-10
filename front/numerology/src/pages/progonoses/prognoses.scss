@@ -1,0 +1,94 @@
+$primary-color: #073c36;
+$accent-color: #95c9b4;
+$bg-color: #ffffff;
+$page-bg: #fdfdf6;
+$radius: 20px;
+$font: 'Georgia', serif;
+$shadow: 0 0 10px rgba(7, 60, 54, 0.08);
+
+.prognoses {
+  background-color: $page-bg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  font-family: $font;
+
+  .birthdate-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px 20px 80px;
+    background-color: $bg-color;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    width: 100%;
+    max-width: 600px;
+
+    .bd-text {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      color: $primary-color;
+    }
+
+    button {
+      position: absolute;
+      bottom: 30px;
+      background-color: $primary-color;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($primary-color, 5%);
+      }
+    }
+
+    .select-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .select-label {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 6px;
+      }
+
+      .custom-select {
+        width: 100px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        font-size: 16px;
+        background-color: $bg-color;
+        text-align: center;
+        outline: none;
+        appearance: none;
+
+        &:focus {
+          border-color: $accent-color;
+        }
+      }
+    }
+  }
+
+  .accordions {
+    width: 100%;
+    max-width: 1150px;
+    margin-top: 40px;
+  }
+}
+@media (max-width: 590px) {
+  .prognoses .birthdate-container .bd-text{
+    text-wrap: nowrap;
+  }
+}

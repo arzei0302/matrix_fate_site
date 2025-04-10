@@ -1,0 +1,65 @@
+$primary-color: #073c36;
+$accent-color: #95c9b4;
+$bg-color: #ffffff;
+$page-bg: #fdfdf6;
+$font: 'Georgia', serif;
+$shadow: 0 2px 8px rgba(7, 60, 54, 0.06);
+
+.viewHistory {
+  padding: 40px 20px;
+  background-color: $page-bg;
+  font-family: $font;
+  display: flex;
+  justify-content: center;
+
+  .tariff-table {
+    width: 100%;
+    max-width: 1100px;
+    border-collapse: collapse;
+    background-color: $bg-color;
+    border: 1px solid #e2e2e2;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: $shadow;
+
+    th, td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+      font-size: 15px;
+    }
+
+    th {
+      background-color: #f5f5f5;
+      font-weight: bold;
+      color: $primary-color;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fbfbfb;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td {
+      color: $primary-color;
+    }
+
+    .open-button {
+      background-color: $primary-color;
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      font-size: 14px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($primary-color, 5%);
+      }
+    }
+  }
+}

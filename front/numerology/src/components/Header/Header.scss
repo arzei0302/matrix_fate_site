@@ -1,0 +1,149 @@
+.headerRlc {
+  display: flex;
+  justify-content: center;
+  background-color: #fdfdf6;
+  padding: 20px 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1150px;
+  font-family: "Georgia", serif;
+  position: relative;
+}
+
+.menu {
+  display: flex;
+  gap: 40px;
+  transition: all 0.3s ease-in-out;
+
+  .menu-item {
+    color: #073c36;
+    font-size: 18px;
+    font-weight: normal;
+    cursor: pointer;
+    position: relative;
+    padding: 10px 0;
+    transition: color 0.3s;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      text-wrap: nowrap;
+    }
+
+    &:hover {
+      color: #95c9b4;
+    }
+
+    &.active {
+      color: #95c9b4;
+      font-weight: bold;
+    }
+  }
+}
+
+.auth {
+  &:hover {
+    color: black;
+  }
+}
+
+.login-button,
+.logout-button {
+  font-family: "Georgia", serif;
+  background-color: transparent;
+  color: #073c36;
+  border: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  .icon {
+    font-size: 18px;
+    transition: color 0.3s ease;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+  }
+
+  &:hover {
+    color: #00995c;
+
+    .icon {
+      color: #00995c;
+    }
+
+    a {
+      color: #95c9b4;
+    }
+  }
+}
+
+.logout {
+  button {
+    background-color: transparent;
+    border: none;
+    color: #073c36;
+    font-size: 16px;
+    gap: 6px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Бургер-иконка */
+.burger-icon {
+  display: none;
+  cursor: pointer;
+  color: #073c36;
+  padding: 10px;
+  z-index: 999;
+}
+
+/* Мобильная адаптация — включается при ширине <= 1030px */
+@media (max-width: 1030px) {
+
+
+  .burger-icon {
+    display: block;
+  }
+
+  .menu {
+    flex-direction: column;
+    width: 100%;
+    display: none;
+    gap: 10px;
+    margin-top: 10px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+
+    &.open {
+      display: flex;
+      opacity: 1;
+      max-height: 500px;
+    }
+
+    .menu-item {
+      font-size: 16px;
+      padding: 8px 0;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+
+  .auth {
+    margin-top: 10px;
+    align-self: flex-end;
+    padding-bottom: 9px;
+  }
+}
