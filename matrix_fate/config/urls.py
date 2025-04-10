@@ -9,7 +9,7 @@ from finance_app.admin import finance_admin
 from compatibility_app.admin import compatibility_admin
 from child_app.admin import child_admin
 from prognosis_app.admin import prognosis_admin
-
+from .views import home_redirect
 
 urlpatterns = [
     path("auth_admin/", admin.site.urls),
@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path("ckeditor/", include("ckeditor_uploader.urls")),
 
+    path('', home_redirect),
     path('matrix_auth/', include('matrix_auth_app.urls')),
     path('matrix_fate/', include('matrix_fate_app.urls')),
     path('finance/', include('finance_app.urls')),

@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b490a020.css",
+    "main.js": "/static/js/main.c42e0a7a.js",
+    "static/media/shema.png": "/static/media/shema.8e58ff0ab379e81e7389.png",
+    "static/media/shemaCompability.png": "/static/media/shemaCompability.4eefb9dd78d393ef7914.png",
+    "static/media/VKLogo.png": "/static/media/VKLogo.632d930dafe89d1490c4.png",
+    "static/media/telegram.png": "/static/media/telegram.0a4265bfea7fe8beeaf2.png",
+    "index.html": "/index.html",
+    "static/media/bezimeni-6-kopiya-8982948.webp": "/static/media/bezimeni-6-kopiya-8982948.2567c6a8c13f6bc31a64.webp",
+    "main.b490a020.css.map": "/static/css/main.b490a020.css.map",
+    "main.c42e0a7a.js.map": "/static/js/main.c42e0a7a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b490a020.css",
+    "static/js/main.c42e0a7a.js"
+  ]
+}
