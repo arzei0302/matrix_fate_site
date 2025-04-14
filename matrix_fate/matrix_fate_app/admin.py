@@ -79,9 +79,6 @@ from .models import (
     TotalQ,
 )
 
-#
-
-
 class MatrixAdmin(AdminSite):
     site_header = "Управление данными для матрицы"
     site_title = "Админ панель Матрицы"
