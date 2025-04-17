@@ -1,0 +1,70 @@
+
+ssh root@212.237.218.32
+pwd - UT_rK2sR2A
+cd /opt/matrix_fate_site/
+
+source venv/bin/activate
+
+admin_panel Marina.spirit@hotmail.fi/Hoplop2017
+
+
+
+
+nano /etc/systemd/system/gunicorn.service
+systemctl daemon-reexec
+systemctl daemon-reload
+systemctl enable gunicorn
+systemctl start gunicorn
+systemctl status gunicorn
+
+systemctl restart gunicorn
+systemctl status gunicorn
+
+###############################################################################
+
+nano /etc/nginx/sites-available/matrix_fate
+
+ln -s /etc/nginx/sites-available/matrix_fate /etc/nginx/sites-enabled/
+nginx -t
+systemctl restart nginx
+systemctl status nginx
+
+nginx -t
+systemctl reload nginx
+nginx -t && systemctl reload nginx
+
+
+
+###############################################################################
+
+apt install certbot python3-certbot-nginx -y
+
+certbot --nginx -d numerology-calculator.fi
+
+
+openssl s_client -connect smtp.mail.ru:465
+journalctl -u gunicorn -n 100 --no-pager
+curl -X POST https://numerology-calculator.fi/matrix_auth/send-code/   -H 'Content-Type: application/json'   -d '{"email": "kabulov.arz@gmail.com"}' -i
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+postgres=# CREATE DATABASE matrix_fate_db;
+CREATE USER marina_user WITH PASSWORD 'marina_matrix';
+ALTER ROLE marina_user SET client_encoding TO 'utf8';
+ALTER ROLE marina_user SET default_transaction_isolation TO 'read committed';
+ALTER ROLE marina_user SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE matrix_fate_db TO marina_user;
+
+(venv) root@FI163168:/opt/matrix_fate_site/matrix_fate# psql -U marina_user -d matrix_fate_db -h 127.0.0.1
+

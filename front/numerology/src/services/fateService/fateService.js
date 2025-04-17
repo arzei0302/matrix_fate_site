@@ -1,7 +1,7 @@
 import api from "../axiosInstance"; 
 
 // Базовый URL для всех запросов
-const BASE_URL = "https://matrixaaa.duckdns.org";
+const BASE_URL = "https://numerology-calculator.fi";
 
 // Функция для обработки ошибок
 const handleError = (error) => {

@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Footer = () => {
     const { t } = useTranslation();
-    const BASE_URL = "https://matrixaaa.duckdns.org";
+    const BASE_URL = "https://numerology-calculator.fi";
 
     const [support, setSupport] = useState({});
     const [privacyText, setPrivacyText] = useState({});

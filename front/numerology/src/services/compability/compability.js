@@ -1,6 +1,6 @@
 import api from "../axiosInstance"; 
 
-const BASE_URL = "https://matrixaaa.duckdns.org";
+const BASE_URL = "https://numerology-calculator.fi";
 
 const handleError = (error) => {
     console.error("Ошибка при получении данных:", error.message);
@@ -10,7 +10,7 @@ const handleError = (error) => {
 export const calculateCompabilityNumerology = async ({ day, month, year, day1, month1, year1 }) => {
     try {
         const [compatibilityResponse, matrixResponse] = await Promise.all([
-            api.post(`https://matrixaaa.duckdns.org/compatibility/calculate-compatibility/`, {
+            api.post(`https://numerology-calculator.fi/compatibility/calculate-compatibility/`, {
                 day,
                 month, 
                 year,
@@ -19,13 +19,13 @@ export const calculateCompabilityNumerology = async ({ day, month, year, day1, m
                 year2: year1,
                 category:"compatibility"
             }),
-            api.post(`https://matrixaaa.duckdns.org/compatibility/calculate-matrix/`, {
+            api.post(`https://numerology-calculator.fi/compatibility/calculate-matrix/`, {
                 day,
                 month,
                 year,
                 category:"compatibility"
             }),
-            api.post(`https://matrixaaa.duckdns.org/compatibility/calculate-matrix/`, {
+            api.post(`https://numerology-calculator.fi/compatibility/calculate-matrix/`, {
                 day:day1,
                 month:month1,
                 year:year1,

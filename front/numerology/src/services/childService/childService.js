@@ -1,6 +1,6 @@
 import api from "../axiosInstance"; 
 
-const BASE_URL = "https://matrixaaa.duckdns.org";
+const BASE_URL = "https://numerology-calculator.fi";
 
 const handleError = (error) => {
     console.error("Ошибка при получении данных:", error.message);

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://matrixaaa.duckdns.org";
+const BASE_URL = "https://numerology-calculator.fi";
 
 // Создаём инстанс axios
 const api = axios.create({
