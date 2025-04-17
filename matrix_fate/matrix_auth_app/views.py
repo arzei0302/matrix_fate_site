@@ -18,7 +18,7 @@ from .serializers import (
     ProtectedSerializer, VerifyCodeSerializer
     )
 from .models import ACCESS_LEVEL_CHOICES, ACCESS_EXPIRATION_DAYS
-from matrix_auth_app.email_utils import send_email_brevo
+# from matrix_auth_app.email_utils import send_email_brevo
 
 User = get_user_model()
 logger = logging.getLogger(__name__)
@@ -50,18 +50,18 @@ class SendCodeView(APIView):
 
             logger.info(f'Попытка отправки письма на {email} с кодом {code_entry.code}')
 
-            # send_mail(
-                # 'Ваш код для входа',
-                # f'Ваш код: {code_entry.code}',
-                # settings.DEFAULT_FROM_EMAIL,
-                # [email],
-                # fail_silently=False,
+            send_mail(
+                'Ваш код для входа',
+                f'Ваш код: {code_entry.code}',
+                settings.DEFAULT_FROM_EMAIL,
+                [email],
+                fail_silently=False,
+            )
+            # send_email_brevo(
+            #     to_email=email,
+            #     subject="Ваш код для входа",
+            #     content=f"Ваш код: {code_entry.code}"
             # )
-            send_email_brevo(
-                to_email=email,
-                subject="Ваш код для входа",
-                content=f"Ваш код: {code_entry.code}"
-)
             return Response({'detail': 'Код отправлен'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

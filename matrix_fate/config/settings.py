@@ -280,11 +280,11 @@ if DJANGO_ENV == "development":
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
-API_KEY_BREVO = os.getenv("API_KEY_BREVO")
-DEFAULT_BREVO_SENDER = {
-    "name": "Matrix Fate",
-    "email": "kabulov.arz@gmail.com",  # временно
-}
+# API_KEY_BREVO = os.getenv("API_KEY_BREVO")
+# DEFAULT_BREVO_SENDER = {
+#     "name": "Matrix Fate",
+#     "email": "kabulov.arz@gmail.com",
+# }
 
 # Настройки брокера сообщений для Celery (используем Redis)
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
