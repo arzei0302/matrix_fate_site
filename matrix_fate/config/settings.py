@@ -206,7 +206,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "/backend_static/"
+STATIC_URL = "/django_static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_URL = "/media/"
@@ -278,6 +278,13 @@ EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", "False").lower() in ("true", "1")
 # Переключение на тестовый режим (console.EmailBackend)
 if DJANGO_ENV == "development":
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
+API_KEY_BREVO = os.getenv("API_KEY_BREVO")
+DEFAULT_BREVO_SENDER = {
+    "name": "Matrix Fate",
+    "email": "kabulov.arz@gmail.com",  # временно
+}
 
 # Настройки брокера сообщений для Celery (используем Redis)
 CELERY_BROKER_URL = 'redis://localhost:6379/0'

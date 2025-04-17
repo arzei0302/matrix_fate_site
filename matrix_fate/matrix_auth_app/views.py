@@ -18,7 +18,7 @@ from .serializers import (
     ProtectedSerializer, VerifyCodeSerializer
     )
 from .models import ACCESS_LEVEL_CHOICES, ACCESS_EXPIRATION_DAYS
-
+from matrix_auth_app.email_utils import send_email_brevo
 
 User = get_user_model()
 logger = logging.getLogger(__name__)
@@ -50,15 +50,102 @@ class SendCodeView(APIView):
 
             logger.info(f'Попытка отправки письма на {email} с кодом {code_entry.code}')
 
-            send_mail(
-                'Ваш код для входа',
-                f'Ваш код: {code_entry.code}',
-                settings.DEFAULT_FROM_EMAIL,
-                [email],
-                fail_silently=False,
+            # send_mail(
+                # 'Ваш код для входа',
+                # f'Ваш код: {code_entry.code}',
+                # settings.DEFAULT_FROM_EMAIL,
+                # [email],
+                # fail_silently=False,
+            # )
+            send_email_brevo(
+                to_email=email,
+                subject="Ваш код для входа",
+                content=f"Ваш код: {code_entry.code}"
 )
             return Response({'detail': 'Код отправлен'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# import logging
+# import os
+# import requests
+
+# from django.utils.timezone import now, timedelta
+# from django.contrib.auth import get_user_model
+# from drf_spectacular.utils import extend_schema
+# from rest_framework.response import Response
+# from rest_framework.views import APIView
+# from rest_framework import status
+
+# from config import settings
+# from .models import EmailVerificationCode, UserCalculationHistory
+# from .serializers import (
+#     CalculationHistorySerializer, EmailSerializer, LogoutSerializer,
+#     ProtectedSerializer, VerifyCodeSerializer
+# )
+# from .models import ACCESS_LEVEL_CHOICES, ACCESS_EXPIRATION_DAYS
+
+# User = get_user_model()
+# logger = logging.getLogger(__name__)
+
+# CODE_EXPIRATION_TIME = 5  # Время жизни кода (в минутах)
+
+
+# class SendCodeView(APIView):
+#     """Отправка кода на почту через Brevo API"""
+#     serializer_class = EmailSerializer
+
+#     @extend_schema(
+#         tags=['Auth'],
+#         description="Отправка кода на почту",
+#     )
+#     def post(self, request):
+#         serializer = self.serializer_class(data=request.data)
+#         if serializer.is_valid():
+#             email = serializer.validated_data['email']
+#             user, created = User.objects.get_or_create(email=email)
+
+#             if created:
+#                 logger.info(f'Создан новый пользователь: {user.email}')
+
+#             EmailVerificationCode.objects.filter(user=user).delete()
+#             code_entry = EmailVerificationCode.objects.create(user=user)
+
+#             logger.info(f'Попытка отправки письма на {email} с кодом {code_entry.code}')
+
+#             # Отправка через Brevo API
+#             try:
+#                 response = requests.post(
+#                     "https://api.brevo.com/v3/smtp/email",
+#                     headers={
+#                         "accept": "application/json",
+#                         "api-key": os.getenv("API_KEY_BREVO"),
+#                         "content-type": "application/json",
+#                     },
+#                     json={
+#                         "sender": {
+#                             "name": "Matrix Fate",
+#                             # "email": "no-reply@numerology-calculator.fi"
+#                             "email": "kabulov.arz@gmail.com" 
+
+#                         },
+#                         "to": [{"email": email}],
+#                         "subject": "Ваш код подтверждения",
+#                         "htmlContent": f"<html><body><p>Ваш код: <strong>{code_entry.code}</strong></p></body></html>"
+#                     }
+#                 )
+#                 logger.info(f'Response Brevo: {response.status_code} {response.text}')
+
+#                 if response.status_code >= 400:
+#                     return Response({'detail': 'Ошибка отправки письма'}, status=500)
+
+#             except Exception as e:
+#                 logger.exception("Ошибка при отправке письма через Brevo API")
+#                 return Response({'detail': str(e)}, status=500)
+
+#             return Response({'detail': 'Код отправлен'}, status=status.HTTP_200_OK)
+
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class VerifyCodeView(APIView):
