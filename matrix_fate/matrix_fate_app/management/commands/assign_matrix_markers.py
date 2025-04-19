@@ -150,4 +150,4 @@ class Command(BaseCommand):
                         f"{Model.__name__}: обновлено {updated} записей (marker='{marker}')"
                     )
                 )
-#python manage.py assign_markers
+#python manage.py assign_matrix_markers
