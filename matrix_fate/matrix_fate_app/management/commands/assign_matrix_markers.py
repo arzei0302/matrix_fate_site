@@ -29,7 +29,6 @@ from matrix_fate_app.models import (
     SvadkhistanaO2, SvadkhistanaP2, SvadkhistanaQ2,
     MuladkharaO1, MuladkharaP1, MuladkharaQ1,
     TotalO, TotalP, TotalQ,
-
 )
 from django.db import transaction
 

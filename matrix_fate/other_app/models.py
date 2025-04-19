@@ -7,7 +7,7 @@ from django.db.models import Max
 class AccessMatrixModel(models.Model):
     """Таблица доступов"""
     name = models.CharField(max_length=255, verbose_name="Название")
-    description = RichTextField(verbose_name="Описание")
+    description = models.TextField(verbose_name="Описание")
     is_active = models.BooleanField(default=True, verbose_name="Активен")
     order = models.PositiveSmallIntegerField(verbose_name="Порядковый номер", blank=True, null=True)
 
@@ -124,7 +124,7 @@ class SingleInstanceModel(models.Model):
 class MessageSupport(models.Model):
     """Модель Написать в поддержку"""
     title = models.CharField(max_length=255, verbose_name="Название")
-    description = RichTextField(verbose_name="Описание")
+    description = models.TextField(verbose_name="Описание")
     reference = models.CharField(max_length=255, verbose_name="Ссылка")
 
     class Meta:
@@ -135,7 +135,7 @@ class MessageSupport(models.Model):
 class PublicOfferAgreement(models.Model):
     """Модель Договор публичной оферты"""
     title = models.CharField(max_length=255, verbose_name="Название")
-    description = RichTextField(verbose_name="Описание")
+    description = models.TextField(verbose_name="Описание")
 
     class Meta:
         verbose_name = "Публичное предложение"
@@ -145,7 +145,7 @@ class PublicOfferAgreement(models.Model):
 class PrivacyPolicy(models.Model):
     """Модель Политика конфиденциальности"""
     title = models.CharField(max_length=255, verbose_name="Название")
-    description = RichTextField(verbose_name="Описание")
+    description = models.TextField(verbose_name="Описание")
 
     class Meta:
         verbose_name = "Политика конфиденциальности"
