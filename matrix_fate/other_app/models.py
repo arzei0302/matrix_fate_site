@@ -8,6 +8,7 @@ class AccessMatrixModel(models.Model):
     """Таблица доступов"""
     name = models.CharField(max_length=255, verbose_name="Название")
     description = models.TextField(verbose_name="Описание")
+    price = models.PositiveIntegerField(default=0, verbose_name="Стоимость")
     is_active = models.BooleanField(default=True, verbose_name="Активен")
     order = models.PositiveSmallIntegerField(verbose_name="Порядковый номер", blank=True, null=True)
 

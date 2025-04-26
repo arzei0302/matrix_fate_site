@@ -69,7 +69,7 @@ class BaseAdmin(admin.ModelAdmin):
 
 
 class AccessMatrixModelAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "is_active", "order")
+    list_display = ("id", "name", "price", "is_active", "order")
     search_fields = ("name",)
     list_filter = ("is_active",)
     list_editable = ("is_active", "order")
