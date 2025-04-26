@@ -14,10 +14,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema, OpenApiExample
 
-from matrix_auth_app.models import UserCalculationHistory
-from matrix_auth_app.models import CustomUser
-from matrix_fate_app.report.fill_pdf import fill_matrix_pdf
-from matrix_fate_app.report.fill_word import fill_matrix_template
+from matrix_fate.matrix_auth_app.models import UserCalculationHistory
+from matrix_fate.matrix_auth_app.models import CustomUser
+from matrix_fate.matrix_fate_app.report.fill_pdf import fill_matrix_pdf
+from matrix_fate.matrix_fate_app.report.fill_word import fill_matrix_template
 
 
 def render_pdf_page_to_image(pdf_path: str, dpi=150) -> Path:

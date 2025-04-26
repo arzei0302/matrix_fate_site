@@ -4,11 +4,11 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 from django.conf import settings
 from django.conf.urls.static import static
 
-from matrix_fate_app.admin import matrix_admin
-from finance_app.admin import finance_admin
-from compatibility_app.admin import compatibility_admin
-from child_app.admin import child_admin
-from prognosis_app.admin import prognosis_admin
+from matrix_fate.matrix_fate_app.admin import matrix_admin
+from matrix_fate.finance_app.admin import finance_admin
+from matrix_fate.compatibility_app.admin import compatibility_admin
+from matrix_fate.child_app.admin import child_admin
+from matrix_fate.prognosis_app.admin import prognosis_admin
 from .views import home_redirect
 
 urlpatterns = [
@@ -26,13 +26,13 @@ urlpatterns = [
     path("ckeditor/", include("ckeditor_uploader.urls")),
 
     path('', home_redirect),
-    path('matrix_auth/', include('matrix_auth_app.urls')),
-    path('matrix_fate/', include('matrix_fate_app.urls')),
-    path('finance/', include('finance_app.urls')),
-    path('compatibility/', include('compatibility_app.urls')),
-    path('child/', include('child_app.urls')),
-    path('prognisis/', include('prognosis_app.urls')),
-    path('other/', include('other_app.urls')),
+    path('matrix_auth/', include('matrix_fate.matrix_auth_app.urls')),
+    path('matrix_fate/', include('matrix_fate.matrix_fate_app.urls')),
+    path('finance/', include('matrix_fate.finance_app.urls')),
+    path('compatibility/', include('matrix_fate.compatibility_app.urls')),
+    path('child/', include('matrix_fate.child_app.urls')),
+    path('prognisis/', include('matrix_fate.prognosis_app.urls')),
+    path('other/', include('matrix_fate.other_app.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

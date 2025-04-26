@@ -3,11 +3,11 @@ from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 import logging
 #
-from common.input_data import normalize_input_data
-from matrix_auth_app.models import UserCalculationHistory
-from matrix_fate_app.serializers.matrix_fate_program_serializers import (
+from matrix_fate.common.input_data import normalize_input_data
+from matrix_fate.matrix_auth_app.models import UserCalculationHistory
+from matrix_fate.matrix_fate_app.serializers.matrix_fate_program_serializers import (
     MatrixFateInputSerializer, MatrixFateOutputSerializer, MatrixFateProgramSerializer)
-from matrix_fate_app.service.service import get_matching_programs
+from matrix_fate.matrix_fate_app.service.service import get_matching_programs
 
 
 logger = logging.getLogger(__name__)

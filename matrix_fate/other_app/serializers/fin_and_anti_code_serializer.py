@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from other_app.models import FinancialAndAntiCodeCalculation
+from matrix_fate.other_app.models import FinancialAndAntiCodeCalculation
 
 
 class FinancialAndAntiCodeCalculationSerializer(serializers.ModelSerializer):

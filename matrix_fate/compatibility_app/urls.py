@@ -1,26 +1,26 @@
 from django.urls import path
 
-from compatibility_app.service.calculator_compatibility_view import calculate_compatibility_view
-from compatibility_app.service.calculator_matrix_compatibility_view import calculate_matrix_compatibility_view
-from compatibility_app.views.couple_money_views import (
+from matrix_fate.compatibility_app.service.calculator_compatibility_view import calculate_compatibility_view
+from matrix_fate.compatibility_app.service.calculator_matrix_compatibility_view import calculate_matrix_compatibility_view
+from matrix_fate.compatibility_app.views.couple_money_views import (
     CompatibilityCategoryWithCoupleMoneyAPIView,
 )
-from compatibility_app.views.couple_relations_views import (
+from matrix_fate.compatibility_app.views.couple_relations_views import (
     CompatibilityCategoryWithRelationsAPIView,
 )
-from compatibility_app.views.couple_resources_views import (
+from matrix_fate.compatibility_app.views.couple_resources_views import (
     CompatibilityCategoryWithResourcesAPIView,
 )
-from compatibility_app.views.couples_task_for_society_views import (
+from matrix_fate.compatibility_app.views.couples_task_for_society_views import (
     CompatibilityCategoryWithCouplesTaskAPIView,
 )
-from compatibility_app.views.tasks_for_couple_views import (
+from matrix_fate.compatibility_app.views.tasks_for_couple_views import (
     CompatibilityCategoryWithTasksAPIView,
 )
-from compatibility_app.views.what_fills_the_vapor_views import (
+from matrix_fate.compatibility_app.views.what_fills_the_vapor_views import (
     CompatibilityCategoryWithWhatFillsAPIView,
 )
-from compatibility_app.views.why_did_you_meet_views import (
+from matrix_fate.compatibility_app.views.why_did_you_meet_views import (
     CompatibilityCategoryWithWhyDidYouMeetAPIView,
 )
 

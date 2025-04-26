@@ -3,7 +3,7 @@
 # import sib_api_v3_sdk
 # from sib_api_v3_sdk.rest import ApiException
 # from django.conf import settings
-# from config.settings import BREVO_API_KEY
+# from matrix_fate.config.settings import BREVO_API_KEY
 
 # def send_email_via_brevo(subject, html_content, to_email):
 #     configuration = sib_api_v3_sdk.Configuration()

@@ -4,7 +4,7 @@ from rest_framework import status
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiResponse
 from datetime import datetime
 
-from common.permissions import IsActivePaidUser
+from matrix_fate.common.permissions import IsActivePaidUser
 
 from .models import (
     GeneralPrognosis, January, February, March, April, May, June, July,

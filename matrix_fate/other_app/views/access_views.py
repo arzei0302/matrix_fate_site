@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema
 
-from other_app.serializers.access_serializers import AccessMatrixSerializer
+from matrix_fate.other_app.serializers.access_serializers import AccessMatrixSerializer
 
 from ..models import AccessMatrixModel
 

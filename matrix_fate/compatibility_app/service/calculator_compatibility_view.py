@@ -4,8 +4,8 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import serializers
 import logging
 
-from common.input_data import normalize_input_data
-from matrix_auth_app.models import UserCalculationHistory
+from matrix_fate.common.input_data import normalize_input_data
+from matrix_fate.matrix_auth_app.models import UserCalculationHistory
 
 from .calculator_compatibility_serializer import MatrixCompability2InputSerializer, MatrixCompability2OutputSerializer
 from .calculator_matrix_compatibility_view import reduce_to_22

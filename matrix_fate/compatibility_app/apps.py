@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class CompatibilityAppConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "compatibility_app"
+    name = "matrix_fate.compatibility_app"

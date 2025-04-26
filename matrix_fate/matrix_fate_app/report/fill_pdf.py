@@ -2,7 +2,7 @@ import fitz
 import os
 import tempfile
 
-from utils.positions import positions
+from matrix_fate.utils.positions import positions
 #
 
 def get_text_width(text, font_obj, fontsize):

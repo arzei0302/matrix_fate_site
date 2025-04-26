@@ -3,10 +3,10 @@ from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 import logging
 #
-from matrix_auth_app.models import UserCalculationHistory
-from finance_app.serializers.matrix_finance_program_serializers import (
+from matrix_fate.matrix_auth_app.models import UserCalculationHistory
+from matrix_fate.finance_app.serializers.matrix_finance_program_serializers import (
     MatrixFinanceInputSerializer, MatrixFinanceOutputSerializer, MatrixFinanceProgramSerializer)
-from finance_app.service.service import get_matching_programs
+from matrix_fate.finance_app.service.service import get_matching_programs
 
 
 logger = logging.getLogger(__name__)

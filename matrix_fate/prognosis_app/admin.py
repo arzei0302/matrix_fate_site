@@ -9,7 +9,7 @@ from .models import (
 #     PastCard, PresentCard, FutureCard, MessageSupport, 
 #     PublicOfferAgreement, PrivacyPolicy, LandingPage
 # )
-from other_app.models import (
+from matrix_fate.other_app.models import (
     AccessMatrixModel, MessageSupport, 
     PublicOfferAgreement, PrivacyPolicy, SocialLinks
 )

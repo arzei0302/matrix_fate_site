@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from child_app.models import MatrixChildProgram
+from matrix_fate.child_app.models import MatrixChildProgram
 
 class MatrixChildProgramSerializer(serializers.ModelSerializer):
     class Meta:

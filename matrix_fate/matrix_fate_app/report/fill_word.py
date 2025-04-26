@@ -8,7 +8,7 @@ from docx.shared import Pt, RGBColor, Inches
 from django.utils.html import strip_tags
 
 
-from matrix_fate_app.models import (
+from matrix_fate.matrix_fate_app.models import (
     BirthTalent, YouthTalent, MatureTalent, InnateTalent, QualitiesRevealed, QualitiesDeveloped, 
     MainTask40, TaskBefore40, TaskAfter40, SoulComfortPoint, SelfRealization, 
     SoulMainTask, PastLifeExperience, PastLifeLesson, PersonalPowerPoint, 

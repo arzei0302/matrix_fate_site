@@ -8,7 +8,7 @@ from rest_framework.exceptions import NotFound
 from drf_spectacular.utils import extend_schema
 
 from ..models import MessageSupport, PrivacyPolicy, PublicOfferAgreement
-from other_app.serializers.footer_serializers import MessageSupportSerializer, PrivacyPolicySerializer, PublicOfferAgreementSerializer
+from matrix_fate.other_app.serializers.footer_serializers import MessageSupportSerializer, PrivacyPolicySerializer, PublicOfferAgreementSerializer
 
 
 

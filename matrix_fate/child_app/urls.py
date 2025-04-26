@@ -1,25 +1,25 @@
 from django.urls import path
 
-from child_app.service.matrix_child_calc import calculate_child_matrix_view
-from child_app.views.child_greatest_talent_views import (
+from matrix_fate.child_app.service.matrix_child_calc import calculate_child_matrix_view
+from matrix_fate.child_app.views.child_greatest_talent_views import (
     ChildCategoryWithBusinessCardAPIView,
 )
-from child_app.views.child_parent_karma_views import (
+from matrix_fate.child_app.views.child_parent_karma_views import (
     ChildCategoryWithParentKarmaAPIView,
 )
-from child_app.views.child_personal_qualities_views import (
+from matrix_fate.child_app.views.child_personal_qualities_views import (
     ChildCategoryWithPersonalQualitiesAPIView,
 )
-from child_app.views.child_point_of_comfort_views import (
+from matrix_fate.child_app.views.child_point_of_comfort_views import (
     ChildCategoryWithPointOfComfortAPIView,
 )
-from child_app.views.child_self_realization_views import (
+from matrix_fate.child_app.views.child_self_realization_views import (
     ChildCategoryWithSelfRealizationAPIView,
 )
-from child_app.views.tasks_child_destiny_views import (
+from matrix_fate.child_app.views.tasks_child_destiny_views import (
     ChildCategoryWithDestinyAPIView,
 )
-from child_app.views.tasks_from_past_lives_views import (
+from matrix_fate.child_app.views.tasks_from_past_lives_views import (
     ChildCategoryWithPastLivesTasksAPIView,
 )
 

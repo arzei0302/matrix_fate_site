@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 import logging
-from matrix_auth_app.models import UserCalculationHistory
+from matrix_fate.matrix_auth_app.models import UserCalculationHistory
 from .calculator_matrix_compatibility_serializer import MatrixCompatibilityInputSerializer, MatrixCompatibilityOutputSerializer
 
 

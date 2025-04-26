@@ -1,5 +1,5 @@
 # import requests
-# from config import settings
+# from matrix_fate.config import settings
 
 # BREVO_API_URL = "https://api.brevo.com/v3/smtp/email"
 

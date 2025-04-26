@@ -1,8 +1,8 @@
 from django.urls import path
-from other_app.views.access_views import AccessMatrixDetailView, AccessMatrixListView
+from matrix_fate.other_app.views.access_views import AccessMatrixDetailView, AccessMatrixListView
 # from other_app.views.additional_views import RandomTarotReadingView, RandomArcanaCluesView
-from other_app.views.footer_views import MessageSupportDetailView, PrivacyPolicyDetailView, PublicOfferAgreementDetailView
-from other_app.views.social_link_vews import SocialLinkDetailView
+from matrix_fate.other_app.views.footer_views import MessageSupportDetailView, PrivacyPolicyDetailView, PublicOfferAgreementDetailView
+from matrix_fate.other_app.views.social_link_vews import SocialLinkDetailView
 # from other_app.views.fin_and_anti_code_views import FinancialAndAntiCodeByBirthDateView
 # from other_app.views.yes_no_maybe_answer import YesNoMaybeAnswerView
 

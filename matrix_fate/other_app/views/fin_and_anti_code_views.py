@@ -4,7 +4,7 @@ from drf_spectacular.utils import extend_schema, OpenApiExample, OpenApiParamete
 import random
 from ..serializers.fin_and_anti_code_serializer import FinancialAndAntiCodeCalculationSerializer
 from ..models import FinancialAndAntiCodeCalculation
-from compatibility_app.service.calculator_matrix_compatibility_view import reduce_to_22
+from matrix_fate.compatibility_app.service.calculator_matrix_compatibility_view import reduce_to_22
 from rest_framework import status
 
 

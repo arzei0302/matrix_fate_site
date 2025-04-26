@@ -7,7 +7,7 @@ from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt, RGBColor, Inches
 from django.utils.html import strip_tags
 
-from matrix_fate_app.models import(
+from matrix_fate.matrix_fate_app.models import(
     SahasraraO7, SahasraraP7, SahasraraQ7,
     AdjnaO6, AdjnaP6, AdjnaQ6, VishudkhaO5, VishudkhaP5, VishudkhaQ5,
     AnakhataO4, AnakhataP4, AnakhataQ4, ManipuraO3, ManipuraP3, ManipuraQ3,
@@ -15,7 +15,7 @@ from matrix_fate_app.models import(
     
 )
 
-from finance_app.models import (
+from matrix_fate.finance_app.models import (
      FinanceCategory,
 
      YourGreatestTalentBirth, QualitiesRevealedAge20, QualitiesDevelopAge40,

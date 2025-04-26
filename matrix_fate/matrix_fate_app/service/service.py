@@ -1,5 +1,5 @@
 
-from matrix_fate_app.models import MatrixFateProgram
+from matrix_fate.matrix_fate_app.models import MatrixFateProgram
 
 
 def get_matching_programs(matrix_values):

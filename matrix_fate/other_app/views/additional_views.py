@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from drf_spectacular.utils import extend_schema, OpenApiExample
 import random
-from other_app.serializers.additional_serializers import FutureCardSerializer, PastCardSerializer, PresentCardSerializer, TarotCardSerializer, ArcanaCluesSerializer
+from matrix_fate.other_app.serializers.additional_serializers import FutureCardSerializer, PastCardSerializer, PresentCardSerializer, TarotCardSerializer, ArcanaCluesSerializer
 from ..models import FutureCard, PastCard, PresentCard, ArcanaClues
 
 

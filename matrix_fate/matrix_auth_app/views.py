@@ -11,7 +11,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from config import settings
+# from matrix_fate.config import settings
+from matrix_fate.config import settings
+
 from .models import EmailVerificationCode, UserCalculationHistory
 from .serializers import (
     CalculationHistorySerializer, EmailSerializer, LogoutSerializer, 

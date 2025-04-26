@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from matrix_fate_app.models import MatrixFateProgram
+from matrix_fate.matrix_fate_app.models import MatrixFateProgram
 
 class MatrixFateProgramSerializer(serializers.ModelSerializer):
     class Meta:

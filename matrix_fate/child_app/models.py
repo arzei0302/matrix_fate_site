@@ -1,6 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
-from utils.mixins import OrderMarkerMixin
+from matrix_fate.utils.mixins import OrderMarkerMixin
 
 
 class ChildCategory(models.Model):

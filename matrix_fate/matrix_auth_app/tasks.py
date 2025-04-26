@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 @shared_task
 def check_expired_profiles():
     now = localtime()
+
     logger.info(f"Проверка профилей на {now}")
 
     expired_profiles = Profile.objects.filter(

@@ -4,7 +4,7 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
-from finance_app.serializers.self_actualization_serializers import (
+from matrix_fate.finance_app.serializers.self_actualization_serializers import (
     YourOpportunitySerializer,
     FinanceCategorySelfActualizationSerializer,
 )

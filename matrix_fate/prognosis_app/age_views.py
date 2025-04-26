@@ -2,7 +2,7 @@ from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import generics
 
-from common.permissions import IsActivePaidUser
+from matrix_fate.common.permissions import IsActivePaidUser
 from .models import BreakdownByYear
 from .age_serializers import BreakdownByYearSerializer
 

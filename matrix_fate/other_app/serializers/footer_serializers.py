@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from other_app.models import MessageSupport, PrivacyPolicy, PublicOfferAgreement
+from matrix_fate.other_app.models import MessageSupport, PrivacyPolicy, PublicOfferAgreement
 
 
 

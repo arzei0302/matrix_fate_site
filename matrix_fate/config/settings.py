@@ -32,7 +32,6 @@ SECRET_KEY = "django-insecure-y3ac_l7%j-oj*0*7ea5nsihf8nq^i!+^7ltp+-=ri_6zbrxl0+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -43,22 +42,25 @@ LOGGING = {
             'style': '{',
         },
     },
+
     'handlers': {
         'celery_file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'logs/celery_tasks.log',
+            'filename': os.path.join(BASE_DIR, 'logs', 'celery_tasks.log'),
             'formatter': 'verbose',
         },
     },
+
     'loggers': {
-        'matrix_auth_app.tasks': {
+        'matrix_fate.matrix_auth_app.tasks': {
             'handlers': ['celery_file'],
             'level': 'INFO',
             'propagate': False,
         },
     },
 }
+
 
 
 
@@ -102,14 +104,15 @@ INSTALLED_APPS = [
     "ckeditor_uploader",
     'import_export',
 
-    "config",
-    "matrix_auth_app",
-    "matrix_fate_app",
-    "finance_app",
-    "compatibility_app",
-    "child_app",
-    "prognosis_app",
-    "other_app",
+    # "config",
+    "matrix_fate.config",
+    "matrix_fate.matrix_auth_app",
+    "matrix_fate.matrix_fate_app",
+    "matrix_fate.finance_app",
+    "matrix_fate.compatibility_app",
+    "matrix_fate.child_app",
+    "matrix_fate.prognosis_app",
+    "matrix_fate.other_app",
 ]
 
 MIDDLEWARE = [
@@ -126,7 +129,9 @@ MIDDLEWARE = [
 
 ]
 
-ROOT_URLCONF = "config.urls"
+# ROOT_URLCONF = "config.urls"
+ROOT_URLCONF = "matrix_fate.config.urls"
+
 
 TEMPLATES = [
     {
@@ -144,7 +149,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "config.wsgi.application"
+# WSGI_APPLICATION = "config.wsgi.application"
+WSGI_APPLICATION = "matrix_fate.config.wsgi.application"
 
 
 # Database
@@ -296,11 +302,18 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = "Asia/Bishkek"
 
-CELERY_BEAT_SCHEDULE = {
-    'check_expired_profiles_daily': {
-        'task': 'matrix_auth_app.tasks.check_expired_profiles',
-        # 'schedule': crontab(hour=0, minute=0),
-        'schedule': crontab(minute='*/5'),
+# CELERY_BEAT_SCHEDULE = {
+#     'check_expired_profiles_daily': {
+#         'task': 'matrix_auth_app.tasks.check_expired_profiles',
+#         # 'schedule': crontab(hour=0, minute=0),
+#         'schedule': crontab(minute='*/5'),
 
+#     },
+# }
+CELERY_BEAT_SCHEDULE = {
+    'check_expired_profiles_every_5_min': {
+        'task': 'matrix_fate.matrix_auth_app.tasks.check_expired_profiles',  # <=== исправлено
+        'schedule': crontab(minute='*/5'),
     },
 }
+

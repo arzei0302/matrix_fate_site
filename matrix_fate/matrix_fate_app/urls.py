@@ -1,7 +1,7 @@
 from django.urls import path
 
-from matrix_fate_app.report.matrix_fate_report import FullMatrixPDFView
-from matrix_fate_app.service.matrix_fate_calc import calculate_matrix_view
+from matrix_fate.matrix_fate_app.report.matrix_fate_report import FullMatrixPDFView
+from matrix_fate.matrix_fate_app.service.matrix_fate_calc import calculate_matrix_view
 from .views.personal_qualities_views import CategoryWithTalentsAPIView
 from .views.soul_work_views import CategoryWithTalentsSoulAPIView
 from .views.main_task_40_views import CategoryWithMainTask40APIView

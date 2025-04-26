@@ -1,19 +1,19 @@
 from django.urls import path
 
-from finance_app.report.finance_report import FullFinancePDFView
-from finance_app.service.matrix_finance_calc import calculate_finance_matrix_view
-from finance_app.views.destination_society_views import FinanceCategoryWithTasksAPIView
-from finance_app.views.karma_and_task_40_views import (
+from matrix_fate.finance_app.report.finance_report import FullFinancePDFView
+from matrix_fate.finance_app.service.matrix_finance_calc import calculate_finance_matrix_view
+from matrix_fate.finance_app.views.destination_society_views import FinanceCategoryWithTasksAPIView
+from matrix_fate.finance_app.views.karma_and_task_40_views import (
     FinanceCategoryWithKarmaAndTask40APIView,
 )
-from finance_app.views.what_gives_you_money_views import (
+from matrix_fate.finance_app.views.what_gives_you_money_views import (
     FinanceCategoryWhatGivesYouMoneyAPIView,
 )
-from finance_app.views.self_actualization_views import (
+from matrix_fate.finance_app.views.self_actualization_views import (
     FinanceCategoryWithOpportunityAPIView,
 )
-from finance_app.views.talents_views import FinanceCategoryWithTalentsAPIView
-from finance_app.views.what_blocks_money_energy_views import (
+from matrix_fate.finance_app.views.talents_views import FinanceCategoryWithTalentsAPIView
+from matrix_fate.finance_app.views.what_blocks_money_energy_views import (
     FinanceCategoryWithBlocksAPIView,
 )
 
