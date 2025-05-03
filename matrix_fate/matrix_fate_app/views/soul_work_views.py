@@ -4,7 +4,9 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
-from matrix_fate.common.permissions import IsActivePaidUser
+from matrix_fate.common.permissions import is_active_paid_user
+
+# from matrix_fate.common.permissions import IsActivePaidUser
 
 from ..models import Category, InnateTalent, QualitiesRevealed, QualitiesDeveloped
 from ..serializers.soul_work_serializers import (
@@ -18,7 +20,7 @@ from ..serializers.soul_work_serializers import (
 class CategoryWithTalentsSoulAPIView(APIView):
     """Получает категорию(id=5) или title(Кем работать для души) и таланты по переданным `order_id`."""
     
-    permission_classes = [IsActivePaidUser]
+    # permission_classes = [IsActivePaidUser]
     serializer_class = CategorySoulWorkSerializer
 
     @extend_schema(
@@ -49,6 +51,14 @@ class CategoryWithTalentsSoulAPIView(APIView):
             category = get_object_or_404(Category, id=int(category_id_or_title))
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
+
+        if not is_active_paid_user(request.user):
+            return Response({
+                "category": {
+                    "id": category.id,
+                    "title": category.title,
+                }
+            })
 
         innate_order = request.query_params.get("innate")
         revealed_order = request.query_params.get("revealed")

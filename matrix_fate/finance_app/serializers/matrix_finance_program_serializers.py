@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from matrix_fate.finance_app.models import MatrixFinanceProgram
 
+#
 class MatrixFinanceProgramSerializer(serializers.ModelSerializer):
     class Meta:
         model = MatrixFinanceProgram

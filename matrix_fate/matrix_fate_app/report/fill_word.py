@@ -7,7 +7,6 @@ from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt, RGBColor, Inches
 from django.utils.html import strip_tags
 
-
 from matrix_fate.matrix_fate_app.models import (
     BirthTalent, YouthTalent, MatureTalent, InnateTalent, QualitiesRevealed, QualitiesDeveloped, 
     MainTask40, TaskBefore40, TaskAfter40, SoulComfortPoint, SelfRealization, 
@@ -19,9 +18,7 @@ from matrix_fate.matrix_fate_app.models import (
     SuitableProfessions, MoneySources, MoneyGrowthTasks1, MoneyGrowthTasks2, MoneyBlocks, MoneyUnblock, 
     PersonalPurpose1, PersonalPurpose2, PersonalPurpose3, SocialPurpose1, SocialPurpose2, SocialPurpose3, SpiritualPurpose, 
     PaternalDiseases, MaternalDiseases, HealthArcane1, HealthArcane2, HealthArcane3,
-    
     AncestralTaskFatherMale, AncestralTaskMotherMale, AncestralTaskFatherFemale, AncestralTaskMotherFemale, 
-    
     SahasraraO7, SahasraraP7, SahasraraQ7,
     AdjnaO6, AdjnaP6, AdjnaQ6, VishudkhaO5, VishudkhaP5, VishudkhaQ5,
     AnakhataO4, AnakhataP4, AnakhataQ4, ManipuraO3, ManipuraP3, ManipuraQ3,
@@ -191,7 +188,6 @@ def get_matrix_markers(matrix_values: dict) -> dict:
 
     matrix = matrix_values.get("matrix")
     if not isinstance(matrix, dict):
-        # fallback: если передан уже "плоский" словарь
         matrix = matrix_values
 
     result = {}
@@ -216,10 +212,20 @@ def get_matrix_markers(matrix_values: dict) -> dict:
                 result[f"{key_base}_TITLE{suffix}"] = title_with_number
                 result[f"{key_base}_DESCRIPTION{suffix}"] = html.unescape(strip_tags(obj.description))
 
+    matched_programs = matrix_values.get("matched_programs", [])
+    for idx, program in enumerate(matched_programs[:10], start=1):
+        result[f"PROGRAM_TITLE_{idx}"] = program.get("name", "")
+        result[f"PROGRAM_DESC_{idx}"] = html.unescape(strip_tags(program.get("description", "")))
+
+    for idx in range(1, 11):
+        result.setdefault(f"PROGRAM_TITLE_{idx}", "")
+        result.setdefault(f"PROGRAM_DESC_{idx}", "")
+    
     return result
 
 
-def fill_matrix_template(matrix_values: dict, template_path: str, output_path: str):
+def fill_matrix_template(matrix_values, template_path, output_path):
+
     """
     Заполняет шаблон Word-файла данными из матрицы судьбы.
     """

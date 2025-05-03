@@ -16,6 +16,7 @@ from .models import (
     CoupleRelations1,
     CoupleRelations2,
     WhatRelationshipProblemsCanArise,
+    MatrixCompatibilityProgram
 )
 
 
@@ -58,6 +59,9 @@ class MatrixAdmin(AdminSite):
                     "WhatRelationshipProblemsCanArise",
                 ],
             ),
+
+            ("ПРОГРАММЫ", ["MatrixCompatibilityProgram"]),
+
         ]
 
         grouped_models = {
@@ -97,6 +101,16 @@ class CompatibilityCategoryAdmin(admin.ModelAdmin):
     search_fields = ("is_paid", "title")
     list_filter = ("is_paid",)
     list_display_links = ("is_paid", "title", "description")
+
+
+class MatrixCompatibilityProgramAdmin(admin.ModelAdmin):
+    list_display = (
+        "id", "name", 
+        "marker_1_name", "marker_1_value", 
+        "marker_2_name", "marker_2_value", 
+        "marker_3_name", "marker_3_value")
+    search_fields = ("name",)
+    list_filter = ("name",)
 
 
 class WhyDidYouMeetAdmin(BaseAdmin):
@@ -174,3 +188,4 @@ compatibility_admin.register(CoupleRelations2, CoupleRelations2Admin)
 compatibility_admin.register(
     WhatRelationshipProblemsCanArise, WhatRelationshipProblemsCanAriseAdmin
 )
+compatibility_admin.register(MatrixCompatibilityProgram, MatrixCompatibilityProgramAdmin)

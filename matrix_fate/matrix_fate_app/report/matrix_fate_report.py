@@ -1,6 +1,7 @@
 import tempfile
 import subprocess
 import io
+from django.conf import settings
 import fitz
 from pathlib import Path
 from PyPDF2 import PdfMerger
@@ -18,7 +19,7 @@ from matrix_fate.matrix_auth_app.models import UserCalculationHistory
 from matrix_fate.matrix_auth_app.models import CustomUser
 from matrix_fate.matrix_fate_app.report.fill_pdf import fill_matrix_pdf
 from matrix_fate.matrix_fate_app.report.fill_word import fill_matrix_template
-
+#
 
 def render_pdf_page_to_image(pdf_path: str, dpi=150) -> Path:
     pdf = fitz.open(pdf_path)
@@ -48,11 +49,16 @@ def generate_full_matrix_pdf(
         category = history_record.category
         profile = history_record.profile
 
+        matrix_values["day"] = f"{input_data.get('day'):02}"
+        matrix_values["month"] = f"{input_data.get('month'):02}"
+        matrix_values["year"] = str(input_data.get('year'))
+
         visual_pdf_path = fill_matrix_pdf(matrix_values)
 
         docx_file = tempfile.NamedTemporaryFile(delete=False, suffix=".docx")
         docx_path = Path(docx_file.name)
-        template_path = Path("/home/arzei/matrix_fate/files/matrix_fate_report.docx")
+        template_path = settings.REPORT_TEMPLATES_DIR / "matrix_fate_report.docx"
+
 
         fill_matrix_template(matrix_values, template_path, docx_path)
 

@@ -2,12 +2,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 import logging
-#
+from matrix_fate.common.input_data import normalize_input_data
 from matrix_fate.matrix_auth_app.models import UserCalculationHistory
 from matrix_fate.finance_app.serializers.matrix_finance_program_serializers import (
     MatrixFinanceInputSerializer, MatrixFinanceOutputSerializer, MatrixFinanceProgramSerializer)
 from matrix_fate.finance_app.service.service import get_matching_programs
-
+#
 
 logger = logging.getLogger(__name__)
 
@@ -222,22 +222,29 @@ def calculate_finance_matrix_view(request):
         logger.error(f"Validation errors: {output_serializer.errors}")
         return Response(output_serializer.errors, status=400)
     
-    # Если пользователь авторизован, сохраняем в профиль
+    input_data = normalize_input_data(serializer.validated_data)
+    
     if request.user.is_authenticated and hasattr(request.user, 'profile'):
-        UserCalculationHistory.objects.create(
+        already_exists = UserCalculationHistory.objects.filter(
             profile=request.user.profile,
             input_data=request.data,
-            result_data=matrix_values,
             category=category
-        )
+        ).exists()
 
     matched_programs = get_matching_programs(matrix_values)
     serialized_programs = MatrixFinanceProgramSerializer(matched_programs, many=True).data
+    
+    matrix_values["matched_programs"] = serialized_programs
+
+    if not already_exists:
+            UserCalculationHistory.objects.create(
+                profile=request.user.profile,
+                input_data=input_data,
+                result_data=matrix_values,
+                category=category
+            )
 
     return Response({
         "matrix": matrix_values,
-        "matched_programs": serialized_programs
+        # "matched_programs": serialized_programs
     })
-
-
-    # return Response(matrix_values) 

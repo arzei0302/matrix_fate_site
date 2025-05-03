@@ -1,73 +1,61 @@
 .training-card {
-  width: 400px;
   background: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border: 2px solid #029986;
+  padding: 24px;
+  width: 300px;
   text-align: center;
-  padding: 40px 20px 20px;
-  position: relative;
-  overflow: visible; // Важно для отображения иконки за пределами карточки
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 
-  &-header {
+  .icon-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: -35px; // Выдвигаем значок выше карточки
-    left: 50%;
-    height: 70px;
-    border: 2px solid #029986;
-    border-radius: 50px;
-    transform: translateX(-50%);
-    background: #ffffff;
-   
-    .icon {
-      width: 70px;
-      height: 70px;
-      padding: 10px;
+    margin-bottom: 16px;
 
+    .icon-bg {
+      background-color: #0cff9e94 !important; // тёмно-белый с зеленцой, как на макете
+      padding: 12px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    svg {
+      display: block;
+      width: 36px;
+      height: 36px;
     }
   }
 
-  &-body {
-    margin-top: 30px;
 
-    h2 {
-      font-size: 18px;
-      font-weight: bold;
-      color: #027a48;
-      margin-bottom: 20px;
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d3c34;
+    margin-bottom: 12px;
+  }
 
-      .bold {
-        color: black;
-      }
-
-      .highlight {
-        color: #027a48;
-      }
-    }
+  .description {
+    font-size: 14px;
+    color: #3d5b52;
+    margin-bottom: 24px;
   }
 
   .training-button {
-    width: 100%;
-    background: #027a48;
+    background: #1d3c34;
     color: white;
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px;
+    padding: 12px 16px;
     border: none;
     border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
+    width: 100%;
     transition: background 0.3s;
 
     &:hover {
-      background: #025b36;
+      background: #133029;
     }
-  }
-}
-@media (max-width: 590px) {
-  .training-card {
-    width: 340px !important;
   }
 }

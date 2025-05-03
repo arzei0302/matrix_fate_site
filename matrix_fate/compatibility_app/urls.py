@@ -1,7 +1,6 @@
 from django.urls import path
 
-from matrix_fate.compatibility_app.service.calculator_compatibility_view import calculate_compatibility_view
-from matrix_fate.compatibility_app.service.calculator_matrix_compatibility_view import calculate_matrix_compatibility_view
+from matrix_fate.compatibility_app.service.calc_double import calculate_full_compatibility_view
 from matrix_fate.compatibility_app.views.couple_money_views import (
     CompatibilityCategoryWithCoupleMoneyAPIView,
 )
@@ -61,7 +60,8 @@ urlpatterns = [
         name="couple_relations",
     ),
 
-    path("calculate-matrix/", calculate_matrix_compatibility_view, name="calculate-matrix"),
-    path("calculate-compatibility/", calculate_compatibility_view, name="calculate-compatibility"),
-
+    path(
+        'calculate-full-compatibility/', calculate_full_compatibility_view, 
+        name='calculate_full_compatibility',
+        ),
 ]

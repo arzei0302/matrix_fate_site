@@ -387,3 +387,44 @@ class WhatRelationshipProblemsCanArise(OrderMarkerMixin):
 
     def __str__(self):
         return f"{self.category.title} - {self.title}"
+    
+
+# ПРОГРАММЫ
+class MatrixCompatibilityProgram(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название программы")
+
+    marker_1_name = models.CharField(
+        max_length=3, verbose_name="Маркер 1", help_text="Пример: a, a1, a2"
+    )
+    marker_1_value = models.IntegerField(
+        verbose_name="Значение маркера 1",
+        help_text="Значение от 1 до 22",
+        choices=[(i, i) for i in range(1, 23)],
+    )
+
+    marker_2_name = models.CharField(
+        max_length=3, verbose_name="Маркер 2", help_text="Пример: b, b1, b2"
+    )
+    marker_2_value = models.IntegerField(
+        verbose_name="Значение маркера 2",
+        help_text="Значение от 1 до 22",
+        choices=[(i, i) for i in range(1, 23)],
+    )
+
+    marker_3_name = models.CharField(
+        max_length=3, verbose_name="Маркер 3", help_text="Пример: m, n, c2"
+    )
+    marker_3_value = models.IntegerField(
+        verbose_name="Значение маркера 3",
+        help_text="Значение от 1 до 22",
+        choices=[(i, i) for i in range(1, 23)],
+    )
+
+    description = RichTextField(blank=True, verbose_name="Описание программы")
+
+    class Meta:
+        verbose_name = "Программа Совместимости"
+        verbose_name_plural = "Программы Совместимости"
+
+    def __str__(self):
+        return self.name

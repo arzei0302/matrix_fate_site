@@ -30,7 +30,10 @@ const InfoTable = ({ chakraData, numbers, personalInfo, showChakraTable = true }
                 const qKey = `q${7 - index}`;
                 return (
                   <tr key={index} style={{ backgroundColor: chakra.color }}>
-                    <td>{t(`chakra_${7 - index}`)}</td>
+                      <td className="chakraName">
+                          <img src={chakra.icon} alt={`chakra ${7 - index}`} className="chakra-icon" />
+                          {t(`chakra_${7 - index}`)}
+                      </td>
                     <td>{numbers?.[oKey] ?? 0}</td>
                     <td>{numbers?.[pKey] ?? 0}</td>
                     <td>{numbers?.[qKey] ?? 0}</td>
@@ -68,8 +71,13 @@ const InfoTable = ({ chakraData, numbers, personalInfo, showChakraTable = true }
                     {t(info.earthLabel)}: <span>{numbers?.[info.earthKey] ?? 0}</span>
                   </div>
                 </div>
-                <img src={bracket} alt="Bracket" />
-                <div className="result">{numbers?.[info.resultKey] ?? 0}</div>
+                  <div className="curly-custom">
+                      <div className="top-line"></div>
+                      <div className="middle-line"></div>
+                      <div className="bottom-line"></div>
+                  </div>
+
+                  <div className="result">{numbers?.[info.resultKey] ?? 0}</div>
               </div>
               <div className="personalInfoLeftBottom">
                 <div className="spirit">

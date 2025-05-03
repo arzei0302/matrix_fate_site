@@ -14,6 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema, OpenApiExample
 
+from django.conf import settings
 from matrix_fate.finance_app.report.fill_pdf_finance import fill_matrix_pdf
 from matrix_fate.finance_app.report.fill_word_finance import fill_matrix_template
 from matrix_fate.matrix_auth_app.models import UserCalculationHistory
@@ -48,11 +49,16 @@ def generate_full_matrix_pdf(
         category = history_record.category
         profile = history_record.profile
 
+        matrix_values["day"] = f"{input_data.get('day'):02}"
+        matrix_values["month"] = f"{input_data.get('month'):02}"
+        matrix_values["year"] = str(input_data.get('year'))
+
         visual_pdf_path = fill_matrix_pdf(matrix_values)
 
         docx_file = tempfile.NamedTemporaryFile(delete=False, suffix=".docx")
         docx_path = Path(docx_file.name)
-        template_path = Path("/home/arzei/matrix_fate/files/finance_report.docx")
+        template_path = settings.REPORT_TEMPLATES_DIR / "finance_report.docx"
+
 
         fill_matrix_template(matrix_values, template_path, docx_path)
 
@@ -190,14 +196,3 @@ class FullFinancePDFView(APIView):
 
         except Exception as e:
             return Response({"error": str(e)}, status=500)
-
-
-# class MatrixPDFInputSerializer(serializers.Serializer):
-#     email = serializers.EmailField(required=False, help_text="Email пользователя (для доступа по email, например, в админке)")
-#     history_id = serializers.IntegerField(required=False, help_text="ID истории расчёта")
-#     category = serializers.CharField(required=False, default="matrix_fate", help_text="Категория расчёта: matrix_fate, finance, compatibility, child")
-#     input_data = serializers.DictField(
-#         child=serializers.IntegerField(),
-#         required=False,
-#         help_text="Входные данные для поиска расчета (day, month, year)"
-#     )

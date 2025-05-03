@@ -4,7 +4,7 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
-from matrix_fate.common.permissions import IsActivePaidUser
+# from matrix_fate.common.permissions import is_active_paid_user
 
 from ..models import (
     CompatibilityCategory,
@@ -60,6 +60,14 @@ class CompatibilityCategoryWithTasksAPIView(APIView):
             category = get_object_or_404(
                 CompatibilityCategory, title__iexact=category_id_or_title
             )
+
+        # if not is_active_paid_user(request.user):
+        #     return Response({
+        #         "category": {
+        #             "id": category.id,
+        #             "title": category.title,
+        #         }
+        #     })
 
         arcana_w_order = request.query_params.get("arcana_w")
         arcana_d_order = request.query_params.get("arcana_d")

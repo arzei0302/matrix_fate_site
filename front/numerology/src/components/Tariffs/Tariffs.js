@@ -10,9 +10,7 @@ function Tariffs() {
   useEffect(() => {
     const getTariffs = async () => {
       try {
-        // const response = await axios.get("https://sharshenaliev.pythonanywhere.com/matrix_fate/tariffs/");
-        const response = await axios.get("https://numerology-calculator.fi/matrix_fate/tariffs/");
-
+        const response = await axios.get("https://numerology-calculator.fi/other/tariffs/");
         setTariffs(response.data);
         console.log(response.data);
       } catch (error) {
