@@ -215,6 +215,7 @@ financeAccordion: {
           title: "Relationships in the matrix",
           description: "Description of relationships in the matrix"
         },
+
         matrixMoney: {
           title: "Money in the matrix",
           description: "Description of money in the matrix"
@@ -345,6 +346,11 @@ financeAccordion: {
         spiritualQuestion1: "Spiritual exam. Who am I to God? Where is the divine within me?",
         spiritualQuestion2: "Planetary purpose of a person",
       },
+      training: {
+        learnAbout: "LEARN ABOUT",
+        title: "DESTINY MATRIX TRAINING",
+        go: "GO"
+      },
       months: {
         1: "January",
         2: "February",
@@ -363,10 +369,7 @@ financeAccordion: {
   },
 
   fi: {
-    footer: {
-      privacyPolicy: "Tietosuojakäytäntö",
-      publicOffer: "Julkinen sopimus"
-    },
+
     translation: {
       tariffs: {
         buy: "OSTA",
@@ -411,6 +414,15 @@ financeAccordion: {
         history: "Katseluhistoria",
         logout: "Kirjaudu ulos",
         logoutConfirm: "Haluatko varmasti kirjautua ulos?"
+      },
+      footer: {
+        privacyPolicy: "Tietosuojakäytäntö",
+        publicOffer: "Julkinen sopimus"
+      },
+      training: {
+        learnAbout: "OPI LISÄÄ",
+        title: "KOHTALON MATRIISI -KOULUTUS",
+        go: "SIIRRY"
       },
       yes: "Kyllä",
       no: "Ei",

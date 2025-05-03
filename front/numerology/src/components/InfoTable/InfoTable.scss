@@ -4,9 +4,64 @@
   gap: 20px;
   max-width: 700px;
 }
+.curly-custom {
+  position: relative;
+  width: 30px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-line,
+.middle-line,
+.bottom-line {
+  position: absolute;
+  height: 2px;
+  background: black;
+}
+
+.top-line {
+  top: 0;
+  left: -20px;
+  width: 20px;
+}
+
+.bottom-line {
+  bottom: 0;
+  left: -20px;
+  width: 20px;
+}
+
+.middle-line {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 20px;
+  background: black;
+}
+
+.curly-custom::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: black;
+}
 
 .chakraTable {
+  .chakraName {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
+    img.chakra-icon {
+      width: 27px;
+      height: 27px;
+    }
+  }
   .chakra-title {
     font-size: 18px;
     font-weight: bold;
@@ -30,24 +85,26 @@
     padding: 6px;
     background: white;
     border: none;
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  tbody tr {
-    background: white;
-  }
 
   tbody tr td {
     background-color: inherit;
+    border: 1px solid rgba(216, 216, 216, 0.45);
+  }
+  tbody tr td:first-child{
+    background-color:  white !important;;
   }
 
   .totalRow {
     font-weight: bold;
     color: black;
     td{
-      background-color: #f0f8ff;
+      background-color: #ffffff;
+      border: 1px solid rgba(216, 216, 216, 0.45);
     }
   }
 }
@@ -104,14 +161,20 @@
                 flex-direction: column;
                 gap: 50px;
                 font-size: 18px;
-
+                padding-right: 30px;
+              .sky, .earth{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 8px;
+              }
                 .sky span, .earth span {
                   justify-content: center;
                   align-items: center;
                     border: 2px solid black;
                     padding: 3px 6px;
                     border-radius: 50%;
-                    
+
                 }
             }
             .result {
@@ -145,15 +208,25 @@
     }
 
   }
+@media (max-width: 590px) {
+.personalInfo {
+  display: flex;
+  flex-direction: column;
+}
+  .horizontalLine{
+    display: none;
+  }
+}
   .chakraTable {
     background: white;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 18px;
     overflow-x: auto;
-  
+
     @media (max-width: 590px) {
        width: 360px;
+
       .infoTable {
         display: flex;
         justify-content: center;
@@ -169,4 +242,3 @@
       align-items: center;
     }
   }
-  

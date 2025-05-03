@@ -5,7 +5,7 @@ import "./ViewHistory.scss";
 
 function ViewHistory() {
   const { t } = useTranslation();
-  const BASE_URL = "https://matrixaaa.duckdns.org";
+  const BASE_URL = "https://numerology-calculator.fi";
   const accessToken = localStorage.getItem("accessToken");
   const [data, setData] = useState();
 

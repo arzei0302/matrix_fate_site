@@ -55,7 +55,7 @@ function Cabinet() {
         {showConfirm && (
             <div className="modal-overlay">
               <div className="modal">
-                <p>{t("cabinet.logoutConfirm")}</p>
+                <p>{t("cabinetF.logoutConfirm")}</p>
                 <div className="modal-buttons">
                   <button onClick={confirmLogout}>{t("yes")}</button>
                   <button onClick={cancelLogout}>{t("no")}</button>

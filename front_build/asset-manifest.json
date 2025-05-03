@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.1f34680d.css",
+    "main.js": "/static/js/main.26347adf.js",
+    "static/media/schema4.jpg": "/static/media/schema4.1f66930f4f2e60ade0a1.jpg",
+    "static/media/schema2.jpg": "/static/media/schema2.517b242a5903b074068d.jpg",
+    "static/media/7.jpeg": "/static/media/7.bc27f218d2e40b489bd3.jpeg",
+    "static/media/2.jpeg": "/static/media/2.2442788de5966f83e11f.jpeg",
+    "static/media/4.jpeg": "/static/media/4.1ab8cff2a739637510ba.jpeg",
+    "static/media/3.jpeg": "/static/media/3.813bb29cd08d02eb4eb0.jpeg",
+    "static/media/6.jpeg": "/static/media/6.cf3a0d5ed6b771ff27d5.jpeg",
+    "static/media/1.jpeg": "/static/media/1.748e072d63ca83a1826c.jpeg",
+    "static/media/5.jpeg": "/static/media/5.c7d906499527aab426b7.jpeg",
+    "static/media/VKLogo.png": "/static/media/VKLogo.632d930dafe89d1490c4.png",
+    "static/media/telegram.png": "/static/media/telegram.0a4265bfea7fe8beeaf2.png",
+    "index.html": "/index.html",
+    "static/media/bezimeni-6-kopiya-8982948.webp": "/static/media/bezimeni-6-kopiya-8982948.2567c6a8c13f6bc31a64.webp",
+    "main.1f34680d.css.map": "/static/css/main.1f34680d.css.map",
+    "main.26347adf.js.map": "/static/js/main.26347adf.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1f34680d.css",
+    "static/js/main.26347adf.js"
+  ]
+}

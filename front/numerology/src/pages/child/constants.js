@@ -1,13 +1,19 @@
+import sahasrara from "../../assets/1.jpeg";
+import ajna from "../../assets/2.jpeg";
+import vishuddha from "../../assets/3.jpeg";
+import anahata from "../../assets/4.jpeg";
+import manipura from "../../assets/5.jpeg";
+import svadhisthana from "../../assets/6.jpeg";
+import muladhara from "../../assets/7.jpeg";
 export const newChakraData = [
-  { name: "7. Сахасрара", color: "#8B5CF6" },
-  { name: "6. Аджна", color: "#6366F1" },
-  { name: "5. Вишудха", color: "#06B6D4" },
-  { name: "4. Анахата", color: "#22C55E" },
-  { name: "3. Манипура", color: "#EAB308" },
-  { name: "2. Свадхистана", color: "#F97316" },
-  { name: "1. Муладхара", color: "#EF4444" }
+  { name: "7. Сахасрара", color: "#ffe6e6", icon: sahasrara },
+  { name: "6. Аджна", color: "#ffeedd", icon: ajna },
+  { name: "5. Вишудха", color: "#fff8e6", icon: vishuddha },
+  { name: "4. Анахата", color: "#e6ffe6", icon: anahata },
+  { name: "3. Манипура", color: "#e6f7ff", icon: manipura },
+  { name: "2. Свадхистана", color: "#e6f0ff", icon: svadhisthana },
+  { name: "1. Муладхара", color: "#f3e6ff", icon: muladhara }
 ];
-
 
 
 export const newPersonalInfo = [

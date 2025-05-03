@@ -89,7 +89,7 @@ const [numerologyData2, setNumerologyData2] = useState({});
 
     try {
         const [compatibilityResponse, matrixResponse1, matrixResponse2] = await Promise.all([
-            api.post(`https://matrixaaa.duckdns.org/compatibility/calculate-compatibility/`, {
+            api.post(`https://numerology-calculator.fi/compatibility/calculate-compatibility/`, {
                 day,
                 month: month.value,
                 year,
@@ -97,12 +97,12 @@ const [numerologyData2, setNumerologyData2] = useState({});
                 month2: month1.value,
                 year2: year1,
             }),
-            api.post(`https://matrixaaa.duckdns.org/compatibility/calculate-matrix/`, {
+            api.post(`https://numerology-calculator.fi/compatibility/calculate-matrix/`, {
                 day,
                 month: month.value,
                 year,
             }),
-            api.post(`https://matrixaaa.duckdns.org/compatibility/calculate-matrix/`, {
+            api.post(`https://numerology-calculator.fi/compatibility/calculate-matrix/`, {
                 day: day1,
                 month: month1.value,
                 year: year1,
