@@ -20,7 +20,14 @@ from celery.schedules import crontab
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
+
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+
+REPORT_TEMPLATES_DIR = BASE_DIR / "matrix_fate" / "files"
+
 
 
 # Quick-start development settings - unsuitable for production

@@ -1,7 +1,6 @@
 import tempfile
 import subprocess
 import io
-from django.conf import settings
 import fitz
 from pathlib import Path
 from PyPDF2 import PdfMerger
@@ -15,12 +14,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema, OpenApiExample
 
+from django.conf import settings
+from matrix_fate.child_app.report.fill_pdf_child import fill_matrix_pdf
+from matrix_fate.child_app.report.fill_word_child import fill_matrix_template
 from matrix_fate.matrix_auth_app.models import UserCalculationHistory
 from matrix_fate.matrix_auth_app.models import CustomUser
-from matrix_fate.matrix_fate_app.report.fill_pdf import fill_matrix_pdf
-from matrix_fate.matrix_fate_app.report.fill_word import fill_matrix_template
-#
 
+#
 def render_pdf_page_to_image(pdf_path: str, dpi=150) -> Path:
     pdf = fitz.open(pdf_path)
     page = pdf[0]
@@ -57,7 +57,7 @@ def generate_full_matrix_pdf(
 
         docx_file = tempfile.NamedTemporaryFile(delete=False, suffix=".docx")
         docx_path = Path(docx_file.name)
-        template_path = settings.REPORT_TEMPLATES_DIR / "matrix_fate_report.docx"
+        template_path = settings.REPORT_TEMPLATES_DIR / "child_report.docx"
 
 
         fill_matrix_template(matrix_values, template_path, docx_path)
@@ -87,7 +87,7 @@ def generate_full_matrix_pdf(
         raise Exception(f"Ошибка генерации полного PDF: {e}")
     
 
-class MatrixPDFInputSerializer(serializers.Serializer):
+class ChildPDFInputSerializer(serializers.Serializer):
     email = serializers.EmailField(
         required=False, 
         help_text="Email пользователя")
@@ -103,13 +103,13 @@ class MatrixPDFInputSerializer(serializers.Serializer):
     )
 
 
-class FullMatrixPDFView(APIView):
+class FullChildPDFView(APIView):
     permission_classes = [IsAuthenticated]
 
     @extend_schema(
-        summary="Скачать PDF матрицы судьбы",
-        description="PDF-документ на основе данных истории расчёта.(категория только matrix_fate)",
-        request=MatrixPDFInputSerializer,
+        summary="Скачать PDF 'Детская",
+        description="PDF-документ на основе данных истории расчёта.(категория только child)",
+        request=ChildPDFInputSerializer,
         tags=["Matrix Fate Reports"],
         examples=[
             OpenApiExample(
@@ -148,7 +148,7 @@ class FullMatrixPDFView(APIView):
 
             # 2. Остальная логика
             history_id = request.data.get("history_id")
-            category = request.data.get("category", "matrix_fate")
+            category = request.data.get("category", "child")
             input_data = request.data.get("input_data", {})
 
             history_record = None
@@ -192,7 +192,7 @@ class FullMatrixPDFView(APIView):
                 return Response({"error": "Расчёт не найден"}, status=404)
 
             pdf_buffer = generate_full_matrix_pdf(history_record)
-            return FileResponse(pdf_buffer, filename="matrix_fate_report.pdf", as_attachment=True)
+            return FileResponse(pdf_buffer, filename="child_report.pdf", as_attachment=True)
 
         except Exception as e:
             return Response({"error": str(e)}, status=500)

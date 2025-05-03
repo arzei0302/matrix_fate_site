@@ -4,7 +4,7 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
-from matrix_fate.common.permissions import IsActivePaidUser
+from matrix_fate.common.permissions import is_active_paid_user
 
 from ..models import ChildCategory, ChildDestinyArcana1, ChildDestinyArcana2, ChildDestinyArcana3
 from ..serializers.tasks_child_destiny_serializers import (
@@ -19,7 +19,7 @@ class ChildCategoryWithDestinyAPIView(APIView):
     """
     Эндпоинт для получения категории (id=6 или title=Предназначение ребенка) + связанные арканы по order_id.
     """
-    permission_classes = [IsActivePaidUser]
+    permission_classes = []
     serializer_class = ChildCategoryDestinySerializer
 
     @extend_schema(
@@ -35,6 +35,14 @@ class ChildCategoryWithDestinyAPIView(APIView):
             category = get_object_or_404(ChildCategory, id=int(category_id_or_title))
         else:
             category = get_object_or_404(ChildCategory, title__iexact=category_id_or_title)
+
+        if not is_active_paid_user(request.user):
+            return Response({
+                "category": {
+                    "id": category.id,
+                    "title": category.title,
+                }
+            })
 
         arcana_r_order = request.query_params.get("arcana_r")
         arcana_s_order = request.query_params.get("arcana_s")

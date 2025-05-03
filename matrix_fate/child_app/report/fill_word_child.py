@@ -14,47 +14,54 @@ from matrix_fate.matrix_fate_app.models import(
     SvadkhistanaO2, SvadkhistanaP2, SvadkhistanaQ2, MuladkharaO1, MuladkharaP1, MuladkharaQ1, TotalO, TotalP, TotalQ, 
 )
 
-from matrix_fate.finance_app.models import (
-     FinanceCategory,
+from matrix_fate.child_app.models import (
+    ChildCategory,
 
-     YourGreatestTalentBirth, QualitiesRevealedAge20, QualitiesDevelopAge40,
+    ChildBusinessCard,
 
-     YourOpportunity,
+    QualitiesRevealedAgeOf20,
+    ThirdTalentRevealedAge40,
 
-     TaskPersonalArcana1, TaskPersonalArcana2, TaskPersonalArcana3,
+    ChildOpportunity,
 
-     TheMainTask40Years, WhatBeforeYouTurn40Years, WhatAfterYouTurn40Years,
+    ChildPointOfComfort,
 
-     WhatGivesYouMoney, WhatOpensYourMoneyChannel, AreasOfRealization,
+    MainTaskSoul,
+    SoulPastExperiencesWithPeople,
+    LessonsFromPastLife,
 
-     TasksOpenMoneyChannel1, TasksOpenMoneyChannel2, WhatBlocksMoneyEnergy,
-
-     MatrixFinanceProgram
-
+    ChildDestinyArcana1,
+    ChildDestinyArcana2,
+    ChildDestinyArcana3,
+    
+    WhatChildShouldTeachParents,
+    WhatMistakesRelationshipParentsChildren,
+    WhatShouldComeQualitiesChild,
+    MatrixChildProgram,
 )
 
 MARKER_MODEL_MAP = {
-    "a": [YourGreatestTalentBirth],
-    "b": [QualitiesRevealedAge20],
-    "c": [QualitiesDevelopAge40, TheMainTask40Years],
-    "d": [],
-    "e": [],
+    "a": [ChildBusinessCard, WhatChildShouldTeachParents],
+    "b": [QualitiesRevealedAgeOf20],
+    "c": [ThirdTalentRevealedAge40],
+    "d": [MainTaskSoul],
+    "e": [ChildPointOfComfort],
     "e1": [],
     "e2": [],
     "f": [],
     "g": [],
     "h": [],
     "i": [],
-    "a1": [],
-    "a2": [YourOpportunity],
+    "a1": [WhatShouldComeQualitiesChild],
+    "a2": [ChildOpportunity, WhatMistakesRelationshipParentsChildren],
     "n": [],
     "b1": [],
     "b2": [],
     "m": [],
-    "c1": [WhatBeforeYouTurn40Years],
-    "c2": [WhatAfterYouTurn40Years, AreasOfRealization, TasksOpenMoneyChannel2],
-    "d1": [],
-    "d2": [],
+    "c1": [],
+    "c2": [],
+    "d1": [LessonsFromPastLife],
+    "d2": [SoulPastExperiencesWithPeople],
     "f1": [],
     "f2": [],
     "g1": [],
@@ -63,15 +70,15 @@ MARKER_MODEL_MAP = {
     "h2": [],
     "i1": [],
     "i2": [],
-    "j": [WhatGivesYouMoney, WhatBlocksMoneyEnergy],
+    "j": [],
     "k": [],
-    "l": [WhatOpensYourMoneyChannel, TasksOpenMoneyChannel1],
-    "r": [],
-    "s": [],
-    "y": [],
-    "t": [TaskPersonalArcana1],
-    "u": [TaskPersonalArcana2],
-    "v": [TaskPersonalArcana3],
+    "l": [],
+    "r": [ChildDestinyArcana1],
+    "s": [ChildDestinyArcana2],
+    "y": [ChildDestinyArcana3],
+    "t": [],
+    "u": [],
+    "v": [],
     "w": [],
     "x": [],
     "o": [TotalO],
@@ -202,7 +209,7 @@ def get_matrix_markers(matrix_values: dict) -> dict:
 
     category_ids = range(1, 23)
     for cat_id in category_ids:
-        category = FinanceCategory.objects.filter(id=cat_id).first()
+        category = ChildCategory.objects.filter(id=cat_id).first()
         if category:
             result[f"CATEGORY_TITLE_{category.id}"] = html.unescape(category.title)
             result[f"CATEGORY_DESCRIPTION_{category.id}"] = html.unescape(strip_tags(category.description))
@@ -249,4 +256,4 @@ def fill_matrix_template(matrix_values, template_path, output_path):
     replace_text_in_headers(doc, markers)
 
     doc.save(output_path)
-
+#

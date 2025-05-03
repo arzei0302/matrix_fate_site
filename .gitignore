@@ -1,14 +1,15 @@
 .qodo
 zzz/
-yyy.py
-zzz.py
+matrix_fate/yyy.py
+matrix_fate/zzz.py
 yyyy.py
-zzzz.py
+matrix_fate/zzzz.py
 xxxx.py
 server_commands.py
-yyy.txt
+matrix_fate/yyy.txt
 # config/
 .env
+matrix_fate/manage.py
 
 
 # Frontend

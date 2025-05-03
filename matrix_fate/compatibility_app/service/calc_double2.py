@@ -1,57 +1,13 @@
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from drf_spectacular.utils import extend_schema, OpenApiResponse
-import logging
-from matrix_fate.matrix_auth_app.models import UserCalculationHistory
-from .calculator_matrix_compatibility_serializer import MatrixCompatibilityInputSerializer, MatrixCompatibilityOutputSerializer
-
-
-logger = logging.getLogger(__name__)
-
-
 def reduce_to_22(number: int) -> int:
     """Суммирует цифры числа, если оно больше 22."""
     while number > 22:
         number = sum(int(digit) for digit in str(number))
     return number
 
-
-@extend_schema(
-    tags=['Compatibility Matrix'],
-    request=MatrixCompatibilityInputSerializer,
-    responses={
-        200: MatrixCompatibilityOutputSerializer,
-        400: OpenApiResponse(
-            response={"error": "Invalid input data"},
-            description="Invalid input data"
-        )
-    }
-)
-
-
-@api_view(["POST"])
-def calculate_matrix_compatibility_view(request):
-    """Категории: ('matrix_fate', 'finance', 'compatibility', 'child')"""
-    serializer = MatrixCompatibilityInputSerializer(data=request.data)
-    if not serializer.is_valid():
-        return Response(serializer.errors, status=400)
-    
-    birth_day = serializer.validated_data["day"]
-    birth_month = serializer.validated_data["month"]
-    birth_year = serializer.validated_data["year"]
-    # category = serializer.validated_data["category"]
-
-
-    if not (1 <= birth_month <= 12):
-        return Response({"error": "Месяц должен быть в диапазоне 1-12"}, status=400)
-    
-    # if category not in ["matrix_fate", "finance", "compatibility", "child"]:
-    #     return Response({"error": "Некорректная категория"}, status=400)
-    
-    # Логика матрицы судьбы
-    a = reduce_to_22(birth_day)
-    b = birth_month
-    c = reduce_to_22(birth_year)
+def calculate_matrix(day, month, year):
+    a = reduce_to_22(day)
+    b = reduce_to_22(month)
+    c = reduce_to_22(year)
     d = reduce_to_22(a + b + c)
     e = reduce_to_22(a + b + c + d)
     f = reduce_to_22(a + b)
@@ -183,49 +139,121 @@ def calculate_matrix_compatibility_view(request):
     i77_78 = reduce_to_22(a + i75)
     i78_79 = reduce_to_22(a + i77_78)
     i76_77 = reduce_to_22(i75 + i77_78)
-
     
-    matrix_values = {
-        # "category": category,  
-        "a": a, "b": b, "c": c, "d": d, "e": e, "e1": e1, "e2": e2,
+    return {
+    "a": a, "b": b, "c": c, "d": d, "e": e, "f": f, "g": g, "h": h, "i": i,
+    "j": j, "k": k, "l": l, "m": m, "n": n, "o": o, "p": p, "q": q, "r": r,
+    "s": s, "t": t, "u": u, "v": v, "w": w, "x": x, "y": y,
+
+    "a1": a1, "a2": a2, "b1": b1, "b2": b2, "c1": c1, "c2": c2,
+    "d1": d1, "d2": d2, "e1": e1, "e2": e2, "f1": f1, "f2": f2,
+    "g1": g1, "g2": g2, "h1": h1, "h2": h2, "i1": i1, "i2": i2,
+
+    "o7": o7, "o6": o6, "o5": o5, "o4": o4, "o3": o3, "o2": o2, "o1": o1,
+    "p7": p7, "p6": p6, "p5": p5, "p4": p4, "p3": p3, "p2": p2, "p1": p1,
+    "q7": q7, "q6": q6, "q5": q5, "q4": q4, "q3": q3, "q2": q2, "q1": q1,
+
+    "a5": a5,
+    "a2_3": a2_3,
+    "a3_4": a3_4,
+    "a1_2": a1_2,
+    "a7_8": a7_8,
+    "a8_9": a8_9,
+    "a6_7": a6_7,
+
+    "f15": f15,
+    "f12_13": f12_13,
+    "f13_14": f13_14,
+    "f11_12": f11_12,
+    "f17_18": f17_18,
+    "f18_19": f18_19,
+    "f16_17": f16_17,
+
+    "b25": b25,
+    "b22_23": b22_23,
+    "b23_24": b23_24,
+    "b21_22": b21_22,
+    "b27_28": b27_28,
+    "b28_29": b28_29,
+    "b26_27": b26_27,
+
+    "g35": g35,
+    "g32_33": g32_33,
+    "g33_34": g33_34,
+    "g31_32": g31_32,
+    "g37_38": g37_38,
+    "g38_39": g38_39,
+    "g36_37": g36_37,
+
+    "c45": c45,
+    "c42_43": c42_43,
+    "c43_44": c43_44,
+    "c41_42": c41_42,
+    "c47_48": c47_48,
+    "c48_49": c48_49,
+    "c46_47": c46_47,
+
+    "h55": h55,
+    "h52_53": h52_53,
+    "h53_54": h53_54,
+    "h51_52": h51_52,
+    "h57_58": h57_58,
+    "h58_59": h58_59,
+    "h56_57": h56_57,
+
+    "d65": d65,
+    "d62_63": d62_63,
+    "d63_64": d63_64,
+    "d61_62": d61_62,
+    "d67_68": d67_68,
+    "d68_69": d68_69,
+    "d66_67": d66_67,
+
+    "i75": i75,
+    "i72_73": i72_73,
+    "i73_74": i73_74,
+    "i71_72": i71_72,
+    "i77_78": i77_78,
+    "i78_79": i78_79,
+    "i76_77": i76_77,
+}
+
+
+def calculate_compatibility(matrix1, matrix2):
+    a = reduce_to_22(matrix1["a"] + matrix2["a"])
+    b = reduce_to_22(matrix1["b"] + matrix2["b"])
+    c = reduce_to_22(matrix1["c"] + matrix2["c"])
+    d = reduce_to_22(matrix1["d"] + matrix2["d"])
+    e = reduce_to_22(matrix1["e"] + matrix2["e"])
+    f = reduce_to_22(matrix1["f"] + matrix2["f"])
+    g = reduce_to_22(matrix1["g"] + matrix2["g"])
+    h = reduce_to_22(matrix1["h"] + matrix2["h"])
+    i = reduce_to_22(matrix1["i"] + matrix2["i"])
+
+    d2 = reduce_to_22(d + e)
+    d1 = reduce_to_22(d + d2)
+    c2 = reduce_to_22(c + e)
+
+    j = reduce_to_22(d2 + c2)
+    k = reduce_to_22(d2 + j)
+    l = reduce_to_22(c2 + j)
+
+    r = reduce_to_22(b + d)
+    s = reduce_to_22(c + a)
+    y = reduce_to_22(r + s)
+
+    t = reduce_to_22(f + h)
+    u = reduce_to_22(g + i)
+    v = reduce_to_22(t + u)
+
+    w = reduce_to_22(y + v)
+
+    return {
+        "a": a, "b": b, "c": c, "d": d, "e": e,
         "f": f, "g": g, "h": h, "i": i,
-        "a1": a1, "a2": a2, "n": n,
-        "b1": b1, "b2": b2, "m": m,
-        "c1": c1, "c2": c2,
-        "d1": d1, "d2": d2,
-        "f1": f1, "f2": f2,
-        "g1": g1, "g2": g2,
-        "h1": h1, "h2": h2,
-        "i1": i1, "i2": i2,
+        "d2": d2, "d1": d1, "c2": c2,
         "j": j, "k": k, "l": l,
-        "r": r, "s": s, "y": y, "t": t, "u": u, "v": v, "w": w, "x": x,
-        "o": o, "o1": o1, "o2": o2, "o3": o3, "o4": o4, "o5": o5, "o6": o6, "o7": o7,
-        "p": p, "p1": p1, "p2": p2, "p3": p3, "p4": p4, "p5": p5, "p6": p6, "p7": p7,
-        "q": q, "q1": q1, "q2": q2, "q3": q3, "q4": q4, "q5": q5, "q6": q6, "q7": q7,
-        "a1_2": a1_2, "a2_3": a2_3, "a3_4": a3_4, "a5": a5, "a6_7": a6_7, "a7_8": a7_8, "a8_9": a8_9,
-        "f11_12": f11_12, "f12_13": f12_13, "f13_14": f13_14, "f15": f15, "f16_17": f16_17, "f17_18": f17_18, "f18_19": f18_19,
-        "b21_22": b21_22, "b22_23": b22_23, "b23_24": b23_24, "b25": b25, "b26_27": b26_27, "b27_28": b27_28, "b28_29": b28_29,
-        "g31_32": g31_32, "g32_33": g32_33, "g33_34": g33_34, "g35": g35, "g36_37": g36_37, "g37_38": g37_38, "g38_39": g38_39,
-        "c41_42": c41_42, "c42_43": c42_43, "c43_44": c43_44, "c45": c45, "c46_47": c46_47, "c47_48": c47_48, "c48_49": c48_49,
-        "h51_52": h51_52, "h52_53": h52_53, "h53_54": h53_54, "h55": h55, "h56_57": h56_57, "h57_58": h57_58, "h58_59": h58_59,
-        "d61_62": d61_62, "d62_63": d62_63, "d63_64": d63_64, "d65": d65, "d66_67": d66_67, "d67_68": d67_68, "d68_69": d68_69,
-        "i71_72": i71_72, "i72_73": i72_73, "i73_74": i73_74, "i75": i75, "i76_77": i76_77, "i77_78": i77_78, "i78_79": i78_79
+        "r": r, "s": s, "y": y,
+        "t": t, "u": u, "v": v, "w": w
     }
 
-    logger.info(f"Matrix values: {matrix_values}")
-
-    output_serializer = MatrixCompatibilityOutputSerializer(data=matrix_values)
-    if not output_serializer.is_valid():
-        logger.error(f"Validation errors: {output_serializer.errors}")
-        return Response(output_serializer.errors, status=400)
-    
-    # # Если пользователь авторизован, сохраняем в профиль
-    # if request.user.is_authenticated and hasattr(request.user, 'profile'):
-    #     UserCalculationHistory.objects.create(
-    #         profile=request.user.profile,
-    #         input_data=request.data,
-    #         result_data=matrix_values,
-    #         category=category
-    #     )
-
-    return Response(matrix_values) 

@@ -4,7 +4,9 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
-from matrix_fate.common.permissions import IsActivePaidUser
+from matrix_fate.common.permissions import is_active_paid_user
+
+# from matrix_fate.common.permissions import IsActivePaidUser
 
 from ..models import ChildCategory, MainTaskSoul, SoulPastExperiencesWithPeople, LessonsFromPastLife
 from ..serializers.tasks_from_past_lives_serializers import (
@@ -19,7 +21,7 @@ class ChildCategoryWithPastLivesTasksAPIView(APIView):
     """
     Эндпоинт для получения категории (id=5 или title=Задачи, которые тянутся из прошлых жизней) + связанные арканы по order_id.
     """
-    permission_classes = [IsActivePaidUser]
+    # permission_classes = [IsActivePaidUser]
     serializer_class = ChildCategoryFromPastLivesSerializer
 
     @extend_schema(
@@ -35,6 +37,14 @@ class ChildCategoryWithPastLivesTasksAPIView(APIView):
             category = get_object_or_404(ChildCategory, id=int(category_id_or_title))
         else:
             category = get_object_or_404(ChildCategory, title__iexact=category_id_or_title)
+
+        if not is_active_paid_user(request.user):
+            return Response({
+                "category": {
+                    "id": category.id,
+                    "title": category.title,
+                }
+            })
 
         arcana_d_order = request.query_params.get("arcana_d")
         arcana_d1_order = request.query_params.get("arcana_d1")

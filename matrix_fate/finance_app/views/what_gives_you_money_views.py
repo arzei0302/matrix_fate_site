@@ -4,7 +4,9 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
-from matrix_fate.common.permissions import IsActivePaidUser
+from matrix_fate.common.permissions import is_active_paid_user
+
+# from matrix_fate.common.permissions import IsActivePaidUser
 
 from ..models import (
     FinanceCategory,
@@ -26,7 +28,7 @@ class FinanceCategoryWhatGivesYouMoneyAPIView(APIView):
     Эндпоинт для получения категории(id=4 или title=Что дает деньги) + три связанных аркана по order_id.
     """
 
-    permission_classes = [IsActivePaidUser]
+    # permission_classes = [IsActivePaidUser]
     serializer_class = FinanceCategoryWhatGivesYouMoneySerializer
 
     @extend_schema(
@@ -59,6 +61,14 @@ class FinanceCategoryWhatGivesYouMoneyAPIView(APIView):
             category = get_object_or_404(
                 FinanceCategory, title__iexact=category_id_or_title
             )
+
+        if not is_active_paid_user(request.user):
+            return Response({
+                "category": {
+                    "id": category.id,
+                    "title": category.title,
+                }
+            })
 
         money_order = request.query_params.get("money_j")
         money_channel_order = request.query_params.get("money_channel_l")

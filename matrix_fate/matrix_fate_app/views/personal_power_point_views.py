@@ -4,7 +4,9 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
-from matrix_fate.common.permissions import IsActivePaidUser
+from matrix_fate.common.permissions import is_active_paid_user
+
+# from matrix_fate.common.permissions import IsActivePaidUser
 
 from ..models import Category, PersonalPowerPoint
 from ..serializers.personal_power_point_serializers import (
@@ -17,7 +19,7 @@ from ..serializers.personal_power_point_serializers import (
 class CategoryWithPersonalPowerAPIView(APIView):
     """Получает категорию по `id(10)` или `title(Точка личной силы)` и точку личной силы по переданному номеру (order_id)."""
 
-    permission_classes = [IsActivePaidUser]
+    # permission_classes = [IsActivePaidUser]
     serializer_class = CategoryWithPersonalPowerSerializer
 
     @extend_schema(
@@ -36,6 +38,14 @@ class CategoryWithPersonalPowerAPIView(APIView):
             category = get_object_or_404(Category, id=int(category_id_or_title))
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
+
+        if not is_active_paid_user(request.user):
+            return Response({
+                "category": {
+                    "id": category.id,
+                    "title": category.title,
+                }
+            })
 
         order_id = request.query_params.get("order")
 

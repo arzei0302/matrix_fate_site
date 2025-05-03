@@ -1,26 +1,26 @@
 from rest_framework import serializers
 
-from matrix_fate.finance_app.models import MatrixFinanceProgram
+from matrix_fate.compatibility_app.models import MatrixCompatibilityProgram
 
 #
-class MatrixFinanceProgramSerializer(serializers.ModelSerializer):
+class MatrixCompatibilityProgramSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MatrixFinanceProgram
+        model = MatrixCompatibilityProgram
         fields = '__all__'
 
 
-class MatrixFinanceInputSerializer(serializers.Serializer):
-    day = serializers.IntegerField(min_value=1, max_value=31)
-    month = serializers.IntegerField(min_value=1, max_value=12)
-    year = serializers.IntegerField(min_value=1000, max_value=9999)
-    category = serializers.ChoiceField(
-        choices=["matrix_fate", "finance", "compatibility", "child"],
-        default="finance",
-        required=False
-    )
+# class MatrixFinanceInputSerializer(serializers.Serializer):
+#     day = serializers.IntegerField(min_value=1, max_value=31)
+#     month = serializers.IntegerField(min_value=1, max_value=12)
+#     year = serializers.IntegerField(min_value=1000, max_value=9999)
+#     category = serializers.ChoiceField(
+#         choices=["matrix_fate", "finance", "compatibility", "child"],
+#         default="finance",
+#         required=False
+#     )
 
 
-class MatrixFinanceOutputSerializer(serializers.Serializer):
+class MatrixCompatibilityOutputSerializer(serializers.Serializer):
 
     category = serializers.CharField()
     a = serializers.IntegerField(required=False)
