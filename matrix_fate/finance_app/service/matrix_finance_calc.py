@@ -7,7 +7,7 @@ from matrix_fate.matrix_auth_app.models import UserCalculationHistory
 from matrix_fate.finance_app.serializers.matrix_finance_program_serializers import (
     MatrixFinanceInputSerializer, MatrixFinanceOutputSerializer, MatrixFinanceProgramSerializer)
 from matrix_fate.finance_app.service.service import get_matching_programs
-#
+
 
 logger = logging.getLogger(__name__)
 
@@ -246,5 +246,5 @@ def calculate_finance_matrix_view(request):
 
     return Response({
         "matrix": matrix_values,
-        # "matched_programs": serialized_programs
+        # "matched_programs": serialized_programs#
     })

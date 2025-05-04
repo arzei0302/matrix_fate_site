@@ -14,12 +14,12 @@ logger = logging.getLogger(__name__)
 
 
 class MatrixDoubleInputSerializer(serializers.Serializer):
-    day1 = serializers.IntegerField(min_value=1, max_value=10)
-    month1 = serializers.IntegerField(min_value=1, max_value=10)
-    year1 = serializers.IntegerField(min_value=1000, max_value=2000)
-    day2 = serializers.IntegerField(min_value=1, max_value=10)
-    month2 = serializers.IntegerField(min_value=1, max_value=10)
-    year2 = serializers.IntegerField(min_value=1000, max_value=1990)
+    day1 = serializers.IntegerField(min_value=1, max_value=31)
+    month1 = serializers.IntegerField(min_value=1, max_value=12)
+    year1 = serializers.IntegerField(min_value=1000, max_value=9999)
+    day2 = serializers.IntegerField(min_value=1, max_value=31)
+    month2 = serializers.IntegerField(min_value=1, max_value=12)
+    year2 = serializers.IntegerField(min_value=1000, max_value=9999)
 
 @extend_schema(
     tags=['Compatibility Matrix'],
