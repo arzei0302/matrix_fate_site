@@ -63,8 +63,13 @@ def generate_full_matrix_pdf(
         fill_matrix_template(matrix_values, template_path, docx_path)
 
         text_pdf_path = docx_path.with_suffix(".pdf")
+        # subprocess.run([
+        #     "libreoffice", "--headless",
+        #     "--convert-to", "pdf", str(docx_path),
+        #     "--outdir", str(docx_path.parent)
+        # ], check=True)
         subprocess.run([
-            "libreoffice", "--headless",
+            "soffice", "--headless",
             "--convert-to", "pdf", str(docx_path),
             "--outdir", str(docx_path.parent)
         ], check=True)
