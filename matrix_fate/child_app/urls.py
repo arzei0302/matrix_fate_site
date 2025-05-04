@@ -1,6 +1,7 @@
 from django.urls import path
 
 from matrix_fate.child_app.report.child_reports import FullChildPDFView
+from matrix_fate.child_app.report.guest_child_report import GuestChildPDFView
 from matrix_fate.child_app.service.matrix_child_calc import calculate_child_matrix_view
 from matrix_fate.child_app.views.child_greatest_talent_views import (
     ChildCategoryWithBusinessCardAPIView,
@@ -67,5 +68,7 @@ urlpatterns = [
         name="calculate-child-matrix"),
 
     path("child-report/", FullChildPDFView.as_view(), name="child-report"),
+    path('guest-child-pdf/', GuestChildPDFView.as_view(), name='guest-child-pdf'),
+
     
 ]

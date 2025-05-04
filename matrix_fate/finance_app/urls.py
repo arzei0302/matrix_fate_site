@@ -1,6 +1,7 @@
 from django.urls import path
 
 from matrix_fate.finance_app.report.finance_report import FullFinancePDFView
+from matrix_fate.finance_app.report.guest_finance_report import GuestFinancePDFView
 from matrix_fate.finance_app.service.matrix_finance_calc import calculate_finance_matrix_view
 from matrix_fate.finance_app.views.destination_society_views import FinanceCategoryWithTasksAPIView
 from matrix_fate.finance_app.views.karma_and_task_40_views import (
@@ -54,5 +55,7 @@ urlpatterns = [
         name="calculate-finance-matrix",
     ),
     path("finance-report/", FullFinancePDFView.as_view(), name="finance-report"),
+    path('guest-finance-pdf/', GuestFinancePDFView.as_view(), name='guest-finance-pdf'),
+
 
 ]

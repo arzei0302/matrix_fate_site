@@ -1,5 +1,6 @@
 from django.urls import path
 
+from matrix_fate.matrix_fate_app.report.guest_matrix_fate_report import GuestMatrixFatePDFView
 from matrix_fate.matrix_fate_app.report.matrix_fate_report import FullMatrixPDFView
 from matrix_fate.matrix_fate_app.service.matrix_fate_calc import calculate_matrix_view
 from .views.personal_qualities_views import CategoryWithTalentsAPIView
@@ -107,5 +108,7 @@ urlpatterns = [
     # path("matched_programs/", get_programs_by_matrix_view, name="matched-programs"),
 
     path("matrix-report/", FullMatrixPDFView.as_view(), name="matrix-report"),
+    path('guest-matrix-pdf/', GuestMatrixFatePDFView.as_view(), name='guest-matrix-pdf'),
+
 
 ]
