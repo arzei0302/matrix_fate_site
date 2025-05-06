@@ -3,6 +3,7 @@ import NumerologyChart from "../../components/NumerologyChart/NumerologyChart";
 import InfoTable from "../../components/InfoTable/InfoTable";
 import Accordions from "../../components/Accordions/Accordions";
 import TrainingCard  from "../../components/TrainingCard/TrainingCard"
+import axios from "axios";
 import { 
   newChakraData, 
   newPersonalInfo, 
@@ -118,7 +119,39 @@ function Fate() {
       console.error("Ошибка при выполнении расчёта:", error.message);
     }
   };
-  
+
+  const handleDownload = async () => {
+    document.body.style.cursor = "wait";
+    const payload = {
+        day,
+        month: month.value,
+        year
+    };
+
+    try {
+      const response = await axios.post(
+          "https://numerology-calculator.fi/matrix_fate/guest-matrix-pdf/",
+          payload,
+          {
+            responseType: "blob"
+          }
+      );
+
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "guest_fate_report.pdf");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Ошибка при скачивании PDF:", error);
+    } finally {
+      document.body.style.cursor = "auto"; // возвращаем обычный курсор
+    }
+  };
 
   return (
     <div className="FateRlc">
@@ -135,7 +168,7 @@ function Fate() {
                           ))}
                         </select>
                       </div>
-          
+
                       <div className="select-container">
                         <label className="select-label">{t("financePage.month")}</label>
                         <select className="custom-select" value={month.name} onChange={handleMonthChange}>
@@ -163,6 +196,7 @@ function Fate() {
         <InfoTable chakraData={newChakraData} numbers={numerologyData} personalInfo={newPersonalInfo} />
     
       </div>
+      <button className='downloadBtn' onClick={handleDownload}> {t("financePage.download")}</button>
       <div className="accordions">
       <Accordions 
     data={combinedData} 

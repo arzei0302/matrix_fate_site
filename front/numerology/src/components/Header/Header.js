@@ -69,7 +69,7 @@ const Header = () => {
         {/* Аутентификация + Переключалка языка */}
         <div className="auth">
           <button className="lang-switch" onClick={toggleLang}>
-            🌐 {i18n.language === "fi" ? "Suomi" : "English"}
+            🌐 {i18n.language === "fi" ? "English" : "Suomi"}
           </button>
 
           {isAuthenticated ? (

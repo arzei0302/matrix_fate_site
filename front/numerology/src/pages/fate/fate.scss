@@ -5,6 +5,14 @@ $border-radius: 20px;
 $shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
 .FateRlc {
+  .downloadBtn{
+    bottom: 50px;
+    background-color: #1d3c34;
+    width: 180px;
+    height: 40px;
+    border-radius: 16px;
+    color: white;
+  }
     display: flex;
     justify-content: center;
     flex-direction: column;

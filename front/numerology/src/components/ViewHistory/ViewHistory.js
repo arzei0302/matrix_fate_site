@@ -35,9 +35,56 @@ function ViewHistory() {
     }
   }, [accessToken]);
 
-  const handleOpen = (item) => {
-    console.log(item);
-    // you can add redirect or modal logic here
+  const handleOpen = async (item) => {
+    const categoryMap = {
+      "Калькулятор Детская матрица": "child",
+      "Калькулятор Финансы": "finance",
+      "Калькулятор Матрица судьбы": "matrix_fate",
+    };
+
+    const endpointMap = {
+      child: "/child/child-report/",
+      finance: "/finance/finance-report/",
+      matrix_fate: "/matrix_fate/matrix-report/",
+    };
+
+    const categoryKey = categoryMap[item.category];
+    const endpoint = endpointMap[categoryKey];
+
+    if (!endpoint) {
+      console.error("Неизвестная категория:", item.category);
+      return;
+    }
+
+    const payload = {
+      email: item.profile.email,
+      input_data: {
+        day: item.input_data.day,
+        month: item.input_data.month,
+        year: item.input_data.year,
+      },
+    };
+
+    try {
+      const response = await axios.post(`${BASE_URL}${endpoint}`, payload, {
+        responseType: "blob",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${categoryKey}_report.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Ошибка при скачивании PDF:", error);
+    }
   };
 
   return (

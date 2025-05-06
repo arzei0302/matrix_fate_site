@@ -24,6 +24,7 @@ import {
 import "./child.scss";
 import { useTranslation } from "react-i18next";
 import DateDecodingCard from "../../components/DateDecodingCard/DateDecodingCard.js"
+import axios from "axios";
 function Child() {
   const [numerologyData, setNumerologyData] = useState({});
   const [combinedData, setCombinedData] = useState({});
@@ -98,7 +99,38 @@ function Child() {
       console.error("Ошибка при выполнении расчёта:", error.message);
     }
   };
-  
+  const handleDownload = async () => {
+    document.body.style.cursor = "wait";
+    const payload = {
+      day,
+      month: month.value,
+      year
+    };
+
+    try {
+      const response = await axios.post(
+          "https://numerology-calculator.fi/child/guest-child-pdf/",
+          payload,
+          {
+            responseType: "blob"
+          }
+      );
+
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "guest_child_report.pdf");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Ошибка при скачивании PDF:", error);
+    } finally {
+      document.body.style.cursor = "auto"; // возвращаем обычный курсор
+    }
+  };
 
   return (
     <div className="FateRlc">
@@ -143,6 +175,7 @@ function Child() {
         <InfoTable chakraData={newChakraData} numbers={numerologyData} personalInfo={newPersonalInfo} />
     
       </div>
+      <button className='downloadBtn' onClick={handleDownload}> {t("financePage.download")}</button>
       <div className="accordions">
       <Accordions 
     data={combinedData} 

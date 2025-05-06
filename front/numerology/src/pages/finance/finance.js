@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import axios from "axios"
 import NumerologyChart from "../../components/NumerologyChart/NumerologyChart";
 import InfoTable from "../../components/InfoTable/InfoTable";
 import Accordions from "../../components/Accordions/Accordions";
@@ -90,7 +90,38 @@ function Finance() {
       console.error("Ошибка при выполнении расчёта:", error.message);
     }
   };
+  const handleDownload = async () => {
+    document.body.style.cursor = "wait";
+    const payload = {
+      day,
+      month: month.value,
+      year
+    };
 
+    try {
+      const response = await axios.post(
+          "https://numerology-calculator.fi/finance/guest-finance-pdf/",
+          payload,
+          {
+            responseType: "blob"
+          }
+      );
+
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "guest_finance_report.pdf");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Ошибка при скачивании PDF:", error);
+    } finally {
+      document.body.style.cursor = "auto"; // возвращаем обычный курсор
+    }
+  };
   return (
     <div className="FateRlc">
       <div className="Fate">
@@ -124,7 +155,6 @@ function Finance() {
                 ))}
               </select>
             </div>
-
             <button onClick={handleCalculate}>{t("financePage.calculate")}</button>
           </div>
 
@@ -138,7 +168,7 @@ function Finance() {
           showChakraTable={false}
         />
       </div>
-
+      <button className='downloadBtn' onClick={handleDownload}> {t("financePage.download")}</button>
       <div className="accordions">
         <Accordions data={combinedData} defaultAccordionData={defaultAccordionData} />
       </div>

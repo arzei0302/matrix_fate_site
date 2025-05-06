@@ -53,10 +53,7 @@ const Footer = () => {
             <div className="horizontaLine"></div>
             <div className="footerOther">
                 <div className="footer">
-                    <div className="icons">
-                        <img src={telegramIcon} alt="Telegram" />
-                        <img src={VKIcon} alt="VK" />
-                    </div>
+
 
                     <div className="help">
                         <a href={support?.reference} target="_blank" rel="noopener noreferrer">

@@ -15,6 +15,7 @@ const resources = {
         total: "ИТОГО"
       },
       financePage: {
+        download:"Download PDF",
         enterBirthDate: "Enter birth date",
         day: "Day",
         month: "Month",
@@ -88,20 +89,22 @@ financeAccordion: {
     title: "Карта здоровья",
     description: "Описание карты здоровья"
   },
-  total:"Общий прогноз",
-  january:"Январь",
-  feb:"Феварль",
-  march:"Март",
-  april:"Апрель",
-  may:"Май",
-  june:"Июнь",
-  july:"Июль",
-  august:"Август",
-  sep:"Сентябрь",
-  okt:"Октябрь",
-  nov:"Ноябрь",
-  dec:"Декабрь"
+  download:{
+    btn: "downloadasdf"},
 
+  "total": "Yleinen ennuste",
+    "january": "Tammikuu",
+    "feb": "Helmikuu",
+    "march": "Maaliskuu",
+    "april": "Huhtikuu",
+    "may": "Toukokuu",
+    "june": "Kesäkuu",
+    "july": "Heinäkuu",
+    "august": "Elokuu",
+    "sep": "Syyskuu",
+    "okt": "Lokakuu",
+    "nov": "Marraskuu",
+    "dec": "Joulukuu"
 }
 ,
       // Header + UI
@@ -175,6 +178,8 @@ financeAccordion: {
           title: "Personal qualities",
           description: "Description of personal qualities"
         },
+        download:{
+          btn: "downloadasdf"},
         soulWork: {
           title: "Work for the soul",
           description: "Description of work for the soul"
@@ -228,6 +233,8 @@ financeAccordion: {
           title: "Disease predisposition",
           description: "Description of disease predisposition"
         },
+        download:{
+          btn: "downloadasdf"},
         healthMap: {
           title: "Health map",
           description: "Description of the health map"
@@ -393,6 +400,7 @@ financeAccordion: {
         total: "YHTEENSÄ"
       },
       financePage: {
+        download:"Lataa pdf-tiedosto",
         enterBirthDate: "Syötä syntymäaika",
         day: "Päivä",
         month: "Kuukausi",

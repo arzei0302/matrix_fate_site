@@ -43,55 +43,56 @@ export const calculateCompabilityNumerology = async ({ day, month, year, day1, m
     }
 }
 
-export const getChildBusiness= async ({ a }) => {
+export const getChildBusiness= async ({ c2,j,l }) => {
 
     
     try {
         const params = {
-            arcana_a: a,
+            arcana_c2: c2,
+            arcana_j:j,
+            arcana_l:l,
+            category_id_or_title:"6"
         };
-        const response = await api.get(`${BASE_URL}/child/child_business_card/1/`, { params });
+        const response = await api.get(`${BASE_URL}/compatibility/couple_money/6/couple_money/`, { params });
         return response.data.category;
     } catch (error) {
         handleError(error);
     }
 };
 
-export const getChildDestiny= async ({ r,s,y }) => {
+export const getChildDestiny= async ({ d2,j,k }) => {
     try {
         const params = {
-            arcana_r: r,
-            arcana_s: s,
-            arcana_y: y,
+            arcana_d2 : d2,
+            arcana_j : j,
+            arcana_k : k,
         };
-        const response = await api.get(`${BASE_URL}/child/child_destiny/6/`, { params });
+        const response = await api.get(`${BASE_URL}/compatibility/couple_relations/7/couple_relations/`, { params });
         return response.data;
     } catch (error) {
         handleError(error);
     }
 };
 
-export const getChildParentKarma = async ({a2,a,a1 }) => {
+export const getChildParentKarma = async ({b,c }) => {
     try {
         const params = {
-            arcana_a: a,
-            arcana_a1: a1,
-            arcana_a2: a2,
+            arcana_b : b,
+            arcana_c : c,
         };
-        const response = await api.get(`${BASE_URL}/child/child_parent_karma/7/`, { params });
+        const response = await api.get(`${BASE_URL}/compatibility/couple_resources/3/couple_resources/`, { params });
         return response.data;
     } catch (error) {
         handleError(error);
     }
 };
 
-export const getChildPersonal=async({b,c})=>{
+export const getChildPersonal=async({v})=>{
     try{
         const params={
-            arcana_b:b,
-            arcana_c:c,
+            arcana_v:v,
         };
-        const response = await api.get(`${BASE_URL}/child/child_personal_qualities/2/`, { params });
+        const response = await api.get(`${BASE_URL}/compatibility/couples_task_for_society/5/couples_task_for_society/`, { params });
         return response.data;
     } catch (error) {
         handleError(error);
@@ -99,26 +100,28 @@ export const getChildPersonal=async({b,c})=>{
     
 }
 // 
-export const getChildPoint=async({e})=>{
+export const getChildPoint=async({d,w,y})=>{
+    try{
+        const params={
+            arcana_d : d,
+            arcana_w : w,
+            arcana_y : y
+        };
+        const response = await api.get(`${BASE_URL}/compatibility/tasks_for_couple/2/tasks_for_couple/`, { params });
+        return response.data;
+    } catch (error) {
+        handleError(error);
+    }
+    
+}
+
+
+export const getChildSelf=async({e})=>{
     try{
         const params={
             arcana_e: e,
         };
-        const response = await api.get(`${BASE_URL}/child/child_point_of_comfort/4/`, { params });
-        return response.data;
-    } catch (error) {
-        handleError(error);
-    }
-    
-}
-
-
-export const getChildSelf=async({a2})=>{
-    try{
-        const params={
-            arcana_a2: a2,
-        };
-        const response = await api.get(`${BASE_URL}/child/child_self_realization/3/`, { params });
+        const response = await api.get(`${BASE_URL}/compatibility/what_fills_the_vapor/4/what_fills_the_vapor/`, { params });
         return response.data;
     } catch (error) {
         handleError(error);
@@ -127,14 +130,12 @@ export const getChildSelf=async({a2})=>{
 
 }
 
-export const getTasksFromPast=async({d,d1,d2})=>{
+export const getTasksFromPast=async({a})=>{
     try{
         const params={
-            arcana_d: d,
-            arcana_d1: d1,
-            arcana_d2: d2,
+            arcana_a: a,
         };
-        const response = await api.get(`${BASE_URL}/child/tasks_from_past_lives/5/`, { params });
+        const response = await api.get(`${BASE_URL}/compatibility/why_did_you_meet/1/why_did_you_meet/`, { params });
         return response.data;
     } catch (error) {
         handleError(error);
