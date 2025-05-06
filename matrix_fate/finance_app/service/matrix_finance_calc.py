@@ -51,7 +51,6 @@ def calculate_finance_matrix_view(request):
     if category not in ["matrix_fate", "finance", "compatibility", "child"]:
         return Response({"error": "Некорректная категория"}, status=400)
     
-    # Логика матрицы судьбы
     a = reduce_to_22(birth_day)
     b = birth_month
     c = reduce_to_22(birth_year)
@@ -224,27 +223,19 @@ def calculate_finance_matrix_view(request):
     
     input_data = normalize_input_data(serializer.validated_data)
     
-    if request.user.is_authenticated and hasattr(request.user, 'profile'):
-        already_exists = UserCalculationHistory.objects.filter(
-            profile=request.user.profile,
-            input_data=request.data,
-            category=category
-        ).exists()
-
     matched_programs = get_matching_programs(matrix_values)
     serialized_programs = MatrixFinanceProgramSerializer(matched_programs, many=True).data
     
     matrix_values["matched_programs"] = serialized_programs
 
-    if not already_exists:
-            UserCalculationHistory.objects.create(
-                profile=request.user.profile,
-                input_data=input_data,
-                result_data=matrix_values,
-                category=category
-            )
+    if request.user.is_authenticated and hasattr(request.user, 'profile'):
+        UserCalculationHistory.objects.update_or_create(
+            profile=request.user.profile,
+            input_data=input_data,
+            category=category,
+            defaults={'result_data': matrix_values}
+        )
 
     return Response({
         "matrix": matrix_values,
-        # "matched_programs": serialized_programs#
     })
