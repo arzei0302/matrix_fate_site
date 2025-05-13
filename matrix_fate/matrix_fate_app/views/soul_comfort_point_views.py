@@ -9,10 +9,11 @@ from ..serializers.soul_comfort_point_serializers import (
     CategorySoulComfortSerializer,
     SoulComfortPointSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Matrix_Fate"])
-class CategoryWithSoulComfortAPIView(APIView):
+class CategoryWithSoulComfortAPIView(APIView, PaidCategoryAccessMixin):
     """Получает категорию(id=7) или title(Точка душевного комфорта) и таланты по переданным `order_id`."""
 
     serializer_class = CategorySoulComfortSerializer
@@ -33,6 +34,10 @@ class CategoryWithSoulComfortAPIView(APIView):
             category = get_object_or_404(Category, id=int(category_id_or_title))
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
+
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         comfort_order = request.query_params.get("comfort")
 

@@ -15,10 +15,11 @@ from ..serializers.main_task_40_serializers import (
     TaskBefore40Serializer,
     TaskAfter40Serializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Matrix_Fate"])
-class CategoryWithMainTask40APIView(APIView):
+class CategoryWithMainTask40APIView(APIView, PaidCategoryAccessMixin):
     """Получает категорию(id=6) или title(Карма и задача 40 лет) и таланты по переданным `order_id`."""
 
     # permission_classes = [IsActivePaidUser]
@@ -54,13 +55,9 @@ class CategoryWithMainTask40APIView(APIView):
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         main_order = request.query_params.get("main")
         before_order = request.query_params.get("before")

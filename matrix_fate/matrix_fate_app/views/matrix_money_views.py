@@ -26,10 +26,11 @@ from ..serializers.matrix_money_serializers import (
     MoneyBlocksSerializer,
     MoneyUnblockSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Matrix_Fate"])
-class CategoryWithMatrixMoneyAPIView(GenericAPIView):
+class CategoryWithMatrixMoneyAPIView(GenericAPIView, PaidCategoryAccessMixin):
     """Получает категорию по `id(15)` или `title(Деньги в матрице)` и арканы по переданным order_id."""
 
     # permission_classes = [IsActivePaidUser]
@@ -82,13 +83,9 @@ class CategoryWithMatrixMoneyAPIView(GenericAPIView):
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         order_params = {
             "professions": (SuitableProfessions, SuitableProfessionsSerializer),

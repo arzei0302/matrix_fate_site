@@ -15,10 +15,11 @@ from ..serializers.parent_child_karma_serializers import (
     RelationshipMistakesSerializer,
     PersonalGrowthSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Matrix_Fate"])
-class CategoryWithParentChildKarmaAPIView(APIView):
+class CategoryWithParentChildKarmaAPIView(APIView, PaidCategoryAccessMixin):
     """Получает категорию по `id(12)` или `title(Детско-родительская карма)` и три аспекта детско-родительской кармы по переданным order_id."""
     
     # permission_classes = [IsActivePaidUser]
@@ -53,13 +54,9 @@ class CategoryWithParentChildKarmaAPIView(APIView):
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         teach_order = request.query_params.get("teach")
         mistakes_order = request.query_params.get("mistakes")

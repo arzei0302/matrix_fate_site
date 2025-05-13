@@ -22,10 +22,11 @@ from ..serializers.matrix_relationships_serializers import (
     MeetingPlaceSerializer,
     RelationshipProblemsSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Matrix_Fate"])
-class CategoryWithMatrixRelationshipsAPIView(APIView):
+class CategoryWithMatrixRelationshipsAPIView(APIView, PaidCategoryAccessMixin):
     """Получает категорию по `id(14)` или `title(Отношения в матрице)` и информацию о партнерских отношениях по переданным order_id."""
 
     # permission_classes = [IsActivePaidUser]
@@ -66,13 +67,9 @@ class CategoryWithMatrixRelationshipsAPIView(APIView):
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         tasks_order = request.query_params.get("tasks")
         partner_order = request.query_params.get("partner")

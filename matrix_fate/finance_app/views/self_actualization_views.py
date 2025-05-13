@@ -10,10 +10,11 @@ from matrix_fate.finance_app.serializers.self_actualization_serializers import (
 )
 
 from ..models import FinanceCategory, YourOpportunity
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Finance Matrix"])
-class FinanceCategoryWithOpportunityAPIView(APIView):
+class FinanceCategoryWithOpportunityAPIView(APIView, PaidCategoryAccessMixin):
     """Получает категорию по `id(2)` или `title(Самореализация)` и связанные таблицы по переданному order_id."""
 
     serializer_class = FinanceCategorySelfActualizationSerializer
@@ -36,6 +37,10 @@ class FinanceCategoryWithOpportunityAPIView(APIView):
             category = get_object_or_404(
                 FinanceCategory, title__iexact=category_id_or_title
             )
+
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         opportunity_order = request.query_params.get("opportunity")
 

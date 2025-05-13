@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiParameter
-
+#
 from ..models import (
     ChildCategory,
     WhatChildShouldTeachParents,
@@ -16,9 +16,12 @@ from ..serializers.child_parent_karma_serializers import (
     WhatShouldComeQualitiesChildSerializer,
     ChildCategoryParentKarmaSerializer
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
+
+
 
 @extend_schema(tags=["Child Matrix"])
-class ChildCategoryWithParentKarmaAPIView(APIView):
+class ChildCategoryWithParentKarmaAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории (id=7 или title=Детско-родительская карма) + связанные арканы по order_id.
     """
@@ -38,6 +41,10 @@ class ChildCategoryWithParentKarmaAPIView(APIView):
             category = get_object_or_404(ChildCategory, id=int(category_id_or_title))
         else:
             category = get_object_or_404(ChildCategory, title__iexact=category_id_or_title)
+
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         arcana_a_order = request.query_params.get("arcana_a")
         arcana_a2_order = request.query_params.get("arcana_a2")

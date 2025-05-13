@@ -9,9 +9,11 @@ from ..serializers.child_point_of_comfort_serializers import (
     ChildCategoryPointOfComfortSerializer,
     ChildPointOfComfortSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
+
 
 @extend_schema(tags=["Child Matrix"])
-class ChildCategoryWithPointOfComfortAPIView(APIView):
+class ChildCategoryWithPointOfComfortAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории (id=4 или title=Точка душевного комфорта ребенка) + связанный аркан по order_id.
     """
@@ -35,6 +37,10 @@ class ChildCategoryWithPointOfComfortAPIView(APIView):
             category = get_object_or_404(
                 ChildCategory, title__iexact=category_id_or_title
             )
+
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         arcana_order = request.query_params.get("arcana_e")
 

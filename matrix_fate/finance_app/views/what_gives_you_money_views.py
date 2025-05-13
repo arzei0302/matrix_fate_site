@@ -20,10 +20,11 @@ from ..serializers.what_gives_you_money_serializers import (
     AreasOfRealizationSerializer,
     FinanceCategoryWhatGivesYouMoneySerializer
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Finance Matrix"])
-class FinanceCategoryWhatGivesYouMoneyAPIView(APIView):
+class FinanceCategoryWhatGivesYouMoneyAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории(id=4 или title=Что дает деньги) + три связанных аркана по order_id.
     """
@@ -62,13 +63,9 @@ class FinanceCategoryWhatGivesYouMoneyAPIView(APIView):
                 FinanceCategory, title__iexact=category_id_or_title
             )
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         money_order = request.query_params.get("money_j")
         money_channel_order = request.query_params.get("money_channel_l")

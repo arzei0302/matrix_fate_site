@@ -22,10 +22,11 @@ from ..serializers.ancestral_task7_serializers import (
     AncestralTaskFatherFemaleSerializer,
     AncestralTaskMotherFemaleSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Matrix_Fate"])
-class CategoryWithAncestralTask7APIView(GenericAPIView):
+class CategoryWithAncestralTask7APIView(GenericAPIView, PaidCategoryAccessMixin):
     """Получает категорию по `id(18)` или `title(Задачи рода до 7 колена)` и информацию о задачах рода по переданным order_id."""
 
     # permission_classes = [IsActivePaidUser]
@@ -66,13 +67,9 @@ class CategoryWithAncestralTask7APIView(GenericAPIView):
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         order_params = {
             "fm": (AncestralTaskFatherMale, AncestralTaskFatherMaleSerializer),

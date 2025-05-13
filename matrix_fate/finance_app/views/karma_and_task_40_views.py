@@ -20,9 +20,11 @@ from ..serializers.karma_and_task_40_serializers import (
     WhatBeforeYouTurn40YearsSerializer,
     WhatAfterYouTurn40YearsSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
+
 
 @extend_schema(tags=["Finance Matrix"])
-class FinanceCategoryWithKarmaAndTask40APIView(APIView):
+class FinanceCategoryWithKarmaAndTask40APIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории (id=6 или title=Карма и задача 40 лет) + связанные арканы по order_id.
     """
@@ -43,13 +45,9 @@ class FinanceCategoryWithKarmaAndTask40APIView(APIView):
         else:
             category = get_object_or_404(FinanceCategory, title__iexact=category_id_or_title)
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         arcana_c_order = request.query_params.get("arcana_c")
         arcana_c1_order = request.query_params.get("arcana_c1")

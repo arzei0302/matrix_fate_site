@@ -20,10 +20,11 @@ from ..serializers.what_blocks_money_energy_serializers import (
     TasksOpenMoneyChannel2Serializer,
     WhatBlocksMoneyEnergySerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Finance Matrix"])
-class FinanceCategoryWithBlocksAPIView(APIView):
+class FinanceCategoryWithBlocksAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории(id=5 или title=Что блокирует денежную энергию) + три связанных аркана по order_id.
     """
@@ -63,13 +64,9 @@ class FinanceCategoryWithBlocksAPIView(APIView):
                 FinanceCategory, title__iexact=category_id_or_title
             )
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         task_l_order = request.query_params.get("task_l")
         task_c2_order = request.query_params.get("task_c2")

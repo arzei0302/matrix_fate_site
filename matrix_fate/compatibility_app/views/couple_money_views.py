@@ -18,10 +18,11 @@ from ..serializers.couple_money_serializers import (
     WhatTasksUnlockMoneyChannelsSerializer,
     WhatBlocksMonetaryEnergySerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Compatibility Matrix"])
-class CompatibilityCategoryWithCoupleMoneyAPIView(APIView):
+class CompatibilityCategoryWithCoupleMoneyAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории(id=6 или title=Деньги в паре) + три связанных аркана по order_id.
     """
@@ -60,13 +61,10 @@ class CompatibilityCategoryWithCoupleMoneyAPIView(APIView):
             category = get_object_or_404(
                 CompatibilityCategory, title__iexact=category_id_or_title
             )
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        # ✅ проверка доступа через миксин
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         arcana_c2_order = request.query_params.get("arcana_c2")
         arcana_l_order = request.query_params.get("arcana_l")

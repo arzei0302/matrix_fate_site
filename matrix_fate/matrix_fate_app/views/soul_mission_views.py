@@ -28,10 +28,11 @@ from ..serializers.soul_mission_serializers import (
     SocialPurpose3Serializer,
     SpiritualPurposeSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Matrix_Fate"])
-class CategoryWithSoulMissionAPIView(GenericAPIView):
+class CategoryWithSoulMissionAPIView(GenericAPIView, PaidCategoryAccessMixin):
     """Получает категорию по `id(16)` или `title(Предназначение)` и информацию о предназначении по переданным order_id."""
 
     # permission_classes = [IsActivePaidUser]
@@ -90,13 +91,9 @@ class CategoryWithSoulMissionAPIView(GenericAPIView):
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         order_params = {
             "p1": (PersonalPurpose1, PersonalPurpose1Serializer),

@@ -15,9 +15,11 @@ from ..serializers.soul_work_serializers import (
     QualitiesRevealedSerializer,
     QualitiesDevelopedSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
+
 
 @extend_schema(tags=["Matrix_Fate"])
-class CategoryWithTalentsSoulAPIView(APIView):
+class CategoryWithTalentsSoulAPIView(APIView, PaidCategoryAccessMixin):
     """Получает категорию(id=5) или title(Кем работать для души) и таланты по переданным `order_id`."""
     
     # permission_classes = [IsActivePaidUser]
@@ -52,13 +54,9 @@ class CategoryWithTalentsSoulAPIView(APIView):
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         innate_order = request.query_params.get("innate")
         revealed_order = request.query_params.get("revealed")

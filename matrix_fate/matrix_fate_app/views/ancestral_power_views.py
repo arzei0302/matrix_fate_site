@@ -9,10 +9,11 @@ from ..serializers.ancestral_power_serializers import (
     CategoryWithAncestralPowerSerializer,
     AncestralPowerSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Matrix_Fate"])
-class CategoryWithAncestralPowerAPIView(APIView):
+class CategoryWithAncestralPowerAPIView(APIView, PaidCategoryAccessMixin):
     """Получает категорию по `id(11)` или `title(Сила рода)` и силу рода по переданному номеру (order_id)."""
 
     serializer_class = CategoryWithAncestralPowerSerializer
@@ -32,6 +33,10 @@ class CategoryWithAncestralPowerAPIView(APIView):
             category = get_object_or_404(Category, id=int(category_id_or_title))
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
+
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         order_id = request.query_params.get("order")
 

@@ -11,10 +11,11 @@ from ..serializers.couples_task_for_society_serializers import (
     CompatibilityCategoryCouplesTaskSerializer,
     CouplesTaskForSocietySerializer,
 )
+from common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Compatibility Matrix"])
-class CompatibilityCategoryWithCouplesTaskAPIView(APIView):
+class CompatibilityCategoryWithCouplesTaskAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории(id=5 или title=Задача пары для социума) + аркан по order_id.
     """
@@ -43,13 +44,10 @@ class CompatibilityCategoryWithCouplesTaskAPIView(APIView):
                 CompatibilityCategory, title__iexact=category_id_or_title
             )
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        # ✅ проверка доступа через миксин
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         arcana_v_order = request.query_params.get("arcana_v")
 

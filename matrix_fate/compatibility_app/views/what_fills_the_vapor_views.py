@@ -11,10 +11,11 @@ from ..serializers.what_fills_the_vapor_serializers import (
     CompatibilityCategoryWhatFillsSerializer,
     WhatFillsTheVaporSerializer,
 )
+from common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Compatibility Matrix"])
-class CompatibilityCategoryWithWhatFillsAPIView(APIView):
+class CompatibilityCategoryWithWhatFillsAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории(id=4 или title=От чего наполняется пара) + аркан по order_id.
     """
@@ -42,13 +43,10 @@ class CompatibilityCategoryWithWhatFillsAPIView(APIView):
                 CompatibilityCategory, title__iexact=category_id_or_title
             )
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        # ✅ проверка доступа через миксин
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         arcana_e_order = request.query_params.get("arcana_e")
 

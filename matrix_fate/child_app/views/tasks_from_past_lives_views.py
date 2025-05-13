@@ -15,9 +15,11 @@ from ..serializers.tasks_from_past_lives_serializers import (
     SoulPastExperiencesWithPeopleSerializer,
     LessonsFromPastLifeSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
+
 
 @extend_schema(tags=["Child Matrix"])
-class ChildCategoryWithPastLivesTasksAPIView(APIView):
+class ChildCategoryWithPastLivesTasksAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории (id=5 или title=Задачи, которые тянутся из прошлых жизней) + связанные арканы по order_id.
     """
@@ -38,13 +40,9 @@ class ChildCategoryWithPastLivesTasksAPIView(APIView):
         else:
             category = get_object_or_404(ChildCategory, title__iexact=category_id_or_title)
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         arcana_d_order = request.query_params.get("arcana_d")
         arcana_d1_order = request.query_params.get("arcana_d1")

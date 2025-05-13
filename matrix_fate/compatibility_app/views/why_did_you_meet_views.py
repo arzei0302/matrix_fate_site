@@ -11,10 +11,11 @@ from ..serializers.why_did_you_meet_serializers import (
     CompatibilityCategorySerializer,
     WhyDidYouMeetSerializer,
 )
+from common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Compatibility Matrix"])
-class CompatibilityCategoryWithWhyDidYouMeetAPIView(APIView):
+class CompatibilityCategoryWithWhyDidYouMeetAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории(id=1 или title=Для чего вы встретились) + связанный аркан по order_id.
     """
@@ -39,13 +40,10 @@ class CompatibilityCategoryWithWhyDidYouMeetAPIView(APIView):
                 CompatibilityCategory, title__iexact=category_id_or_title
             )
 
-        # if not is_active_paid_user(request.user):
-        #     return Response({
-        #         "category": {
-        #             "id": category.id,
-        #             "title": category.title,
-        #         }
-        #     })
+        # ✅ проверка доступа через миксин
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         arcana_order = request.query_params.get("arcana_a")
 

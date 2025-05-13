@@ -9,10 +9,11 @@ from ..serializers.self_realization_serializers import (
     CategorySelfRealizationSerializer,
     SelfRealizationSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Matrix_Fate"])
-class CategoryWithSelfRealizationAPIView(APIView):
+class CategoryWithSelfRealizationAPIView(APIView, PaidCategoryAccessMixin):
     """Получает категорию(id=8) или title(Самореализация) и таланты по переданным `order_id`."""
 
     serializer_class = CategorySelfRealizationSerializer
@@ -33,6 +34,10 @@ class CategoryWithSelfRealizationAPIView(APIView):
             category = get_object_or_404(Category, id=int(category_id_or_title))
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
+
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         realization_order = request.query_params.get("realization")
 

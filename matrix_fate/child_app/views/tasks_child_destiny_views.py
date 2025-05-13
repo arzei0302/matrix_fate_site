@@ -4,8 +4,7 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
-from matrix_fate.common.permissions import is_active_paid_user
-
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 from ..models import ChildCategory, ChildDestinyArcana1, ChildDestinyArcana2, ChildDestinyArcana3
 from ..serializers.tasks_child_destiny_serializers import (
     ChildCategoryDestinySerializer,
@@ -14,12 +13,12 @@ from ..serializers.tasks_child_destiny_serializers import (
     ChildDestinyArcana3Serializer,
 )
 
+
 @extend_schema(tags=["Child Matrix"])
-class ChildCategoryWithDestinyAPIView(APIView):
+class ChildCategoryWithDestinyAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории (id=6 или title=Предназначение ребенка) + связанные арканы по order_id.
     """
-    permission_classes = []
     serializer_class = ChildCategoryDestinySerializer
 
     @extend_schema(
@@ -30,23 +29,25 @@ class ChildCategoryWithDestinyAPIView(APIView):
         ]
     )
     def get(self, request, category_id_or_title):
-
         if category_id_or_title.isdigit():
             category = get_object_or_404(ChildCategory, id=int(category_id_or_title))
         else:
             category = get_object_or_404(ChildCategory, title__iexact=category_id_or_title)
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        # ✅ проверка доступа через миксин
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         arcana_r_order = request.query_params.get("arcana_r")
         arcana_s_order = request.query_params.get("arcana_s")
         arcana_y_order = request.query_params.get("arcana_y")
+
+        if not arcana_r_order and not arcana_s_order and not arcana_y_order:
+            return Response(
+                {"error": "Необходимо передать хотя бы один order_id аркана (arcana_r, arcana_s, arcana_y)"},
+                status=HTTP_400_BAD_REQUEST,
+            )
 
         response_data = {
             "id": category.id,
@@ -84,11 +85,5 @@ class ChildCategoryWithDestinyAPIView(APIView):
                     {"error": f"Аркан с order_id={arcana_y_order} в ChildDestinyArcana3 не найден"},
                     status=HTTP_404_NOT_FOUND,
                 )
-
-        if not arcana_r_order and not arcana_s_order and not arcana_y_order:
-            return Response(
-                {"error": "Необходимо передать хотя бы один order_id аркана (arcana_r, arcana_s, arcana_y)"},
-                status=HTTP_400_BAD_REQUEST,
-            )
 
         return Response({"category": response_data})

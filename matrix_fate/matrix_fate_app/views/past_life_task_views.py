@@ -15,10 +15,11 @@ from ..serializers.past_life_task_serializers import (
     PastLifeExperienceSerializer,
     PastLifeLessonSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Matrix_Fate"])
-class CategoryWithPastLifeTaskAPIView(APIView):
+class CategoryWithPastLifeTaskAPIView(APIView, PaidCategoryAccessMixin):
     """Получает категорию(id=9) или title(Задачи которые тянутся из прошлых жизней) и таланты по переданным `order_id`."""
 
     # permission_classes = [IsActivePaidUser]
@@ -53,13 +54,9 @@ class CategoryWithPastLifeTaskAPIView(APIView):
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         main_order = request.query_params.get("main")
         experience_order = request.query_params.get("experience")

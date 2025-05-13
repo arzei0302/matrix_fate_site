@@ -20,10 +20,11 @@ from ..serializers.talents_serializers import (
     YourGreatestTalentBirthSerializer,
     FinanceCategoryTalentsSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Finance Matrix"])
-class FinanceCategoryWithTalentsAPIView(APIView):
+class FinanceCategoryWithTalentsAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории(id=1 или title=Таланты) + связанные арканы по их order_id.
     """
@@ -61,13 +62,9 @@ class FinanceCategoryWithTalentsAPIView(APIView):
                 FinanceCategory, title__iexact=category_id_or_title
             )
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         birth_order = request.query_params.get("birth_a")
         youth_order = request.query_params.get("youth_b")

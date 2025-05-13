@@ -12,10 +12,11 @@ from ..serializers.personal_qualities_serializers import (
     CategorySerializer, BirthTalentSerializer, 
     YouthTalentSerializer, MatureTalentSerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=['Matrix_Fate'])
-class CategoryWithTalentsAPIView(APIView):
+class CategoryWithTalentsAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории(id=1 или title=Личные качества) + связанные арканы по их order_id.
     """
@@ -49,6 +50,10 @@ class CategoryWithTalentsAPIView(APIView):
             category = get_object_or_404(Category, id=int(category_id_or_title))
         else:
             category = get_object_or_404(Category, title__iexact=category_id_or_title)
+
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         birth_order = request.query_params.get("birth_a")
         youth_order = request.query_params.get("youth_b")

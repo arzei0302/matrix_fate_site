@@ -20,10 +20,11 @@ from ..serializers.destination_society_serializers import (
     TaskPersonalArcana3Serializer,
     FinanceCategoryDestinationSocietySerializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Finance Matrix"])
-class FinanceCategoryWithTasksAPIView(APIView):
+class FinanceCategoryWithTasksAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории(id=3 или title=Предназначение для социума) + задачи персональных арканов по order_id.
     """
@@ -61,13 +62,9 @@ class FinanceCategoryWithTasksAPIView(APIView):
                 FinanceCategory, title__iexact=category_id_or_title
             )
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         task_t_order = request.query_params.get("task_t")
         task_u_order = request.query_params.get("task_u")

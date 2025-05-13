@@ -12,9 +12,12 @@ from ..serializers.child_personal_qualities_serializers import (
     QualitiesRevealedAgeOf20Serializer,
     ThirdTalentRevealedAge40Serializer,
 )
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
+
+
 
 @extend_schema(tags=["Child Matrix"])
-class ChildCategoryWithPersonalQualitiesAPIView(APIView):
+class ChildCategoryWithPersonalQualitiesAPIView(APIView, PaidCategoryAccessMixin):
     """
     Эндпоинт для получения категории (id=2 или title=Личные качества) + связанный аркан по order_id.
     """
@@ -42,13 +45,9 @@ class ChildCategoryWithPersonalQualitiesAPIView(APIView):
                 ChildCategory, title__iexact=category_id_or_title
             )
 
-        if not is_active_paid_user(request.user):
-            return Response({
-                "category": {
-                    "id": category.id,
-                    "title": category.title,
-                }
-            })
+        access_response = self.check_category_access(request, category)
+        if access_response:
+            return access_response
 
         arcana_b_order = request.query_params.get("arcana_b")
         arcana_c_order = request.query_params.get("arcana_c")
