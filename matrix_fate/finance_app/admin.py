@@ -104,6 +104,7 @@ class BaseAdmin(admin.ModelAdmin):
     list_filter = ("id",)
     list_per_page = 22
     list_display_links = ("order_id", "title", "description")
+    readonly_fields = ("order_id", "marker")
 
 
 class FinanceCategoryAdmin(admin.ModelAdmin):

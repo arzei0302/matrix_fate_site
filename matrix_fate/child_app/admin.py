@@ -19,7 +19,7 @@ from .models import (
     MatrixChildProgram,
 )
 
-#
+
 class MatrixAdmin(AdminSite):
     site_header = "Управление данными для Детской матрицы"
     site_title = "Админ панель Детской матрицы"
@@ -93,6 +93,7 @@ class BaseAdmin(admin.ModelAdmin):
     list_filter = ("id",)
     list_per_page = 22
     list_display_links = ("order_id", "title", "description")
+    readonly_fields = ("order_id", "marker")
 
 
 class ChildCategoryAdmin(admin.ModelAdmin):
@@ -113,46 +114,46 @@ class MatrixChildProgramAdmin(admin.ModelAdmin):
 
 
 
-class ChildBusinessCardAdmin(admin.ModelAdmin):
+class ChildBusinessCardAdmin(BaseAdmin):
     pass
 
-class QualitiesRevealedAgeOf20Admin(admin.ModelAdmin):
+class QualitiesRevealedAgeOf20Admin(BaseAdmin):
     pass
 
-class ThirdTalentRevealedAge40Admin(admin.ModelAdmin):
+class ThirdTalentRevealedAge40Admin(BaseAdmin):
     pass
 
-class ChildOpportunityAdmin(admin.ModelAdmin):
+class ChildOpportunityAdmin(BaseAdmin):
     pass
 
-class ChildPointOfComfortAdmin(admin.ModelAdmin):
+class ChildPointOfComfortAdmin(BaseAdmin):
     pass
 
-class MainTaskSoulAdmin(admin.ModelAdmin):
+class MainTaskSoulAdmin(BaseAdmin):
     pass
 
-class SoulPastExperiencesWithPeopleAdmin(admin.ModelAdmin):
+class SoulPastExperiencesWithPeopleAdmin(BaseAdmin):
     pass
 
-class LessonsFromPastLifeAdmin(admin.ModelAdmin):
+class LessonsFromPastLifeAdmin(BaseAdmin):
     pass
 
-class ChildDestinyArcana1Admin(admin.ModelAdmin):
+class ChildDestinyArcana1Admin(BaseAdmin):
     pass
 
-class ChildDestinyArcana2Admin(admin.ModelAdmin):
+class ChildDestinyArcana2Admin(BaseAdmin):
     pass
 
-class ChildDestinyArcana3Admin(admin.ModelAdmin):
+class ChildDestinyArcana3Admin(BaseAdmin):
     pass
 
-class WhatChildShouldTeachParentsAdmin(admin.ModelAdmin):
+class WhatChildShouldTeachParentsAdmin(BaseAdmin):
     pass
 
-class WhatMistakesRelationshipParentsChildrenAdmin(admin.ModelAdmin):
+class WhatMistakesRelationshipParentsChildrenAdmin(BaseAdmin):
     pass
 
-class WhatShouldComeQualitiesChildAdmin(admin.ModelAdmin):
+class WhatShouldComeQualitiesChildAdmin(BaseAdmin):
     pass
 
 
