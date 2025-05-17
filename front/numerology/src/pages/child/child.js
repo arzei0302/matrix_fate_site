@@ -112,7 +112,7 @@ function Child() {
 
     try {
       const response = await axios.post(
-          "https://numerology-calculator.fi/child/guest-child-pdf/",
+          "https://numerology-calculator.fi/api/child/guest-child-pdf/",
           payload,
           {
             responseType: "blob"

@@ -7,7 +7,7 @@ const SignIn = ({ isOpen, onClose, onSuccess }) => {
   const [login, setLogin] = useState("");
   const [code, setCode] = useState("");
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const BASE_URL = "https://numerology-calculator.fi";
+  const BASE_URL = "https://numerology-calculator.fi/api";
 
   if (!isOpen) return null;
 

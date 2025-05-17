@@ -5,7 +5,7 @@ import "./ViewHistory.scss";
 
 function ViewHistory() {
   const { t } = useTranslation();
-  const BASE_URL = "https://numerology-calculator.fi";
+  const BASE_URL = "https://numerology-calculator.fi/api";
   const accessToken = localStorage.getItem("accessToken");
   const [data, setData] = useState();
 

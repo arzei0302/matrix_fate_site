@@ -40,7 +40,7 @@ if (lang=="en") {
   useEffect(() => {
     const getTariffs = async () => {
       try {
-        const response = await axios.get("https://numerology-calculator.fi/other/tariffs/");
+        const response = await axios.get("https://numerology-calculator.fi/api/other/tariffs/");
 
         const orderTypeMap = {
           1: "month",

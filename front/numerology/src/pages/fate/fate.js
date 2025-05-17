@@ -131,7 +131,7 @@ function Fate() {
 
     try {
       const response = await axios.post(
-          "https://numerology-calculator.fi/matrix_fate/guest-matrix-pdf/",
+          "https://numerology-calculator.fi/api/matrix_fate/guest-matrix-pdf/",
           payload,
           {
             responseType: "blob"
