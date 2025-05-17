@@ -16,7 +16,7 @@ from ..serializers.couple_resources_serializers import (
     CoupleResourcesArcana1Serializer,
     CoupleResourcesArcana2Serializer,
 )
-from common.mixins import PaidCategoryAccessMixin
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Compatibility Matrix"])

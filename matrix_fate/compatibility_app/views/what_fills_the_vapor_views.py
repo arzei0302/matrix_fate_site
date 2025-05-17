@@ -11,7 +11,7 @@ from ..serializers.what_fills_the_vapor_serializers import (
     CompatibilityCategoryWhatFillsSerializer,
     WhatFillsTheVaporSerializer,
 )
-from common.mixins import PaidCategoryAccessMixin
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Compatibility Matrix"])

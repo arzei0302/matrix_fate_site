@@ -18,7 +18,7 @@ from ..serializers.couple_relations_serializers import (
     CoupleRelations2Serializer,
     WhatRelationshipProblemsCanAriseSerializer,
 )
-from common.mixins import PaidCategoryAccessMixin
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Compatibility Matrix"])

@@ -11,7 +11,7 @@ from ..serializers.why_did_you_meet_serializers import (
     CompatibilityCategorySerializer,
     WhyDidYouMeetSerializer,
 )
-from common.mixins import PaidCategoryAccessMixin
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Compatibility Matrix"])

@@ -11,7 +11,7 @@ from ..serializers.couples_task_for_society_serializers import (
     CompatibilityCategoryCouplesTaskSerializer,
     CouplesTaskForSocietySerializer,
 )
-from common.mixins import PaidCategoryAccessMixin
+from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
 
 @extend_schema(tags=["Compatibility Matrix"])
