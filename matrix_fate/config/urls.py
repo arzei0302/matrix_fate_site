@@ -26,13 +26,13 @@ urlpatterns = [
     path("ckeditor/", include("ckeditor_uploader.urls")),
 
     path('', home_redirect),
-    path('matrix_auth/', include('matrix_fate.matrix_auth_app.urls')),
-    path('matrix_fate/', include('matrix_fate.matrix_fate_app.urls')),
-    path('finance/', include('matrix_fate.finance_app.urls')),
-    path('compatibility/', include('matrix_fate.compatibility_app.urls')),
-    path('child/', include('matrix_fate.child_app.urls')),
-    path('prognisis/', include('matrix_fate.prognosis_app.urls')),
-    path('other/', include('matrix_fate.other_app.urls')),
+    path('api/matrix_auth/', include('matrix_fate.matrix_auth_app.urls')),
+    path('api/matrix_fate/', include('matrix_fate.matrix_fate_app.urls')),
+    path('api/finance/', include('matrix_fate.finance_app.urls')),
+    path('api/compatibility/', include('matrix_fate.compatibility_app.urls')),
+    path('api/child/', include('matrix_fate.child_app.urls')),
+    path('api/prognisis/', include('matrix_fate.prognosis_app.urls')),
+    path('api/other/', include('matrix_fate.other_app.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -54,7 +54,7 @@ function Prognoses() {
         }
     };
 
-    const BASE_URL = "https://numerology-calculator.fi";
+    const BASE_URL = "https://numerology-calculator.fi/api";
     const handleCalculate = async () => {
         setCombinedData({});
         setNumerologyData({});

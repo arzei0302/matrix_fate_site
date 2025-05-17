@@ -101,7 +101,7 @@ function Finance() {
 
     try {
       const response = await axios.post(
-          "https://numerology-calculator.fi/finance/guest-finance-pdf/",
+          "https://numerology-calculator.fi/api/finance/guest-finance-pdf/",
           payload,
           {
             responseType: "blob"
