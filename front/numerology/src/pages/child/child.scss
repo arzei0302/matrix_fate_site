@@ -65,7 +65,8 @@ $shadow: 0 0 10px rgba(7, 60, 54, 0.08);
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: darken($primary-color, 5%);
+        background-color: #a9ffb9;
+        color: black;
       }
     }
 

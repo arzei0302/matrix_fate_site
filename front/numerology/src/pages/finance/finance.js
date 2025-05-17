@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import axios from "axios"
+import axios from "axios";
 import NumerologyChart from "../../components/NumerologyChart/NumerologyChart";
 import InfoTable from "../../components/InfoTable/InfoTable";
 import Accordions from "../../components/Accordions/Accordions";
@@ -90,6 +90,7 @@ function Finance() {
       console.error("Ошибка при выполнении расчёта:", error.message);
     }
   };
+
   const handleDownload = async () => {
     document.body.style.cursor = "wait";
     const payload = {
@@ -122,59 +123,65 @@ function Finance() {
       document.body.style.cursor = "auto"; // возвращаем обычный курсор
     }
   };
+
+  // Вызов handleCalculate при первоначальной загрузке компонента
+  useEffect(() => {
+    handleCalculate(); // только для аккордеонов
+  }, []);  // [] - чтобы сработало только при первом рендере
+
   return (
-    <div className="FateRlc">
-      <div className="Fate">
-        <div className="FateFirstColumn">
-          <div className="birthdate-container">
-            <span className="bd-text">{t("financePage.enterBirthDate")}</span>
+      <div className="FateRlc">
+        <div className="Fate">
+          <div className="FateFirstColumn">
+            <div className="birthdate-container">
+              <span className="bd-text">{t("financePage.enterBirthDate")}</span>
 
-            <div className="select-container">
-              <label className="select-label">{t("financePage.day")}</label>
-              <select className="custom-select" value={day} onChange={(e) => setDay(Number(e.target.value))}>
-                {Array.from({ length: getDaysInMonth(month, year) }, (_, i) => i + 1).map((d) => (
-                  <option key={d} value={d}>{d}</option>
-                ))}
-              </select>
+              <div className="select-container">
+                <label className="select-label">{t("financePage.day")}</label>
+                <select className="custom-select" value={day} onChange={(e) => setDay(Number(e.target.value))}>
+                  {Array.from({ length: getDaysInMonth(month, year) }, (_, i) => i + 1).map((d) => (
+                      <option key={d} value={d}>{d}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="select-container">
+                <label className="select-label">{t("financePage.month")}</label>
+                <select className="custom-select" value={month.name} onChange={handleMonthChange}>
+                  {months.map((m) => (
+                      <option key={m.name} value={m.name}>{t(`months.${m.value}`)}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="select-container">
+                <label className="select-label">{t("financePage.year")}</label>
+                <select className="custom-select" value={year} onChange={handleYearChange}>
+                  {years.map((y) => (
+                      <option key={y} value={y}>{y}</option>
+                  ))}
+                </select>
+              </div>
+              <button onClick={handleCalculate}>{t("financePage.calculate")}</button>
             </div>
 
-            <div className="select-container">
-              <label className="select-label">{t("financePage.month")}</label>
-              <select className="custom-select" value={month.name} onChange={handleMonthChange}>
-                {months.map((m) => (
-                  <option key={m.name} value={m.name}>{t(`months.${m.value}`)}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="select-container">
-              <label className="select-label">{t("financePage.year")}</label>
-              <select className="custom-select" value={year} onChange={handleYearChange}>
-                {years.map((y) => (
-                  <option key={y} value={y}>{y}</option>
-                ))}
-              </select>
-            </div>
-            <button onClick={handleCalculate}>{t("financePage.calculate")}</button>
+            <NumerologyChart numbers={numerologyData} onCalculate={handleCalculate} />
           </div>
 
-          <NumerologyChart numbers={numerologyData} onCalculate={handleCalculate} />
+          <InfoTable
+              chakraData={newChakraData}
+              numbers={numerologyData}
+              personalInfo={newPersonalInfo}
+              showChakraTable={false}
+          />
+        </div>
+        <button className='downloadBtn' onClick={handleDownload}>{t("financePage.download")}</button>
+        <div className="accordions">
+          <Accordions data={combinedData} defaultAccordionData={defaultAccordionData} />
         </div>
 
-        <InfoTable
-          chakraData={newChakraData}
-          numbers={numerologyData}
-          personalInfo={newPersonalInfo}
-          showChakraTable={false}
-        />
+        <DateDecodingCard />
       </div>
-      <button className='downloadBtn' onClick={handleDownload}> {t("financePage.download")}</button>
-      <div className="accordions">
-        <Accordions data={combinedData} defaultAccordionData={defaultAccordionData} />
-      </div>
-
-      <DateDecodingCard />
-    </div>
   );
 }
 

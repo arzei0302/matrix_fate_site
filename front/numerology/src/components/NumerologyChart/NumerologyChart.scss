@@ -121,17 +121,17 @@
   // Правая сторона
   .right1 { @include circle-position(46.4%, auto, 8%, #f14036) }
   .right2 { @include circle-position(47.6%, auto, 15.6%); }
-  .right3 { @include circle-position(48%, auto, 23.6%,#f89024); }
-  .right4 { @include circle-position(47%, auto, 29%); }
-  .right5 { @include circle-position(47.4%, auto, 38.8%); }
+  .right3 { @include circle-position(48%, auto, 24.5%,#f89024); }
+  .right4 { @include circle-position(47%, auto, 34%); }
+  .right5 { @include circle-position(47.4%, auto, 40.8%); }
 
   // Нижний правый угол
   .bottomRight1 { @include circle-position(74%, auto, 19%); }
   .bottomRight2 { @include circle-position(69.4%, auto, 25.6%); }
   .bottomRight3 { @include circle-position(65%, auto, 30.6%); }
   .bottomRight4 { @include circle-position(58%, auto, 38.5%); }
-  .bottomRight5 { @include circle-position(62%, auto, 39.6%); }
-  .bottomRight6 { @include circle-position(57.8%, auto, 34%); }
+  .bottomRight5 { @include circle-position(64.6%, auto, 40%); }
+  .bottomRight6 { @include circle-position(57.1%, auto, 32.5%); }
 
   // Нижние элементы
   .bottom1 { @include circle-position(85.4%, auto, 47%, #f14036); }
@@ -267,8 +267,10 @@
   } 
 
   @media (max-width: 590px) {
-
       .shema{
+      .number {
+        font-size: 9px;
+      }
         width: 340px;
         height: 340px;
       }
@@ -343,6 +345,71 @@
  
    // центр
    .center{ @include circle-position(45%, 45.5%, auto,#fef102);}
+    .year21 { @include number-position(9%,auto, 42.5%);}
+    .year22 { @include number-position(10%,auto, 39.5%);}
+    .year23 { @include number-position(11%,auto, 36.5%);}
+    .year24 { @include number-position(12.5%,auto, 33.5%);}
+    .year25 { @include number-position(13.5%,auto, 30.5%);}
+    .year26 { @include number-position(15%,auto, 27.5%);}
+    .year27 { @include number-position(16%,auto, 25.5%);}
 
- 
-    }
+    // 31-38 года
+    .year31 { @include number-position(24%,auto, 16.5%);}
+    .year32 { @include number-position(27%,auto, 15.5%);}
+    .year33 { @include number-position(30%,auto, 14.5%);}
+    .year34 { @include number-position(33%,auto, 12.5%);}
+    .year35 { @include number-position(36%,auto, 12%);}
+    .year36 { @include number-position(39%,auto, 10.5%);}
+    .year37 { @include number-position(42%,auto, 9.5%);}
+
+    // 41-48 года
+    .year41 { @include number-position(54.5%,auto,10%);}
+    .year42 { @include number-position(57.5%,auto, 10.5%);}
+    .year43 { @include number-position(60.5%,auto, 12%);}
+    .year44 { @include number-position(63.5%,auto, 12.5%);}
+    .year45 { @include number-position(65.5%,auto, 14%);}
+    .year46 { @include number-position(68.5%,auto, 15.5%);}
+    .year47 { @include number-position(71.5%,auto, 16.5%);}
+
+    // 51-58 года
+    .year51 { @include number-position(80.5%,auto,26%);}
+    .year52 { @include number-position(81%,auto, 29%);}
+    .year53 { @include number-position(82.5%,auto, 31%);}
+    .year54 { @include number-position(84%,auto, 34%);}
+    .year55 { @include number-position(85%,auto, 36%);}
+    .year56 { @include number-position(86.5%,auto, 39%);}
+    .year57 { @include number-position(88%,auto, 42%);}
+    // 61-68 Года
+    .year61 { @include number-position(86%,44%, auto);}
+    .year62 { @include number-position(85.5%,41%, auto);}
+    .year63 { @include number-position(84%, 37.5%, auto);}
+    .year64 { @include number-position(83%, 35%, auto);}
+    .year65 { @include number-position(81.3%, 31.5%, auto);}
+    .year66 { @include number-position(80%,28.5%, auto);}
+    .year67 { @include number-position(78.5%,26.4%,auto);}
+    // 71-78 года
+    .year71 { @include number-position(72.5%,15.5%, auto);}
+    .year72 { @include number-position(69.5%,14.5%, auto);}
+    .year73 { @include number-position(66.5%, 13%, auto);}
+    .year74 { @include number-position(63.5%, 11.5%, auto);}
+    .year75 { @include number-position(60.5%, 10.5%, auto);}
+    .year76 { @include number-position(57.5%,9.5%, auto);}
+    .year77 { @include number-position(54.5%,8%,auto);}
+    // 1 до 8 лет
+    .year1 { @include number-position(41%,9%, auto);}
+    .year2 { @include number-position(38%,10%, auto);}
+    .year3 { @include number-position(35%, 11%, auto);}
+    .year4 { @include number-position(32%, 12.3%, auto);}
+    .year5 { @include number-position(29%, 14%, auto);}
+    .year6 { @include number-position(26%,15%, auto);}
+    .year7 { @include number-position(22.5%,16.5%,auto);}
+    // 11 до 18 лет
+    .year11 { @include number-position(15%,26.5%, auto);}
+    .year12 { @include number-position(14%,29%, auto);}
+    .year13 { @include number-position(13%, 32%, auto);}
+    .year14 { @include number-position(11%, 35%, auto);}
+    .year15 { @include number-position(10%, 38%, auto);}
+    .year16 { @include number-position(9%,41%, auto);}
+    .year17 { @include number-position(8%,44%,auto);}
+
+  }

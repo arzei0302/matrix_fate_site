@@ -310,17 +310,14 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = "Asia/Bishkek"
 
 # CELERY_BEAT_SCHEDULE = {
-#     'check_expired_profiles_daily': {
-#         'task': 'matrix_auth_app.tasks.check_expired_profiles',
-#         # 'schedule': crontab(hour=0, minute=0),
+#     'check_expired_profiles_every_5_min': {
+#         'task': 'matrix_fate.matrix_auth_app.tasks.check_expired_profiles',
 #         'schedule': crontab(minute='*/5'),
-
 #     },
 # }
 CELERY_BEAT_SCHEDULE = {
-    'check_expired_profiles_every_5_min': {
-        'task': 'matrix_fate.matrix_auth_app.tasks.check_expired_profiles',  # <=== исправлено
-        'schedule': crontab(minute='*/5'),
+    'check_expired_profiles_daily_midnight': {
+        'task': 'matrix_fate.matrix_auth_app.tasks.check_expired_profiles',
+        'schedule': crontab(minute=0, hour=0),
     },
 }
-

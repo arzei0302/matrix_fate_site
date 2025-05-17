@@ -35,7 +35,7 @@ let button="";
 if (lang=="en") {
   button="Buy"
 } else {
-  button="Ostaa"
+  button="Osta"
 }
   useEffect(() => {
     const getTariffs = async () => {
