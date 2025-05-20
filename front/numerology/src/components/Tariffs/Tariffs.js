@@ -10,7 +10,7 @@ function Tariffs() {
   useEffect(() => {
     const getTariffs = async () => {
       try {
-        const response = await axios.get("https://numerology-calculator.fi/api/other/tariffs/");
+        const response = await axios.get("https://numerology-calculator.fi/api/other/tariffs");
         setTariffs(response.data);
         console.log(response.data);
       } catch (error) {

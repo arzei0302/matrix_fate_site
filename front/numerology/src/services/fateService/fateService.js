@@ -8,7 +8,17 @@ const handleError = (error) => {
     console.error("Ошибка при получении данных:", error.message);
     throw error;
 };
-
+const catch403AndReturnData = (error) => {
+    if (error.response?.status === 403 && error.response?.data?.category) {
+        return {
+            ...error.response.data,
+            error: true,
+            status: 403
+        };
+    }
+    console.error("Ошибка:", error.message);
+    throw error;
+};
 // 📌 Функция для расчёта матрицы судьбы
 export const calculateNumerology = async ({ day, month, year }) => {
     try {
@@ -20,7 +30,7 @@ export const calculateNumerology = async ({ day, month, year }) => {
         });
         return response.data.matrix;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 };
 
@@ -37,7 +47,7 @@ export const getQualitiesData = async ({ a, b, c }) => {
         const response = await api.get(`${BASE_URL}/matrix_fate/personal_qualities/1/talents/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 };
 
@@ -51,7 +61,7 @@ export const getSoulWorkData = async ({ a, b, c }) => {
         const response = await api.get(`${BASE_URL}/matrix_fate/soul_work/5/talents/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 };
 
@@ -65,7 +75,7 @@ export const getKarmaData = async ({ d2, d1, d }) => {
         const response = await api.get(`${BASE_URL}/matrix_fate/main_task_40/6/talents/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 };
 
@@ -79,7 +89,7 @@ export const getPastLife=async({d1,d2,d})=>{
         const response = await api.get(`${BASE_URL}/matrix_fate/past_life_task/9/talents/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
     
 }
@@ -92,7 +102,7 @@ export const getComfortPoint=async({e})=>{
         const response = await api.get(`${BASE_URL}/matrix_fate/soul_comfort_point/7/talents/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
     
 }
@@ -106,7 +116,7 @@ export const getSelfRealization=async({a2})=>{
         const response = await api.get(`${BASE_URL}/matrix_fate/self_realization/8/talents/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
     
 }
@@ -119,7 +129,7 @@ export const getPointPersonalPower=async({e})=>{
         const response = await api.get(`${BASE_URL}/matrix_fate/personal_power_point/10/personal_power_point/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 
 
@@ -133,7 +143,7 @@ export const getGenericPower=async({e1})=>{
         const response = await api.get(`${BASE_URL}/matrix_fate/ancestral_power/11/ancestral_power/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 }
 
@@ -147,7 +157,7 @@ export const getParentChildKarma=async({a2,a,a1})=>{
         const response = await api.get(`${BASE_URL}/matrix_fate/parent_child_karma/12/parent_child_karma/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 }
 
@@ -161,7 +171,7 @@ export const getSpiritualKarma=async({b,b1,b2})=>{
         const response = await api.get(`${BASE_URL}/matrix_fate/spiritual_karma/13/spiritual_karma/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 }
 
@@ -176,7 +186,7 @@ export const getMatrixRelationship=async({k,d2,j})=>{
         const response = await api.get(`${BASE_URL}/matrix_fate/matrix_relationships/14/matrix_relationships/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 }
 
@@ -193,7 +203,7 @@ export const getMatrixMoney=async({l,j,c2})=>{
         const response = await api.get(`${BASE_URL}/matrix_fate/matrix_money/15/matrix_money/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 }
 
@@ -211,7 +221,7 @@ export const getSoulMission=async({r,s,y,t,u,v,w})=>{
         const response = await api.get(`${BASE_URL}/matrix_fate/soul_mission/16/soul_mission/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 }
 
@@ -227,7 +237,7 @@ export const getDiseasePredisposition=async({h,i,a,b,c})=>{
         const response = await api.get(`${BASE_URL}/matrix_fate/disease_predisposition/17/disease_predisposition/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 }
 
@@ -262,7 +272,7 @@ export const getHealthMap=async({o6,p6,q6,o4,p4,q4,o3,p3,q3,o1,p1,q1,o7,p7,q7,o2
         const response = await api.get(`${BASE_URL}/matrix_fate/health_map/2/health_map/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 }
 

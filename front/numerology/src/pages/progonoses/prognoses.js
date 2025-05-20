@@ -119,7 +119,6 @@ function Prognoses() {
             <div className="accordions">
                 <Accordions
                     data={combinedData}
-                    defaultAccordionData={defaultAccordionData}
                 />
             </div>
 

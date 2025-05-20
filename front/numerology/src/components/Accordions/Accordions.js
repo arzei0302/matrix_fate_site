@@ -9,65 +9,32 @@ import LockIcon from '@mui/icons-material/Lock';
 import { useTranslation } from 'react-i18next';
 import './Accordions.scss';
 
-const Accordions = ({ data, defaultAccordionData }) => {
+const Accordions = ({ data }) => {
   const [expanded, setExpanded] = useState(null);
   const [accordionData, setAccordionData] = useState([]);
   const { t } = useTranslation();
-
+  console.log('accdata',data)
   useEffect(() => {
-    const normalizedData = {};
+    if (!data || typeof data !== 'object') return;
 
-    // Преобразуем входящие данные (успешные и 403)
-    if (data && typeof data === 'object') {
-      Object.keys(data).forEach((key) => {
-        const value = data[key];
+    const transformedData = Object.entries(data).map(([key, value]) => {
+      const val = Array.isArray(value) && value.length > 0 ? value[0] : value;
 
-        if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object') {
-          normalizedData[key] = {
-            ...value[0],
-            is_paid: false
-          };
-        } else if (typeof value === 'object') {
-          normalizedData[key] = {
-            ...value,
-            is_paid: value.is_paid ?? false
-          };
-        }
-      });
-    }
+      // 🧠 распаковка, если category внутри category
+      const realCategory = val?.category?.category || val?.category || {};
+      const isPaid = realCategory?.is_paid ?? val?.is_paid ?? false;
 
-    // Обновляем те, что уже есть в defaultAccordionData
-    const merged = defaultAccordionData.map((item) => {
-      const incoming = normalizedData[item.key];
-      return {
-        ...item,
-        ...incoming,
-        title: incoming?.category?.title || incoming?.title || item.title,
-        description: incoming?.description || item.description || '',
-        is_paid: incoming?.is_paid ?? item.is_paid ?? false,
-        category: incoming?.category || item.category || {}
-      };
-    });
-
-    // Добавляем новые секции, которых не было в defaultAccordionData
-    const newKeys = Object.keys(normalizedData).filter(
-        (key) => !defaultAccordionData.some((item) => item.key === key)
-    );
-
-    const newData = newKeys.map((key) => {
-      const value = normalizedData[key];
       return {
         key,
-        title: value.category?.title || value.title || key,
-        description: value.description || '',
-        is_paid: value.is_paid ?? false,
-        category: value.category || {}
+        title: realCategory?.title || val?.title || key,
+        description: val?.description || '',
+        is_paid: isPaid,
+        category: realCategory
       };
     });
 
-    // Объединяем всё
-    setAccordionData([...merged, ...newData]);
-  }, [data, defaultAccordionData]);
+    setAccordionData(transformedData);
+  }, [data]);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : null);
@@ -98,11 +65,7 @@ const Accordions = ({ data, defaultAccordionData }) => {
 
     if (typeof content.category === 'object') {
       for (const value of Object.values(content.category)) {
-        if (
-            typeof value === 'object' &&
-            value !== null &&
-            (value.title || value.description)
-        ) {
+        if (typeof value === 'object' && (value.title || value.description)) {
           talents.push(renderTalent(value));
         }
       }
@@ -113,14 +76,22 @@ const Accordions = ({ data, defaultAccordionData }) => {
 
   return (
       <div className="accordion-container">
-        {accordionData?.map((content, index) => (
+        {accordionData.map((content, index) => (
             <Accordion
                 key={index}
                 expanded={expanded === index && !content.is_paid}
                 onChange={handleChange(index)}
                 className={content.is_paid ? 'locked' : ''}
             >
-              <AccordionSummary expandIcon={content.is_paid ? <LockIcon /> : <ExpandMoreIcon />}>
+              <AccordionSummary
+                  expandIcon={content.is_paid ? <LockIcon /> : <ExpandMoreIcon />}
+                  onClick={(e) => {
+                    if (content.is_paid) {
+                      e.stopPropagation();
+                      e.preventDefault();
+                    }
+                  }}
+              >
                 <Typography component="span" className="accordion-title">
                   {t(content.title)}
                 </Typography>
@@ -136,13 +107,14 @@ const Accordions = ({ data, defaultAccordionData }) => {
                     <Typography
                         variant="body1"
                         dangerouslySetInnerHTML={{
-                          __html: t(content?.description || 'noDescription')
+                          __html: t(content.description || 'noDescription')
                         }}
                     />
                     {renderNestedTalents(content)}
                   </AccordionDetails>
               )}
             </Accordion>
+
         ))}
       </div>
   );

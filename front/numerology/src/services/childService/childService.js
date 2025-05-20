@@ -7,7 +7,17 @@ const handleError = (error) => {
     throw error;
 };
 
-   
+const catch403AndReturnData = (error) => {
+    if (error.response?.status === 403 && error.response?.data?.category) {
+        return {
+            ...error.response.data,
+            error: true,
+            status: 403
+        };
+    }
+    console.error("Ошибка:", error.message);
+    throw error;
+};
 export const calculateNumerology = async ({ day, month, year }) => {
     try {
         const response = await api.post(`${BASE_URL}/child/calculate-child-matrix/`, {
@@ -32,7 +42,7 @@ export const getChildBusiness= async ({ a }) => {
         const response = await api.get(`${BASE_URL}/child/child_business_card/1/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 };
 
@@ -46,7 +56,7 @@ export const getChildDestiny= async ({ r,s,y }) => {
         const response = await api.get(`${BASE_URL}/child/child_destiny/6/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 };
 
@@ -60,7 +70,7 @@ export const getChildParentKarma = async ({a2,a,a1 }) => {
         const response = await api.get(`${BASE_URL}/child/child_parent_karma/7/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
 };
 
@@ -73,7 +83,7 @@ export const getChildPersonal=async({b,c})=>{
         const response = await api.get(`${BASE_URL}/child/child_personal_qualities/2/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
     
 }
@@ -86,7 +96,7 @@ export const getChildPoint=async({e})=>{
         const response = await api.get(`${BASE_URL}/child/child_point_of_comfort/4/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
     
 }
@@ -100,7 +110,7 @@ export const getChildSelf=async({a2})=>{
         const response = await api.get(`${BASE_URL}/child/child_self_realization/3/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
     
 
@@ -116,7 +126,7 @@ export const getTasksFromPast=async({d,d1,d2})=>{
         const response = await api.get(`${BASE_URL}/child/tasks_from_past_lives/5/`, { params });
         return response.data;
     } catch (error) {
-        handleError(error);
+        return catch403AndReturnData(error);
     }
     
 

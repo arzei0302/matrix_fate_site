@@ -114,7 +114,9 @@
 
 
   .burger-icon {
-    display: block;
+    display: flex;
+    align-items: start;
+    height: 100%;
   }
 
   .menu {
@@ -142,8 +144,8 @@
   }
 
   .auth {
-    margin-top: 10px;
-    align-self: flex-end;
-    padding-bottom: 9px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 }

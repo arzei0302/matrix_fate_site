@@ -204,10 +204,7 @@ function Fate() {
         </div>
         <button className='downloadBtn' onClick={handleDownload}>{t("financePage.download")}</button>
         <div className="accordions">
-          <Accordions
-              data={combinedData}
-              defaultAccordionData={defaultAccordionData}
-          />
+          <Accordions data={combinedData}/>
         </div>
 
         <DateDecodingCard />

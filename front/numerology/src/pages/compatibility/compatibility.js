@@ -92,7 +92,7 @@ function Compatibility() {
         setCombinedData({});
 
         try {
-            const compatibilityResponse = await api.post(`/compatibility/calculate-full-compatibility/`, {
+            const compatibilityResponse = await api.post(`compatibility/calculate-full-compatibility/`, {
                 day1,
                 month1: month.value,
                 year1,
@@ -228,7 +228,7 @@ function Compatibility() {
                     <CompabilitySchema personalInfo={newPersonalInfo} numbers={numerologyData} />
                 </div>
 
-                <Accordions data={combinedData} defaultAccordionData={defaultAccordionData} />
+                <Accordions data={combinedData} />
             </div>
 
             <DateDecodingCard />
