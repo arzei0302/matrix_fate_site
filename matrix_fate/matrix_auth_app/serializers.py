@@ -100,5 +100,15 @@ class CalculationHistorySerializer(serializers.ModelSerializer):
         return None
 
 
+class CurrentSubscriptionSerializer(serializers.Serializer):
+    level = serializers.CharField()
+    name = serializers.CharField()
+    expires_at = serializers.DateTimeField(allow_null=True)
+    is_active = serializers.BooleanField()
+
+class UserSubscriptionInfoResponseSerializer(serializers.Serializer):
+    current_subscription = CurrentSubscriptionSerializer()
+
+
 
 

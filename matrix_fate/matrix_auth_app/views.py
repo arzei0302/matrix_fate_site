@@ -17,7 +17,7 @@ from matrix_fate.config import settings
 from .models import EmailVerificationCode, UserCalculationHistory
 from .serializers import (
     CalculationHistorySerializer, EmailSerializer, LogoutSerializer, 
-    ProtectedSerializer, VerifyCodeSerializer
+    ProtectedSerializer, UserSubscriptionInfoResponseSerializer, VerifyCodeSerializer
     )
 from .models import ACCESS_LEVEL_CHOICES, ACCESS_EXPIRATION_DAYS
 # from matrix_auth_app.email_utils import send_email_brevo
@@ -176,7 +176,10 @@ class UserSubscriptionInfoView(APIView):
     @extend_schema(
         tags=['AuthProfile'],
         description="Получение информации о действующем абонементе авторизованного пользователя",
-        responses={200: 'application/json'}
+        # responses={200: 'application/json'},
+        responses={200: UserSubscriptionInfoResponseSerializer},
+
+        
     )
     def get(self, request):
         profile = request.user.profile

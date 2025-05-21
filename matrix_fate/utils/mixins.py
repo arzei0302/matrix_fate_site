@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from rest_framework import serializers
 
 
 class OrderMarkerMixin(models.Model):
@@ -19,3 +20,8 @@ class OrderMarkerMixin(models.Model):
 
     class Meta:
         abstract = True
+
+
+class ErrorSerializer(serializers.Serializer):
+    error = serializers.CharField()
+

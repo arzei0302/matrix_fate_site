@@ -2,9 +2,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.shortcuts import get_object_or_404
-from drf_spectacular.utils import extend_schema, OpenApiParameter
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiResponse
+
 
 from matrix_fate.common.permissions import is_active_paid_user
+from matrix_fate.utils.mixins import ErrorSerializer
 
 from ..models import Category, SpiritualTask1, SpiritualTask2, SpiritualTask3
 from ..serializers.spiritual_karma_serializers import (
@@ -42,7 +44,21 @@ class CategoryWithSpiritualKarmaAPIView(APIView, PaidCategoryAccessMixin):
                 required=True,
                 type=int,
             ),
-        ]
+        ],
+        responses={
+        200: OpenApiResponse(
+            response=CategoryWithSpiritualKarmaSerializer,
+            description="Категория с духовными задачами"
+        ),
+        400: OpenApiResponse(
+            response=ErrorSerializer,
+            description="Ошибка валидации"
+        ),
+        404: OpenApiResponse(
+            response=ErrorSerializer,
+            description="Не найдено"
+        ),
+    }
     )
     def get(self, request, category_id_or_title):
         if category_id_or_title.isdigit():

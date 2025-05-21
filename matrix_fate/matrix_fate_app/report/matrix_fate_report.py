@@ -13,12 +13,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import serializers
-from drf_spectacular.utils import extend_schema, OpenApiExample
+from drf_spectacular.utils import extend_schema, OpenApiExample, OpenApiResponse
+from drf_spectacular.types import OpenApiTypes
 
 from matrix_fate.matrix_auth_app.models import UserCalculationHistory
 from matrix_fate.matrix_auth_app.models import CustomUser
 from matrix_fate.matrix_fate_app.report.fill_pdf import fill_matrix_pdf
 from matrix_fate.matrix_fate_app.report.fill_word import fill_matrix_template
+from matrix_fate.utils.mixins import ErrorSerializer
 #
 
 def render_pdf_page_to_image(pdf_path: str, dpi=150) -> Path:
@@ -116,6 +118,24 @@ class FullMatrixPDFView(APIView):
         description="PDF-документ на основе данных истории расчёта.(категория только matrix_fate)",
         request=MatrixPDFInputSerializer,
         tags=["Matrix Fate Reports"],
+        responses={
+            200: OpenApiResponse(
+                response=OpenApiTypes.BINARY,
+                description='PDF-файл c матрицей судьбы'
+            ),
+            400: OpenApiResponse(
+                response=ErrorSerializer,
+                description='Ошибка валидации'
+            ),
+            404: OpenApiResponse(
+                response=ErrorSerializer,
+                description='Расчёт не найден'
+            ),
+            500: OpenApiResponse(
+                response=ErrorSerializer,
+                description='Внутренняя ошибка'
+            ),
+        },
         examples=[
             OpenApiExample(
                 name="Поиск по input_data",

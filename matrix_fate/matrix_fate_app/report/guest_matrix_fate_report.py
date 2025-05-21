@@ -3,10 +3,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import serializers
 from django.http import FileResponse
-from drf_spectacular.utils import extend_schema, OpenApiExample
+from drf_spectacular.utils import extend_schema, OpenApiExample, OpenApiResponse
+from drf_spectacular.types import OpenApiTypes
 
 import io
 from matrix_fate.matrix_fate_app.report.fill_pdf import fill_matrix_pdf
+from matrix_fate.utils.mixins import ErrorSerializer
 
 class GuestMatrixFatePDFInputSerializer(serializers.Serializer):
     day = serializers.IntegerField(min_value=1, max_value=31)
@@ -20,6 +22,24 @@ class GuestMatrixFatePDFView(APIView):
     description="Генерирует PDF-схему матрицы на основе введённых даты/месяца/года без сохранения в базу данных.",
     request=GuestMatrixFatePDFInputSerializer,
     tags=["Matrix Fate Reports"],
+    responses={
+            200: OpenApiResponse(
+                response=OpenApiTypes.BINARY,
+                description='PDF-файл c матрицей судьбы'
+            ),
+            400: OpenApiResponse(
+                response=ErrorSerializer,
+                description='Ошибка валидации'
+            ),
+            404: OpenApiResponse(
+                response=ErrorSerializer,
+                description='Расчёт не найден'
+            ),
+            500: OpenApiResponse(
+                response=ErrorSerializer,
+                description='Внутренняя ошибка'
+            ),
+        },
     examples=[
         OpenApiExample(
             name="Пример запроса",

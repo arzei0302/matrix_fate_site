@@ -87,12 +87,19 @@ class Profile(models.Model):
 
 class UserCalculationHistory(models.Model):
 
+    # CATEGORY_CHOICES = [
+    #     ('matrix_fate', 'Калькулятор Матрица судьбы'),
+    #     ('finance', 'Калькулятор Финансы'),
+    #     ('compatibility', 'Калькулятор Совместимость'),
+    #     ('child', 'Калькулятор Детская матрица'),
+    # ]
     CATEGORY_CHOICES = [
-        ('matrix_fate', 'Калькулятор Матрица судьбы'),
-        ('finance', 'Калькулятор Финансы'),
-        ('compatibility', 'Калькулятор Совместимость'),
-        ('child', 'Калькулятор Детская матрица'),
+        ('matrix_fate', 'Kohtalomatriisi-laskin'),
+        ('finance', 'Talouslaskin'),
+        ('compatibility', 'Yhteensopivuuslaskin'),
+        ('child', 'Lasten matriisi -laskin'),
     ]
+
 
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='calculations', verbose_name="Профиль")
     input_data = models.JSONField(verbose_name="Входные данные")

@@ -12,15 +12,18 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import serializers
-from drf_spectacular.utils import extend_schema, OpenApiExample
+from drf_spectacular.utils import extend_schema, OpenApiExample, OpenApiResponse
+from drf_spectacular.types import OpenApiTypes
+
 
 from django.conf import settings
 from matrix_fate.child_app.report.fill_pdf_child import fill_matrix_pdf
 from matrix_fate.child_app.report.fill_word_child import fill_matrix_template
 from matrix_fate.matrix_auth_app.models import UserCalculationHistory
 from matrix_fate.matrix_auth_app.models import CustomUser
+from matrix_fate.utils.mixins import ErrorSerializer
 
-#
+
 def render_pdf_page_to_image(pdf_path: str, dpi=150) -> Path:
     pdf = fitz.open(pdf_path)
     page = pdf[0]
@@ -117,6 +120,24 @@ class FullChildPDFView(APIView):
         description="PDF-документ на основе данных истории расчёта.(категория только child)",
         request=ChildPDFInputSerializer,
         tags=["Matrix Fate Reports"],
+        responses={
+            200: OpenApiResponse(
+                response=OpenApiTypes.BINARY,
+                description='PDF-файл c детской матрицей'
+            ),
+            400: OpenApiResponse(
+                response=ErrorSerializer,
+                description='Ошибка валидации'
+            ),
+            404: OpenApiResponse(
+                response=ErrorSerializer,
+                description='Расчёт не найден'
+            ),
+            500: OpenApiResponse(
+                response=ErrorSerializer,
+                description='Внутренняя ошибка'
+            ),
+        },
         examples=[
             OpenApiExample(
                 name="Поиск по input_data",
