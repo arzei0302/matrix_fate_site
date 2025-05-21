@@ -34,10 +34,10 @@ class ProfileAdmin(admin.ModelAdmin):
     list_filter = ('access_level', 'created_at')
     
 
-@admin.register(EmailVerificationCode)
-class EmailVerificationCodeAdmin(admin.ModelAdmin):
-    list_display = ('user', 'code', 'created_at')
-    search_fields = ('user__email', 'code')
+# @admin.register(EmailVerificationCode)
+# class EmailVerificationCodeAdmin(admin.ModelAdmin):
+#     list_display = ('user', 'code', 'created_at')
+#     search_fields = ('user__email', 'code')
 
 
 @admin.register(UserCalculationHistory)
