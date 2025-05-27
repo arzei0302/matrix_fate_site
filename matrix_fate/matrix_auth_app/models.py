@@ -94,10 +94,10 @@ class UserCalculationHistory(models.Model):
     #     ('child', 'Калькулятор Детская матрица'),
     # ]
     CATEGORY_CHOICES = [
-        ('matrix_fate', 'Kohtalomatriisi-laskin'),
+        ('matrix_fate', 'Kohtalomatriisi laskin'),
         ('finance', 'Talouslaskin'),
         ('compatibility', 'Yhteensopivuuslaskin'),
-        ('child', 'Lasten matriisi -laskin'),
+        ('child', 'Lasten matriisi laskin'),
     ]
 
 

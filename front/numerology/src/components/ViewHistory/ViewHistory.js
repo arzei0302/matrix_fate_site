@@ -37,9 +37,9 @@ function ViewHistory() {
 
   const handleOpen = async (item) => {
     const categoryMap = {
-      "Lasten matriisi-laskin": "child",
+      "Lasten matriisi laskin": "child",
       "Talouslaskin": "finance",
-      "Kohtalomatriisi -laskin": "matrix_fate",
+      "Kohtalomatriisi laskin": "matrix_fate",
     };
 
     const endpointMap = {
