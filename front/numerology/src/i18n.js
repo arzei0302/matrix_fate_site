@@ -330,7 +330,7 @@ financeAccordion: {
         category: "Category",
         date: "Date",
         action: "Action",
-        open: "OPEN",
+        open: "Lataa",
         loading: "Loading data..."
       },
       footer: {

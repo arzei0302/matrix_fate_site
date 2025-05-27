@@ -37,9 +37,9 @@ function ViewHistory() {
 
   const handleOpen = async (item) => {
     const categoryMap = {
-      "Калькулятор Детская матрица": "child",
-      "Калькулятор Финансы": "finance",
-      "Калькулятор Матрица судьбы": "matrix_fate",
+      "Lasten matriisi-laskin": "child",
+      "Talouslaskin": "finance",
+      "Kohtalomatriisi-laskin": "matrix_fate",
     };
 
     const endpointMap = {

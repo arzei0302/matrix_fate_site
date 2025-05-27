@@ -27,7 +27,8 @@ import {
   getMatrixMoney,
   getSoulMission,
   getDiseasePredisposition,
-  getHealthMap
+  getHealthMap,
+  getAncestralTask
 } from "../../services/fateService/fateService.js";
 import "./fate.scss";
 import DateDecodingCard from "../../components/DateDecodingCard/DateDecodingCard.js";
@@ -96,7 +97,8 @@ function Fate() {
         getMatrixMoney(numerologyResponse),
         getSoulMission(numerologyResponse),
         getDiseasePredisposition(numerologyResponse),
-        getHealthMap(numerologyResponse)
+        getHealthMap(numerologyResponse),
+        getAncestralTask(numerologyResponse)
       ];
 
       const results = await Promise.allSettled(requests);

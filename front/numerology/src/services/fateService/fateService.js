@@ -207,6 +207,21 @@ export const getMatrixMoney=async({l,j,c2})=>{
     }
 }
 
+export const getAncestralTask=async({g,f,i,h})=>{
+    try{
+        const params={
+            ff :g,
+            fm:f,
+            mf:i,
+            mm :h,
+        };
+        const response = await api.get(`${BASE_URL}/matrix_fate/ancestral_task7/18/ancestral_task7/`, { params });
+        return response.data;
+    } catch (error) {
+        return catch403AndReturnData(error);
+    }
+}
+
 export const getSoulMission=async({r,s,y,t,u,v,w})=>{
     try{
         const params={
