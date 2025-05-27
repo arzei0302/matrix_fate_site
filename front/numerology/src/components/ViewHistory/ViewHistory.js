@@ -88,38 +88,38 @@ function ViewHistory() {
   };
 
   return (
-    <div className="viewHistory">
-      <table className="tariff-table">
-        <thead>
+      <div className="viewHistory">
+        <table className="tariff-table">
+          <thead>
           <tr>
             <th>#</th>
             <th>{t("history.category")}</th>
             <th>{t("history.date")}</th>
             <th>{t("history.action")}</th>
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           {data?.length > 0 ? (
-            data.map((item, index) => (
-              <tr key={item.id}>
-                <td>{index + 1}</td>
-                <td>{item.category}</td>
-                <td>{new Date(item.created_at).toLocaleDateString()}</td>
-                <td>
-                  <button className="open-button" onClick={() => handleOpen(item)}>
-                    {t("history.open")}
-                  </button>
-                </td>
-              </tr>
-            ))
+              data.map((item, index) => (
+                  <tr key={item.id}>
+                    <td>{index + 1}</td>
+                    <td>{item.category}</td>
+                    <td>{new Date(item.created_at).toLocaleDateString()}</td>
+                    <td>
+                      <button className="open-button" onClick={() => handleOpen(item)}>
+                        {t("history.open")}
+                      </button>
+                    </td>
+                  </tr>
+              ))
           ) : (
-            <tr>
-              <td colSpan="4">{t("history.loading")}</td>
-            </tr>
+              <tr>
+                <td colSpan="4">{t("history.loading")}</td>
+              </tr>
           )}
-        </tbody>
-      </table>
-    </div>
+          </tbody>
+        </table>
+      </div>
   );
 }
 
