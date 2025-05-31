@@ -2,14 +2,22 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 import logging
+from matrix_fate.finance_app.service.service import get_matching_programs
 from matrix_fate.common.input_data import normalize_input_data
 from matrix_fate.matrix_auth_app.models import UserCalculationHistory
 from matrix_fate.finance_app.serializers.matrix_finance_program_serializers import (
-    MatrixFinanceInputSerializer, MatrixFinanceOutputSerializer, MatrixFinanceProgramSerializer)
-from matrix_fate.finance_app.service.service import get_matching_programs
+    MatrixFinanceInputSerializer,
+    MatrixFinanceOutputSerializer,
+    MatrixFinanceProgramSerializer,
+)
 
 
 logger = logging.getLogger(__name__)
+
+
+class FinanceMatrixAccessHandler:
+    def filter_accessible_programs(self, request, programs):
+        return programs  # не отрезаем платные — пусть отображаются
 
 
 def reduce_to_22(number: int) -> int:
@@ -20,37 +28,33 @@ def reduce_to_22(number: int) -> int:
 
 
 @extend_schema(
-    tags=['Finance Matrix'],
+    tags=["Finance Matrix"],
     request=MatrixFinanceInputSerializer,
     responses={
         200: MatrixFinanceOutputSerializer,
         400: OpenApiResponse(
-            response={"error": "Invalid input data"},
-            description="Invalid input data"
-        )
-    }
+            response={"error": "Invalid input data"}, description="Invalid input data"
+        ),
+    },
 )
-
-
 @api_view(["POST"])
 def calculate_finance_matrix_view(request):
     """Категории: ('matrix_fate', 'finance', 'compatibility', 'child')"""
     serializer = MatrixFinanceInputSerializer(data=request.data)
     if not serializer.is_valid():
         return Response(serializer.errors, status=400)
-    
+
     birth_day = serializer.validated_data["day"]
     birth_month = serializer.validated_data["month"]
     birth_year = serializer.validated_data["year"]
     category = serializer.validated_data["category"]
 
-
     if not (1 <= birth_month <= 12):
         return Response({"error": "Месяц должен быть в диапазоне 1-12"}, status=400)
-    
+
     if category not in ["matrix_fate", "finance", "compatibility", "child"]:
         return Response({"error": "Некорректная категория"}, status=400)
-    
+
     a = reduce_to_22(birth_day)
     b = birth_month
     c = reduce_to_22(birth_year)
@@ -92,8 +96,8 @@ def calculate_finance_matrix_view(request):
     v = reduce_to_22(t + u)
     w = reduce_to_22(y + v)
     x = reduce_to_22(w + v)
-    #карта здоровья:
-    #физика/земная линия
+    # карта здоровья:
+    # физика/земная линия
     o7 = reduce_to_22(a)
     o6 = reduce_to_22(a1)
     o5 = reduce_to_22(a2)
@@ -102,7 +106,7 @@ def calculate_finance_matrix_view(request):
     o2 = reduce_to_22(c2)
     o1 = reduce_to_22(c)
     o = reduce_to_22(a + a1 + a2 + n + e + c2 + c)
-    #энергия/небесная линия
+    # энергия/небесная линия
     p7 = reduce_to_22(b)
     p6 = reduce_to_22(b1)
     p5 = reduce_to_22(b2)
@@ -111,7 +115,7 @@ def calculate_finance_matrix_view(request):
     p2 = reduce_to_22(d2)
     p1 = reduce_to_22(d)
     p = reduce_to_22(b + b1 + b2 + m + e + d2 + d)
-    #эмоции/сумма неба и земли
+    # эмоции/сумма неба и земли
     q7 = reduce_to_22(a + b)
     q6 = reduce_to_22(a1 + b1)
     q5 = reduce_to_22(a2 + b2)
@@ -122,15 +126,15 @@ def calculate_finance_matrix_view(request):
     q = reduce_to_22(q7 + q6 + q5 + q4 + q3 + q2 + q1)
     # Года
     # a
-    a5    = reduce_to_22(a + f)
-    a2_3  = reduce_to_22(a + a5)
-    a3_4  = reduce_to_22(a2_3 + a5)
-    a1_2  = reduce_to_22(a + a2_3)
-    a7_8  = reduce_to_22(f + a5)
-    a8_9  = reduce_to_22(a7_8 + f)
-    a6_7  = reduce_to_22(a5 + a7_8)
+    a5 = reduce_to_22(a + f)
+    a2_3 = reduce_to_22(a + a5)
+    a3_4 = reduce_to_22(a2_3 + a5)
+    a1_2 = reduce_to_22(a + a2_3)
+    a7_8 = reduce_to_22(f + a5)
+    a8_9 = reduce_to_22(a7_8 + f)
+    a6_7 = reduce_to_22(a5 + a7_8)
     # f
-    f15    = reduce_to_22(f + b)
+    f15 = reduce_to_22(f + b)
     f12_13 = reduce_to_22(f + f15)
     f13_14 = reduce_to_22(f12_13 + f15)
     f11_12 = reduce_to_22(f + f12_13)
@@ -138,7 +142,7 @@ def calculate_finance_matrix_view(request):
     f18_19 = reduce_to_22(b + f17_18)
     f16_17 = reduce_to_22(f15 + f17_18)
     # b
-    b25    = reduce_to_22(b + g)
+    b25 = reduce_to_22(b + g)
     b22_23 = reduce_to_22(b + b25)
     b23_24 = reduce_to_22(b22_23 + b25)
     b21_22 = reduce_to_22(b + b22_23)
@@ -146,7 +150,7 @@ def calculate_finance_matrix_view(request):
     b28_29 = reduce_to_22(g + b27_28)
     b26_27 = reduce_to_22(b25 + b27_28)
     # g
-    g35    = reduce_to_22(g + c)
+    g35 = reduce_to_22(g + c)
     g32_33 = reduce_to_22(g + g35)
     g33_34 = reduce_to_22(g32_33 + g35)
     g31_32 = reduce_to_22(g + g32_33)
@@ -154,7 +158,7 @@ def calculate_finance_matrix_view(request):
     g38_39 = reduce_to_22(c + g37_38)
     g36_37 = reduce_to_22(g35 + g37_38)
     # c
-    c45    = reduce_to_22(c + h)
+    c45 = reduce_to_22(c + h)
     c42_43 = reduce_to_22(c + c45)
     c43_44 = reduce_to_22(c42_43 + c45)
     c41_42 = reduce_to_22(c + c42_43)
@@ -162,7 +166,7 @@ def calculate_finance_matrix_view(request):
     c48_49 = reduce_to_22(h + c47_48)
     c46_47 = reduce_to_22(c45 + c47_48)
     # h
-    h55    = reduce_to_22(h + d)
+    h55 = reduce_to_22(h + d)
     h52_53 = reduce_to_22(h + h55)
     h53_54 = reduce_to_22(h52_53 + h55)
     h51_52 = reduce_to_22(h + h52_53)
@@ -170,7 +174,7 @@ def calculate_finance_matrix_view(request):
     h58_59 = reduce_to_22(d + h57_58)
     h56_57 = reduce_to_22(h55 + h57_58)
     # d
-    d65    = reduce_to_22(d + i)
+    d65 = reduce_to_22(d + i)
     d62_63 = reduce_to_22(d + d65)
     d63_64 = reduce_to_22(d62_63 + d65)
     d61_62 = reduce_to_22(d + d62_63)
@@ -178,7 +182,7 @@ def calculate_finance_matrix_view(request):
     d68_69 = reduce_to_22(i + d67_68)
     d66_67 = reduce_to_22(d65 + d67_68)
     # i
-    i75    = reduce_to_22(i + a)
+    i75 = reduce_to_22(i + a)
     i72_73 = reduce_to_22(i + i75)
     i73_74 = reduce_to_22(i72_73 + i75)
     i71_72 = reduce_to_22(i + i72_73)
@@ -186,32 +190,128 @@ def calculate_finance_matrix_view(request):
     i78_79 = reduce_to_22(a + i77_78)
     i76_77 = reduce_to_22(i75 + i77_78)
 
-    
     matrix_values = {
-        "category": category,  
-        "a": a, "b": b, "c": c, "d": d, "e": e, "e1": e1, "e2": e2,
-        "f": f, "g": g, "h": h, "i": i,
-        "a1": a1, "a2": a2, "n": n,
-        "b1": b1, "b2": b2, "m": m,
-        "c1": c1, "c2": c2,
-        "d1": d1, "d2": d2,
-        "f1": f1, "f2": f2,
-        "g1": g1, "g2": g2,
-        "h1": h1, "h2": h2,
-        "i1": i1, "i2": i2,
-        "j": j, "k": k, "l": l,
-        "r": r, "s": s, "y": y, "t": t, "u": u, "v": v, "w": w, "x": x,
-        "o": o, "o1": o1, "o2": o2, "o3": o3, "o4": o4, "o5": o5, "o6": o6, "o7": o7,
-        "p": p, "p1": p1, "p2": p2, "p3": p3, "p4": p4, "p5": p5, "p6": p6, "p7": p7,
-        "q": q, "q1": q1, "q2": q2, "q3": q3, "q4": q4, "q5": q5, "q6": q6, "q7": q7,
-        "a1_2": a1_2, "a2_3": a2_3, "a3_4": a3_4, "a5": a5, "a6_7": a6_7, "a7_8": a7_8, "a8_9": a8_9,
-        "f11_12": f11_12, "f12_13": f12_13, "f13_14": f13_14, "f15": f15, "f16_17": f16_17, "f17_18": f17_18, "f18_19": f18_19,
-        "b21_22": b21_22, "b22_23": b22_23, "b23_24": b23_24, "b25": b25, "b26_27": b26_27, "b27_28": b27_28, "b28_29": b28_29,
-        "g31_32": g31_32, "g32_33": g32_33, "g33_34": g33_34, "g35": g35, "g36_37": g36_37, "g37_38": g37_38, "g38_39": g38_39,
-        "c41_42": c41_42, "c42_43": c42_43, "c43_44": c43_44, "c45": c45, "c46_47": c46_47, "c47_48": c47_48, "c48_49": c48_49,
-        "h51_52": h51_52, "h52_53": h52_53, "h53_54": h53_54, "h55": h55, "h56_57": h56_57, "h57_58": h57_58, "h58_59": h58_59,
-        "d61_62": d61_62, "d62_63": d62_63, "d63_64": d63_64, "d65": d65, "d66_67": d66_67, "d67_68": d67_68, "d68_69": d68_69,
-        "i71_72": i71_72, "i72_73": i72_73, "i73_74": i73_74, "i75": i75, "i76_77": i76_77, "i77_78": i77_78, "i78_79": i78_79
+        "category": category,
+        "a": a,
+        "b": b,
+        "c": c,
+        "d": d,
+        "e": e,
+        "e1": e1,
+        "e2": e2,
+        "f": f,
+        "g": g,
+        "h": h,
+        "i": i,
+        "a1": a1,
+        "a2": a2,
+        "n": n,
+        "b1": b1,
+        "b2": b2,
+        "m": m,
+        "c1": c1,
+        "c2": c2,
+        "d1": d1,
+        "d2": d2,
+        "f1": f1,
+        "f2": f2,
+        "g1": g1,
+        "g2": g2,
+        "h1": h1,
+        "h2": h2,
+        "i1": i1,
+        "i2": i2,
+        "j": j,
+        "k": k,
+        "l": l,
+        "r": r,
+        "s": s,
+        "y": y,
+        "t": t,
+        "u": u,
+        "v": v,
+        "w": w,
+        "x": x,
+        "o": o,
+        "o1": o1,
+        "o2": o2,
+        "o3": o3,
+        "o4": o4,
+        "o5": o5,
+        "o6": o6,
+        "o7": o7,
+        "p": p,
+        "p1": p1,
+        "p2": p2,
+        "p3": p3,
+        "p4": p4,
+        "p5": p5,
+        "p6": p6,
+        "p7": p7,
+        "q": q,
+        "q1": q1,
+        "q2": q2,
+        "q3": q3,
+        "q4": q4,
+        "q5": q5,
+        "q6": q6,
+        "q7": q7,
+        "a1_2": a1_2,
+        "a2_3": a2_3,
+        "a3_4": a3_4,
+        "a5": a5,
+        "a6_7": a6_7,
+        "a7_8": a7_8,
+        "a8_9": a8_9,
+        "f11_12": f11_12,
+        "f12_13": f12_13,
+        "f13_14": f13_14,
+        "f15": f15,
+        "f16_17": f16_17,
+        "f17_18": f17_18,
+        "f18_19": f18_19,
+        "b21_22": b21_22,
+        "b22_23": b22_23,
+        "b23_24": b23_24,
+        "b25": b25,
+        "b26_27": b26_27,
+        "b27_28": b27_28,
+        "b28_29": b28_29,
+        "g31_32": g31_32,
+        "g32_33": g32_33,
+        "g33_34": g33_34,
+        "g35": g35,
+        "g36_37": g36_37,
+        "g37_38": g37_38,
+        "g38_39": g38_39,
+        "c41_42": c41_42,
+        "c42_43": c42_43,
+        "c43_44": c43_44,
+        "c45": c45,
+        "c46_47": c46_47,
+        "c47_48": c47_48,
+        "c48_49": c48_49,
+        "h51_52": h51_52,
+        "h52_53": h52_53,
+        "h53_54": h53_54,
+        "h55": h55,
+        "h56_57": h56_57,
+        "h57_58": h57_58,
+        "h58_59": h58_59,
+        "d61_62": d61_62,
+        "d62_63": d62_63,
+        "d63_64": d63_64,
+        "d65": d65,
+        "d66_67": d66_67,
+        "d67_68": d67_68,
+        "d68_69": d68_69,
+        "i71_72": i71_72,
+        "i72_73": i72_73,
+        "i73_74": i73_74,
+        "i75": i75,
+        "i76_77": i76_77,
+        "i77_78": i77_78,
+        "i78_79": i78_79,
     }
 
     logger.info(f"Matrix values: {matrix_values}")
@@ -220,22 +320,29 @@ def calculate_finance_matrix_view(request):
     if not output_serializer.is_valid():
         logger.error(f"Validation errors: {output_serializer.errors}")
         return Response(output_serializer.errors, status=400)
-    
+
     input_data = normalize_input_data(serializer.validated_data)
-    
+
     matched_programs = get_matching_programs(matrix_values)
-    serialized_programs = MatrixFinanceProgramSerializer(matched_programs, many=True).data
-    
+    matched_programs = FinanceMatrixAccessHandler().filter_accessible_programs(
+        request, matched_programs
+    )
+    serialized_programs = MatrixFinanceProgramSerializer(
+        matched_programs, many=True, context={"request": request}
+    ).data
+
     matrix_values["matched_programs"] = serialized_programs
 
-    if request.user.is_authenticated and hasattr(request.user, 'profile'):
+    if request.user.is_authenticated and hasattr(request.user, "profile"):
         UserCalculationHistory.objects.update_or_create(
             profile=request.user.profile,
             input_data=input_data,
             category=category,
-            defaults={'result_data': matrix_values}
+            defaults={"result_data": matrix_values},
         )
 
-    return Response({
-        "matrix": matrix_values,
-    })
+    return Response(
+        {
+            "matrix": matrix_values,
+        }
+    )

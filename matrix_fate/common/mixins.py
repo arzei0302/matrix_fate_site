@@ -23,3 +23,26 @@ class PaidCategoryAccessMixin:
                 status=HTTP_403_FORBIDDEN,
             )
         return None  # доступ разрешён
+    
+
+
+class PaidProgramAccessMixin:
+    """
+    Проверяет, имеет ли пользователь доступ к платной программе.
+    Если программа is_paid=True, а пользователь не подписан — возвращает 403.
+    """
+
+    def check_program_access(self, request, program):
+        if program.is_paid and not is_active_paid_user(request.user):
+            return Response(
+                {
+                    "program": {
+                        "id": program.id,
+                        "title": getattr(program, "title", ""),
+                        "is_paid": program.is_paid,
+                    }
+                },
+                status=HTTP_403_FORBIDDEN,
+            )
+        return None
+

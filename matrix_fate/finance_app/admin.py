@@ -20,7 +20,7 @@ from .models import (
     WhatAfterYouTurn40Years,
     MatrixFinanceProgram
 )
-#
+
 
 class MatrixAdmin(AdminSite):
     site_header = "Управление данными для матрицы финансов"
@@ -118,9 +118,10 @@ class MatrixFinanceProgramAdmin(admin.ModelAdmin):
         "id", "name", 
         "marker_1_name", "marker_1_value", 
         "marker_2_name", "marker_2_value", 
-        "marker_3_name", "marker_3_value")
+        "marker_3_name", "marker_3_value",
+        "is_paid")
     search_fields = ("name",)
-    list_filter = ("name",)
+    list_filter = ("name", "is_paid")
 
 
 class YourGreatestTalentBirthAdmin(BaseAdmin):

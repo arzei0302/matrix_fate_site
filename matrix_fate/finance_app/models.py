@@ -463,6 +463,7 @@ class MatrixFinanceProgram(models.Model):
     )
 
     description = RichTextField(blank=True, verbose_name="Описание программы")
+    is_paid = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Программа Финансы"

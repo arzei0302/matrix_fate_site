@@ -12,6 +12,11 @@ from matrix_fate.matrix_fate_app.service.service import get_matching_programs
 logger = logging.getLogger(__name__)
 
 
+class MatrixAccessHandler:
+    def filter_accessible_programs(self, request, programs):
+        return programs  # не отрезаем платные — пусть отображаются
+
+
 def reduce_to_22(number: int) -> int:
     """Суммирует цифры числа, если оно больше 22."""
     while number > 22:
@@ -224,7 +229,12 @@ def calculate_matrix_view(request):
     input_data = normalize_input_data(serializer.validated_data)
 
     matched_programs = get_matching_programs(matrix_values)
-    serialized_programs = MatrixFateProgramSerializer(matched_programs, many=True).data
+    matched_programs = MatrixAccessHandler().filter_accessible_programs(
+        request, matched_programs
+    )
+    serialized_programs = MatrixFateProgramSerializer(
+        matched_programs, many=True, context={"request": request}
+        ).data
     
     matrix_values["matched_programs"] = serialized_programs
     

@@ -1,11 +1,24 @@
 from rest_framework import serializers
-
+from matrix_fate.common.permissions import is_active_paid_user
 from matrix_fate.child_app.models import MatrixChildProgram
+
 
 class MatrixChildProgramSerializer(serializers.ModelSerializer):
     class Meta:
         model = MatrixChildProgram
         fields = '__all__'
+
+    def to_representation(self, instance):
+            data = super().to_representation(instance)
+    
+            request = self.context.get("request")
+            user = getattr(request, "user", None)
+    
+            # Исключаем description, если программа платная и пользователь не подписан
+            if instance.is_paid and (not user or not is_active_paid_user(user)):
+                data.pop("description", None)
+    
+            return data
 
 
 class MatrixChildInputSerializer(serializers.Serializer):

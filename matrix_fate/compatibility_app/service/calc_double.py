@@ -13,6 +13,11 @@ from matrix_fate.common.input_data import normalize_input_data
 logger = logging.getLogger(__name__)
 
 
+class CompatibilityMatrixAccessHandler:
+    def filter_accessible_programs(self, request, programs):
+        return programs  # не отрезаем платные — пусть отображаются
+
+
 class MatrixDoubleInputSerializer(serializers.Serializer):
     day1 = serializers.IntegerField(min_value=1, max_value=31)
     month1 = serializers.IntegerField(min_value=1, max_value=12)
@@ -63,8 +68,11 @@ def calculate_full_compatibility_view(request):
     input_data = normalize_input_data(serializer.validated_data)
 
     matched_programs = get_matching_programs(matrix_values)
+    matched_programs = CompatibilityMatrixAccessHandler().filter_accessible_programs(
+        request, matched_programs
+    )
 
-    serialized_programs = MatrixCompatibilityProgramSerializer(matched_programs, many=True).data
+    serialized_programs = MatrixCompatibilityProgramSerializer(matched_programs, many=True,context={"request": request}).data
     matrix_values["matched_programs"] = serialized_programs
 
     if request.user.is_authenticated and hasattr(request.user, 'profile'):

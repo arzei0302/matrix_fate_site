@@ -10,10 +10,14 @@ from matrix_fate.child_app.serializers.matrix_child_program_serializers import (
     MatrixChildOutputSerializer,
     MatrixChildProgramSerializer,
 )
-# from matrix_fate.finance_app.service.service import get_matching_programs
 
 
 logger = logging.getLogger(__name__)
+
+
+class ChildeMatrixAccessHandler:
+    def filter_accessible_programs(self, request, programs):
+        return programs  # не отрезаем платные — пусть отображаются
 
 
 def reduce_to_22(number: int) -> int:
@@ -320,18 +324,25 @@ def calculate_child_matrix_view(request):
     input_data = normalize_input_data(serializer.validated_data)
 
     matched_programs = get_matching_programs(matrix_values)
-    serialized_programs = MatrixChildProgramSerializer(matched_programs, many=True).data
+    matched_programs = ChildeMatrixAccessHandler().filter_accessible_programs(
+        request, matched_programs
+    )
+    serialized_programs = MatrixChildProgramSerializer(
+        matched_programs, many=True, context={"request": request}
+    ).data
 
     matrix_values["matched_programs"] = serialized_programs
 
-    if request.user.is_authenticated and hasattr(request.user, 'profile'):
+    if request.user.is_authenticated and hasattr(request.user, "profile"):
         UserCalculationHistory.objects.update_or_create(
             profile=request.user.profile,
             input_data=input_data,
             category=category,
-            defaults={'result_data': matrix_values}
+            defaults={"result_data": matrix_values},
         )
 
-    return Response({
-        "matrix": matrix_values, 
-        })
+    return Response(
+        {
+            "matrix": matrix_values,
+        }
+    )
