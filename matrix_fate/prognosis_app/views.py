@@ -180,4 +180,6 @@ class PrognosisByBirthDateAPIView(APIView):
             )
 
         # Пользователь активный платный → возвращаем весь прогноз
-        return Response(short_result, status=status.HTTP_200_OK)
+        # return Response(short_result, status=status.HTTP_200_OK)
+        return Response(result, status=status.HTTP_200_OK)
+
