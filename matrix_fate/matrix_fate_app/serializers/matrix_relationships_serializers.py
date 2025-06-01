@@ -20,10 +20,10 @@ class SuitablePartnerSerializer(serializers.ModelSerializer):
         fields = ["order_id", "title", "description"]
 
 
-class MeetingPlaceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MeetingPlace
-        fields = ["order_id", "title", "description"]
+# class MeetingPlaceSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = MeetingPlace
+#         fields = ["order_id", "title", "description"]
 
 
 class RelationshipProblemsSerializer(serializers.ModelSerializer):
@@ -35,7 +35,7 @@ class RelationshipProblemsSerializer(serializers.ModelSerializer):
 class CategoryWithMatrixRelationshipsSerializer(serializers.ModelSerializer):
     partner_tasks = PartnerTasksSerializer(many=True)
     suitable_partners = SuitablePartnerSerializer(many=True)
-    meeting_places = MeetingPlaceSerializer(many=True)
+    # meeting_places = MeetingPlaceSerializer(many=True)
     relationship_problems = RelationshipProblemsSerializer(many=True)
 
     class Meta:
@@ -47,6 +47,6 @@ class CategoryWithMatrixRelationshipsSerializer(serializers.ModelSerializer):
             "is_paid",
             "partner_tasks",
             "suitable_partners",
-            "meeting_places",
+            # "meeting_places",
             "relationship_problems",
         ]

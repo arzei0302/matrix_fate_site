@@ -22,16 +22,16 @@ class MoneySourcesSerializer(serializers.ModelSerializer):
         fields = ["order_id", "title", "description"]
 
 
-class MoneyGrowthTasks1Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = MoneyGrowthTasks1
-        fields = ["order_id", "title", "description"]
+# class MoneyGrowthTasks1Serializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = MoneyGrowthTasks1
+#         fields = ["order_id", "title", "description"]
 
 
-class MoneyGrowthTasks2Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = MoneyGrowthTasks2
-        fields = ["order_id", "title", "description"]
+# class MoneyGrowthTasks2Serializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = MoneyGrowthTasks2
+#         fields = ["order_id", "title", "description"]
 
 
 class MoneyBlocksSerializer(serializers.ModelSerializer):
@@ -40,19 +40,19 @@ class MoneyBlocksSerializer(serializers.ModelSerializer):
         fields = ["order_id", "title", "description"]
 
 
-class MoneyUnblockSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MoneyUnblock
-        fields = ["order_id", "title", "description"]
+# class MoneyUnblockSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = MoneyUnblock
+#         fields = ["order_id", "title", "description"]
 
 
 class CategoryWithMatrixMoneySerializer(serializers.ModelSerializer):
     suitable_professions = SuitableProfessionsSerializer(many=True)
     money_sources = MoneySourcesSerializer(many=True)
-    money_growth_tasks1 = MoneyGrowthTasks1Serializer(many=True)
-    money_growth_tasks2 = MoneyGrowthTasks2Serializer(many=True)
+    # money_growth_tasks1 = MoneyGrowthTasks1Serializer(many=True)
+    # money_growth_tasks2 = MoneyGrowthTasks2Serializer(many=True)
     money_blocks = MoneyBlocksSerializer(many=True)
-    money_unblock = MoneyUnblockSerializer(many=True)
+    # money_unblock = MoneyUnblockSerializer(many=True)
 
     class Meta:
         model = Category
@@ -63,8 +63,8 @@ class CategoryWithMatrixMoneySerializer(serializers.ModelSerializer):
             "is_paid",
             "suitable_professions",
             "money_sources",
-            "money_growth_tasks1",
-            "money_growth_tasks2",
+            # "money_growth_tasks1",
+            # "money_growth_tasks2",
             "money_blocks",
-            "money_unblock",
+            # "money_unblock",
         ]
