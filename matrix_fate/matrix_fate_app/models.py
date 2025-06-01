@@ -661,7 +661,7 @@ class RelationshipProblems(OrderMarkerMixin):
         return f"{self.category.title} - {self.title}"
 
 
-# ДЕНЬГИ В МАТРИЦЕ - matrix_money
+# ДЕНЬГИ В МАТРИЦЕ - matrix_money #
 class SuitableProfessions(OrderMarkerMixin):
     """Какие подходят профессии (c2)"""
 

@@ -29,14 +29,14 @@ from .models import (
     SpiritualTask3,
     PartnerTasks,
     SuitablePartner,
-    MeetingPlace,
+    # MeetingPlace,
     RelationshipProblems,
     SuitableProfessions,
     MoneySources,
-    MoneyGrowthTasks1,
-    MoneyGrowthTasks2,
+    # MoneyGrowthTasks1,
+    # MoneyGrowthTasks2,
     MoneyBlocks,
-    MoneyUnblock,
+    # MoneyUnblock,
     PersonalPurpose1,
     PersonalPurpose2,
     PersonalPurpose3,
@@ -113,7 +113,7 @@ class MatrixAdmin(AdminSite):
                 [
                     "PartnerTasks",
                     "SuitablePartner",
-                    "MeetingPlace",
+                    # "MeetingPlace",
                     "RelationshipProblems",
                 ],
             ),
@@ -122,10 +122,10 @@ class MatrixAdmin(AdminSite):
                 [
                     "SuitableProfessions",
                     "MoneySources",
-                    "MoneyGrowthTasks1",
-                    "MoneyGrowthTasks2",
+                    # "MoneyGrowthTasks1",
+                    # "MoneyGrowthTasks2",
                     "MoneyBlocks",
-                    "MoneyUnblock",
+                    # "MoneyUnblock",
                 ],
             ),
             (
@@ -339,8 +339,8 @@ class SuitablePartnerAdmin(BaseAdmin):
     pass
 
 
-class MeetingPlaceAdmin(BaseAdmin):
-    pass
+# class MeetingPlaceAdmin(BaseAdmin):
+#     pass
 
 
 class RelationshipProblemsAdmin(BaseAdmin):
@@ -355,20 +355,20 @@ class MoneySourcesAdmin(BaseAdmin):
     pass
 
 
-class MoneyGrowthTasks1Admin(BaseAdmin):
-    pass
+# class MoneyGrowthTasks1Admin(BaseAdmin):
+#     pass
 
 
-class MoneyGrowthTasks2Admin(BaseAdmin):
-    pass
+# class MoneyGrowthTasks2Admin(BaseAdmin):
+#     pass
 
 
 class MoneyBlocksAdmin(BaseAdmin):
     pass
 
 
-class MoneyUnblockAdmin(BaseAdmin):
-    pass
+# class MoneyUnblockAdmin(BaseAdmin):
+#     pass
 
 
 class PersonalPurpose1Admin(BaseAdmin):
@@ -560,14 +560,14 @@ matrix_admin.register(SpiritualTask2, SpiritualTask2Admin)
 matrix_admin.register(SpiritualTask3, SpiritualTask3Admin)
 matrix_admin.register(PartnerTasks, PartnerTasksAdmin)
 matrix_admin.register(SuitablePartner, SuitablePartnerAdmin)
-matrix_admin.register(MeetingPlace, MeetingPlaceAdmin)
+# matrix_admin.register(MeetingPlace, MeetingPlaceAdmin)
 matrix_admin.register(RelationshipProblems, RelationshipProblemsAdmin)
 matrix_admin.register(SuitableProfessions, SuitableProfessionsAdmin)
 matrix_admin.register(MoneySources, MoneySourcesAdmin)
-matrix_admin.register(MoneyGrowthTasks1, MoneyGrowthTasks1Admin)
-matrix_admin.register(MoneyGrowthTasks2, MoneyGrowthTasks2Admin)
+# matrix_admin.register(MoneyGrowthTasks1, MoneyGrowthTasks1Admin)
+# matrix_admin.register(MoneyGrowthTasks2, MoneyGrowthTasks2Admin)
 matrix_admin.register(MoneyBlocks, MoneyBlocksAdmin)
-matrix_admin.register(MoneyUnblock, MoneyUnblockAdmin)
+# matrix_admin.register(MoneyUnblock, MoneyUnblockAdmin)
 matrix_admin.register(PersonalPurpose1, PersonalPurpose1Admin)
 matrix_admin.register(PersonalPurpose2, PersonalPurpose2Admin)
 matrix_admin.register(PersonalPurpose3, PersonalPurpose3Admin)

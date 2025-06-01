@@ -14,8 +14,8 @@ from matrix_fate.matrix_fate_app.models import (
     AncestralPower, 
     TeachParents, RelationshipMistakes, PersonalGrowth, 
     SpiritualTask1, SpiritualTask2, SpiritualTask3, 
-    PartnerTasks, SuitablePartner, MeetingPlace, RelationshipProblems, 
-    SuitableProfessions, MoneySources, MoneyGrowthTasks1, MoneyGrowthTasks2, MoneyBlocks, MoneyUnblock, 
+    PartnerTasks, SuitablePartner,  RelationshipProblems, #MeetingPlace,
+    SuitableProfessions, MoneySources, MoneyBlocks, #MoneyGrowthTasks1, MoneyGrowthTasks2, MoneyUnblock, 
     PersonalPurpose1, PersonalPurpose2, PersonalPurpose3, SocialPurpose1, SocialPurpose2, SocialPurpose3, SpiritualPurpose, 
     PaternalDiseases, MaternalDiseases, HealthArcane1, HealthArcane2, HealthArcane3,
     AncestralTaskFatherMale, AncestralTaskMotherMale, AncestralTaskFatherFemale, AncestralTaskMotherFemale, 
@@ -44,7 +44,10 @@ MARKER_MODEL_MAP = {
     "b2": [SpiritualTask3],
     "m": [],
     "c1": [],
-    "c2": [SuitableProfessions, MoneyGrowthTasks2],
+
+    # "c2": [SuitableProfessions, MoneyGrowthTasks2],
+    "c2": [SuitableProfessions],
+
     "d1": [TaskBefore40, PastLifeLesson],
     "d2": [TaskAfter40, PastLifeExperience, PartnerTasks],
     "f1": [],
@@ -55,9 +58,17 @@ MARKER_MODEL_MAP = {
     "h2": [],
     "i1": [],
     "i2": [],
-    "j": [RelationshipProblems, MoneyBlocks, MoneyUnblock],
-    "k": [SuitablePartner, MeetingPlace],
-    "l": [MoneySources, MoneyGrowthTasks1],
+    # "j": [RelationshipProblems, MoneyBlocks, MoneyUnblock],
+    "j": [RelationshipProblems, MoneyBlocks],
+
+
+    # "k": [SuitablePartner, MeetingPlace],
+    "k": [SuitablePartner],
+
+    # "l": [MoneySources, MoneyGrowthTasks1],
+    "l": [MoneySources],
+
+
     "r": [PersonalPurpose1],
     "s": [PersonalPurpose2],
     "y": [PersonalPurpose3],

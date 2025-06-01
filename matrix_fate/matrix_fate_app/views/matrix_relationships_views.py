@@ -4,22 +4,19 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
-from matrix_fate.common.permissions import is_active_paid_user
-
-# from matrix_fate.common.permissions import IsActivePaidUser
 
 from ..models import (
     Category,
     PartnerTasks,
     SuitablePartner,
-    MeetingPlace,
+    # MeetingPlace,
     RelationshipProblems,
 )
 from ..serializers.matrix_relationships_serializers import (
     CategoryWithMatrixRelationshipsSerializer,
     PartnerTasksSerializer,
     SuitablePartnerSerializer,
-    MeetingPlaceSerializer,
+    # MeetingPlaceSerializer,
     RelationshipProblemsSerializer,
 )
 from matrix_fate.common.mixins import PaidCategoryAccessMixin
@@ -46,12 +43,12 @@ class CategoryWithMatrixRelationshipsAPIView(APIView, PaidCategoryAccessMixin):
                 required=True,
                 type=int,
             ),
-            OpenApiParameter(
-                name="meeting",
-                description="Где можете познакомиться с партнером (k)",
-                required=True,
-                type=int,
-            ),
+            # OpenApiParameter(
+            #     name="meeting",
+            #     description="Где можете познакомиться с партнером (k)",
+            #     required=True,
+            #     type=int,
+            # ),
             OpenApiParameter(
                 name="problems",
                 description="Какие могут возникнуть проблемы в отношениях (j)",
@@ -73,13 +70,13 @@ class CategoryWithMatrixRelationshipsAPIView(APIView, PaidCategoryAccessMixin):
 
         tasks_order = request.query_params.get("tasks")
         partner_order = request.query_params.get("partner")
-        meeting_order = request.query_params.get("meeting")
+        # meeting_order = request.query_params.get("meeting")
         problems_order = request.query_params.get("problems")
 
-        if not (tasks_order and partner_order and meeting_order and problems_order):
+        if not (tasks_order and partner_order and problems_order):
             return Response(
                 {
-                    "error": "Необходимо передать четыре числа (tasks, partner, meeting, problems)"
+                    "error": "Необходимо передать три числа (tasks, partner, problems)"
                 },
                 status=HTTP_400_BAD_REQUEST,
             )
@@ -91,9 +88,9 @@ class CategoryWithMatrixRelationshipsAPIView(APIView, PaidCategoryAccessMixin):
             suitable_partner = SuitablePartner.objects.get(
                 category=category, order_id=partner_order
             )
-            meeting_place = MeetingPlace.objects.get(
-                category=category, order_id=meeting_order
-            )
+            # meeting_place = MeetingPlace.objects.get(
+            #     category=category, order_id=meeting_order
+            # )
             relationship_problems = RelationshipProblems.objects.get(
                 category=category, order_id=problems_order
             )
@@ -109,13 +106,13 @@ class CategoryWithMatrixRelationshipsAPIView(APIView, PaidCategoryAccessMixin):
                 },
                 status=HTTP_404_NOT_FOUND,
             )
-        except MeetingPlace.DoesNotExist:
-            return Response(
-                {
-                    "error": f"Место знакомства с order_id={meeting_order} в MeetingPlace не найдено"
-                },
-                status=HTTP_404_NOT_FOUND,
-            )
+        # except MeetingPlace.DoesNotExist:
+        #     return Response(
+        #         {
+        #             "error": f"Место знакомства с order_id={meeting_order} в MeetingPlace не найдено"
+        #         },
+                # status=HTTP_404_NOT_FOUND,
+            # )
         except RelationshipProblems.DoesNotExist:
             return Response(
                 {
@@ -135,7 +132,7 @@ class CategoryWithMatrixRelationshipsAPIView(APIView, PaidCategoryAccessMixin):
                     "suitable_partner": SuitablePartnerSerializer(
                         suitable_partner
                     ).data,
-                    "meeting_place": MeetingPlaceSerializer(meeting_place).data,
+                    # "meeting_place": MeetingPlaceSerializer(meeting_place).data,
                     "relationship_problems": RelationshipProblemsSerializer(
                         relationship_problems
                     ).data,

@@ -4,27 +4,26 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
-from matrix_fate.common.permissions import is_active_paid_user
-
-# from matrix_fate.common.permissions import IsActivePaidUser
 
 from ..models import (
     Category,
     SuitableProfessions,
-    MoneySources,
-    MoneyGrowthTasks1,
-    MoneyGrowthTasks2,
     MoneyBlocks,
-    MoneyUnblock,
+    MoneySources,
+    
+    # MoneyGrowthTasks1,
+    # MoneyGrowthTasks2,
+    # MoneyUnblock,
 )
 from ..serializers.matrix_money_serializers import (
     CategoryWithMatrixMoneySerializer,
     SuitableProfessionsSerializer,
-    MoneySourcesSerializer,
-    MoneyGrowthTasks1Serializer,
-    MoneyGrowthTasks2Serializer,
     MoneyBlocksSerializer,
-    MoneyUnblockSerializer,
+    MoneySourcesSerializer,
+
+    # MoneyGrowthTasks1Serializer,
+    # MoneyGrowthTasks2Serializer,
+    # MoneyUnblockSerializer,
 )
 from matrix_fate.common.mixins import PaidCategoryAccessMixin
 
@@ -50,30 +49,30 @@ class CategoryWithMatrixMoneyAPIView(GenericAPIView, PaidCategoryAccessMixin):
                 required=True,
                 type=int,
             ),
-            OpenApiParameter(
-                name="tasks1",
-                description="Какие задачи раскрывают денежный канал (l)",
-                required=True,
-                type=int,
-            ),
-            OpenApiParameter(
-                name="tasks2",
-                description="Какие задачи раскрывают денежный канал (c2)",
-                required=True,
-                type=int,
-            ),
+            # OpenApiParameter(
+            #     name="tasks1",
+            #     description="Какие задачи раскрывают денежный канал (l)",
+            #     required=True,
+            #     type=int,
+            # ),
+            # OpenApiParameter(
+            #     name="tasks2",
+            #     description="Какие задачи раскрывают денежный канал (c2)",
+            #     required=True,
+            #     type=int,
+            # ),
             OpenApiParameter(
                 name="blocks",
                 description="Что блокирует денежную энергию (j)",
                 required=True,
                 type=int,
             ),
-            OpenApiParameter(
-                name="unblock",
-                description="Что помогает раскрыть деньги (j)",
-                required=True,
-                type=int,
-            ),
+            # OpenApiParameter(
+            #     name="unblock",
+            #     description="Что помогает раскрыть деньги (j)",
+            #     required=True,
+            #     type=int,
+            # ),
         ]
     )
     def get(self, request, category_id_or_title):
@@ -90,10 +89,10 @@ class CategoryWithMatrixMoneyAPIView(GenericAPIView, PaidCategoryAccessMixin):
         order_params = {
             "professions": (SuitableProfessions, SuitableProfessionsSerializer),
             "money": (MoneySources, MoneySourcesSerializer),
-            "tasks1": (MoneyGrowthTasks1, MoneyGrowthTasks1Serializer),
-            "tasks2": (MoneyGrowthTasks2, MoneyGrowthTasks2Serializer),
+            # "tasks1": (MoneyGrowthTasks1, MoneyGrowthTasks1Serializer),
+            # "tasks2": (MoneyGrowthTasks2, MoneyGrowthTasks2Serializer),
             "blocks": (MoneyBlocks, MoneyBlocksSerializer),
-            "unblock": (MoneyUnblock, MoneyUnblockSerializer),
+            # "unblock": (MoneyUnblock, MoneyUnblockSerializer),
         }
         response_data = {
             "category": {
