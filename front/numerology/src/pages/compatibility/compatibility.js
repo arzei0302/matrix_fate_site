@@ -228,7 +228,7 @@ function Compatibility() {
                     <CompabilitySchema personalInfo={newPersonalInfo} numbers={numerologyData} />
                 </div>
 
-                <Accordions data={combinedData} />
+                <Accordions data={combinedData} programs={numerologyData.matched_programs} />
             </div>
 
             <DateDecodingCard />

@@ -1,67 +1,113 @@
-.css-1808mag-MuiPaper-root-MuiAccordion-root::before{
+// Убираем линию над Accordion
+.css-1808mag-MuiPaper-root-MuiAccordion-root::before {
   display: none !important;
 }
+
+// Контейнер для всех аккордеонов
 .accordion-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 98%;
-  }
-.subtitle1{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
 }
-.css-rizt0-MuiTypography-root{
+
+// Заголовки аккордеонов
+.accordion-title {
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+// Стилизация самого Accordion
+.MuiAccordion-root {
+  border-radius: 10px !important;
+  background: #f8fafc;
+  box-shadow: none;
+  border: 1px solid #e0e0e0;
+}
+
+.MuiAccordionSummary-root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+}
+
+// Заблокированные аккордеоны
+.locked .MuiAccordionSummary-root {
+  color: #757575;
+  display: flex;
+  justify-content: space-between;
+}
+
+.locked .unlock-link {
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: bold;
+  color: #191919;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.unlock-link.active {
+  color: #69c984;
+}
+
+.locked .unlock-link:hover {
+  color: #69c984;
+  text-decoration: underline;
+}
+
+// Иконки
+.MuiSvgIcon-root {
+  margin-bottom: 10px;
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+// Программы
+.program-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.program-item {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+.program-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #333;
+
+  &:hover {
+    color: #1a8917;
+  }
+
+  svg {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 3px;
+  }
+}
+
+.program-description {
+  margin-top: 8px;
+  padding-left: 24px;
+  color: #444;
+}
+
+// Стиль для Typography (опционально)
+.css-rizt0-MuiTypography-root {
   font-size: 18px !important;
   font-weight: 700 !important;
 }
-  .MuiAccordion-root {
-    border-radius: 10px !important;
-    background: #f8fafc;
-    box-shadow: none;
-    border: 1px solid #e0e0e0;
-  }
-  
-  .MuiAccordionSummary-root {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-  }
-  
-  .accordion-title {
-    font-weight: bold;
-    font-size: 123px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .locked .MuiAccordionSummary-root {
-    color: #757575;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .locked .unlock-link {
-    margin-left: auto;
-    font-size: 14px;
-    font-weight: bold;
-    color: #191919;
-    text-decoration: none;
-    transition: 0.3s;
-    transition: color 0.3s ease;
-  }
-  .unlock-link.active {
-    color: #69c984;
-  }
-  .locked .unlock-link:hover {
-    color: #69c984;
-    text-decoration: underline;
-  }
-  
-  .MuiSvgIcon-root {
-    margin-bottom:10px;
-    margin-left: 5px;
-    font-size: 20px;
-
-  }
-  

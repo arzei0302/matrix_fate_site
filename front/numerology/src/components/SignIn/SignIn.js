@@ -81,7 +81,7 @@ const SignIn = ({ isOpen, onClose, onSuccess }) => {
 
         {showInfoModal && (
           <div className="info-modal">
-            📧 Код отправлен на вашу почту
+            📧 Sended code to email
           </div>
         )}
       </div>

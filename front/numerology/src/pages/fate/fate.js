@@ -206,7 +206,7 @@ function Fate() {
         </div>
         <button className='downloadBtn' onClick={handleDownload}>{t("financePage.download")}</button>
         <div className="accordions">
-          <Accordions data={combinedData}/>
+          <Accordions data={combinedData} programs={numerologyData.matched_programs} />
         </div>
 
         <DateDecodingCard />
