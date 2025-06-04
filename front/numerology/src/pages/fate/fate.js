@@ -4,6 +4,7 @@ import InfoTable from "../../components/InfoTable/InfoTable";
 import Accordions from "../../components/Accordions/Accordions";
 import TrainingCard from "../../components/TrainingCard/TrainingCard";
 import axios from "axios";
+
 import {
   newChakraData,
   newPersonalInfo,
@@ -28,11 +29,12 @@ import {
   getSoulMission,
   getDiseasePredisposition,
   getHealthMap,
-  getAncestralTask
+  getAncestralTask, getBreakdown
 } from "../../services/fateService/fateService.js";
 import "./fate.scss";
 import DateDecodingCard from "../../components/DateDecodingCard/DateDecodingCard.js";
 import { useTranslation } from "react-i18next";
+import Breakdown from "../../components/Breakdown/Breakdown";
 
 function Fate() {
   const [numerologyData, setNumerologyData] = useState({});
@@ -98,7 +100,8 @@ function Fate() {
         getSoulMission(numerologyResponse),
         getDiseasePredisposition(numerologyResponse),
         getHealthMap(numerologyResponse),
-        getAncestralTask(numerologyResponse)
+        getAncestralTask(numerologyResponse),
+
       ];
 
       const results = await Promise.allSettled(requests);
@@ -207,6 +210,7 @@ function Fate() {
         <button className='downloadBtn' onClick={handleDownload}>{t("financePage.download")}</button>
         <div className="accordions">
           <Accordions data={combinedData} programs={numerologyData.matched_programs} />
+          <Breakdown/>
         </div>
 
         <DateDecodingCard />

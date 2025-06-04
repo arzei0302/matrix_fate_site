@@ -1,4 +1,4 @@
-import api from "../axiosInstance"; 
+import api from "../axiosInstance";
 
 // Базовый URL для всех запросов
 const BASE_URL = "https://numerology-calculator.fi/api";
@@ -290,6 +290,7 @@ export const getHealthMap=async({o6,p6,q6,o4,p4,q4,o3,p3,q3,o1,p1,q1,o7,p7,q7,o2
         return catch403AndReturnData(error);
     }
 }
+
 
 
 
