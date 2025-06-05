@@ -15,7 +15,8 @@ const resources = {
         total: "ИТОГО"
       },
       financePage: {
-        download:"Download PDF",
+        breakdownTitle: "Year-by-year breakdown",
+        download: "Download PDF",
         enterBirthDate: "Enter birth date",
         day: "Day",
         month: "Month",
@@ -25,88 +26,89 @@ const resources = {
         btn: "Calculate compatibility"
       },
       sky: "Небо",        // ru
-earth: "Земля",
-spiritualHarmony: "Духовная гармония",
-planetary: "Планетарное",
-financeAccordion: {
-  qualities: {
-    title: "Личные качества",
-    description: "Описание личных качеств"
-  },
-  soulWork: {
-    title: "Кем работать для души",
-    description: "Описание работы для души"
-  },
-  karma: {
-    title: "Карма и задача 40 лет",
-    description: "Описание кармы и задачи"
-  },
-  pastLife: {
-    title: "Задачи из прошлых жизней",
-    description: "Описание задач из прошлых жизней"
-  },
-  comfortPoint: {
-    title: "Точка комфорта",
-    description: "Описание точки комфорта"
-  },
-  selfRealization: {
-    title: "Самореализация",
-    description: "Описание самореализации"
-  },
-  pointPersonalPower: {
-    title: "Точка личной силы",
-    description: "Описание точки личной силы"
-  },
-  genericPower: {
-    title: "Сила рода",
-    description: "Описание силы рода"
-  },
-  parentChildKarma: {
-    title: "Детско-родительская карма",
-    description: "Описание детско-родительской кармы"
-  },
-  spiritualKarma: {
-    title: "Духовная карма",
-    description: "Описание духовной кармы"
-  },
-  matrixRelationship: {
-    title: "Отношения в матрице",
-    description: "Описание отношений в матрице"
-  },
-  matrixMoney: {
-    title: "Деньги в матрице",
-    description: "Описание денег в матрице"
-  },
-  soulMission: {
-    title: "Миссия души",
-    description: "Описание миссии души"
-  },
-  diseasePredisposition: {
-    title: "Предрасположенность к заболеваниям",
-    description: "Описание предрасположенности к заболеваниям"
-  },
-  healthMap: {
-    title: "Карта здоровья",
-    description: "Описание карты здоровья"
-  },
-  download:{
-    btn: "downloadasdf"},
+      earth: "Земля",
+      spiritualHarmony: "Духовная гармония",
+      planetary: "Планетарное",
+      financeAccordion: {
+        qualities: {
+          title: "Личные качества",
+          description: "Описание личных качеств"
+        },
+        soulWork: {
+          title: "Кем работать для души",
+          description: "Описание работы для души"
+        },
+        karma: {
+          title: "Карма и задача 40 лет",
+          description: "Описание кармы и задачи"
+        },
+        pastLife: {
+          title: "Задачи из прошлых жизней",
+          description: "Описание задач из прошлых жизней"
+        },
+        comfortPoint: {
+          title: "Точка комфорта",
+          description: "Описание точки комфорта"
+        },
+        selfRealization: {
+          title: "Самореализация",
+          description: "Описание самореализации"
+        },
+        pointPersonalPower: {
+          title: "Точка личной силы",
+          description: "Описание точки личной силы"
+        },
+        genericPower: {
+          title: "Сила рода",
+          description: "Описание силы рода"
+        },
+        parentChildKarma: {
+          title: "Детско-родительская карма",
+          description: "Описание детско-родительской кармы"
+        },
+        spiritualKarma: {
+          title: "Духовная карма",
+          description: "Описание духовной кармы"
+        },
+        matrixRelationship: {
+          title: "Отношения в матрице",
+          description: "Описание отношений в матрице"
+        },
+        matrixMoney: {
+          title: "Деньги в матрице",
+          description: "Описание денег в матрице"
+        },
+        soulMission: {
+          title: "Миссия души",
+          description: "Описание миссии души"
+        },
+        diseasePredisposition: {
+          title: "Предрасположенность к заболеваниям",
+          description: "Описание предрасположенности к заболеваниям"
+        },
+        healthMap: {
+          title: "Карта здоровья",
+          description: "Описание карты здоровья"
+        },
+        download: {
+          btn: "downloadasdf"
+        },
 
-  "total": "Yleinen ennuste",
-    "january": "Tammikuu",
-    "feb": "Helmikuu",
-    "march": "Maaliskuu",
-    "april": "Huhtikuu",
-    "may": "Toukokuu",
-    "june": "Kesäkuu",
-    "july": "Heinäkuu",
-    "august": "Elokuu",
-    "sep": "Syyskuu",
-    "okt": "Lokakuu",
-    "nov": "Marraskuu",
-    "dec": "Joulukuu"
-}
-,
+        "total": "Yleinen ennuste",
+        "january": "Tammikuu",
+        "feb": "Helmikuu",
+        "march": "Maaliskuu",
+        "april": "Huhtikuu",
+        "may": "Toukokuu",
+        "june": "Kesäkuu",
+        "july": "Heinäkuu",
+        "august": "Elokuu",
+        "sep": "Syyskuu",
+        "okt": "Lokakuu",
+        "nov": "Marraskuu",
+        "dec": "Joulukuu"
+      }
+      ,
       // Header + UI
       matrix: "Матрица судьбы",
       finance: "Финансы",
@@ -178,8 +180,9 @@ financeAccordion: {
           title: "Personal qualities",
           description: "Description of personal qualities"
         },
-        download:{
-          btn: "downloadasdf"},
+        download: {
+          btn: "downloadasdf"
+        },
         soulWork: {
           title: "Work for the soul",
           description: "Description of work for the soul"
@@ -233,8 +236,9 @@ financeAccordion: {
           title: "Disease predisposition",
           description: "Description of disease predisposition"
         },
-        download:{
-          btn: "downloadasdf"},
+        download: {
+          btn: "downloadasdf"
+        },
         healthMap: {
           title: "Health map",
           description: "Description of the health map"
@@ -338,7 +342,7 @@ financeAccordion: {
         privacyPolicy: "Privacy Policy",
         publicOffer: "Public Offer Agreement"
       },
-      compability:{
+      compability: {
         parentChildKarma: "Parent-child karma",
         spiritualKarma: "Spiritual karma",
         matrixRelationship: "Relationships in the matrix",
@@ -401,7 +405,8 @@ financeAccordion: {
         total: "YHTEENSÄ"
       },
       financePage: {
-        download:"Lataa pdf-tiedosto",
+        breakdownTitle: "V  uosikohtainen erittely",
+        download: "Lataa pdf-tiedosto",
         enterBirthDate: "Syötä syntymäaika",
         day: "Päivä",
         month: "Kuukausi",
