@@ -5,7 +5,7 @@ def normalize_input_data(data: dict) -> dict:
 
 
 def is_fake_date(day: int, month: int, year: int) -> bool:
-    return day == 31 and month == 12 and year == 9999
+    return day == 1 and month == 1 and year == 2025
 
 
 def is_fake_compatibility_input(day1: int, month1: int, year1: int, day2: int, month2: int, year2: int) -> bool:
