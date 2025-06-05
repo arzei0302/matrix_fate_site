@@ -95,7 +95,9 @@ function ViewHistory() {
             <th>#</th>
             <th>{t("history.category")}</th>
             <th>{t("history.date")}</th>
+            <th>{t("history.inputDate")}</th>
             <th>{t("history.action")}</th>
+
           </tr>
           </thead>
           <tbody>

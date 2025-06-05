@@ -332,6 +332,7 @@ const resources = {
       spiritualQuestion1: "Spiritual exam. Who am I to God? Where is the divine within me?",
       spiritualQuestion2: "Planetary purpose of a person",
       history: {
+        inputDate:'Input date',
         category: "Category",
         date: "Date",
         action: "Action",
@@ -388,6 +389,7 @@ const resources = {
         loading: "Ladataan tilauspaketteja..."
       },
       history: {
+        inputDate:"Syöttöpäivämäärä",
         category: "Kategoria",
         date: "Päivämäärä",
         action: "Toiminto",
