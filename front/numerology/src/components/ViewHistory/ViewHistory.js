@@ -105,6 +105,7 @@ function ViewHistory() {
                     <td>{index + 1}</td>
                     <td>{item.category}</td>
                     <td>{new Date(item.created_at).toLocaleDateString()}</td>
+                    <td>{item.input_data.day}.{item.input_data.month}.{item.input_data.year}</td>
                     <td>
                       <button className="open-button" onClick={() => handleOpen(item)}>
                         {t("history.open")}
