@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 import logging
-from matrix_fate.common.input_data import normalize_input_data
+from matrix_fate.common.input_data import is_fake_date, normalize_input_data
 from matrix_fate.matrix_auth_app.models import UserCalculationHistory
 from matrix_fate.matrix_fate_app.serializers.matrix_fate_program_serializers import (
     MatrixFateInputSerializer, MatrixFateOutputSerializer, MatrixFateProgramSerializer)
@@ -238,7 +238,7 @@ def calculate_matrix_view(request):
     
     matrix_values["matched_programs"] = serialized_programs
     
-    if request.user.is_authenticated and hasattr(request.user, 'profile'):
+    if request.user.is_authenticated and hasattr(request.user, 'profile') and not is_fake_date(birth_day, birth_month, birth_year):
         UserCalculationHistory.objects.update_or_create(
             profile=request.user.profile,
             input_data=input_data,
