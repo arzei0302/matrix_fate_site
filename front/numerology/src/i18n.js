@@ -407,7 +407,7 @@ const resources = {
         total: "YHTEENSÄ"
       },
       financePage: {
-        breakdownTitle: "V  uosikohtainen erittely",
+        breakdownTitle: "Vuosikohtainen analyysi",
         download: "Lataa pdf-tiedosto",
         enterBirthDate: "Syötä syntymäaika",
         day: "Päivä",
