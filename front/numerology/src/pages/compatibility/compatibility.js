@@ -93,9 +93,9 @@ function Compatibility() {
 
         try {
             const compatibilityResponse = await api.post(`compatibility/calculate-full-compatibility/`, {
-                day1,
+                day,
                 month1: month.value,
-                year1,
+                year,
                 day2: day1,
                 month2: month1.value,
                 year2: year1,
