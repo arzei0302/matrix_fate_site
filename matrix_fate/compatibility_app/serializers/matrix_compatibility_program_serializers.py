@@ -10,16 +10,14 @@ class MatrixCompatibilityProgramSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def to_representation(self, instance):
-            data = super().to_representation(instance)
-    
-            request = self.context.get("request")
-            user = getattr(request, "user", None)
-    
-            # Исключаем description, если программа платная и пользователь не подписан
-            if instance.is_paid and (not user or not is_active_paid_user(user)):
-                data.pop("description", None)
-    
-            return data
+        data = super().to_representation(instance)
+        request = self.context.get("request")
+        user = getattr(request, "user", None)
+
+        if instance.is_paid:
+            if not is_active_paid_user(user):
+                return {"name": data.get("name")}
+        return data
 
 
 # class MatrixFinanceInputSerializer(serializers.Serializer):
