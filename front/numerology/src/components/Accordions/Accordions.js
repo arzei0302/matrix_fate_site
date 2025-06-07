@@ -140,31 +140,36 @@ const Accordions = ({ data, programs }) => {
                 <div className="program-list">
                   {programs.map((program, idx) => {
                     const key = `program-inner-${idx}`;
-                    const title = program.name || `${program.marker_1_value}-${program.marker_2_value}-${program.marker_3_value} ${t(program.name)}`;
-
-                    const hasIsPaid = typeof program.is_paid !== 'undefined';
-                    const isUnregistered = !accessToken || !hasIsPaid;
-                    const isLocked = program.is_paid === true || isUnregistered;
-
                     const isInnerExpanded = expandedPrograms.includes(key);
+                    const isAuthorized = !!accessToken;
+                    const title = program.name || `${program.marker_1_value}-${program.marker_2_value}-${program.marker_3_value} ${t(program.name)}`;
 
                     return (
                         <div className="program-item" key={key}>
                           <div
-                              className={`program-header ${isLocked ? 'locked' : ''}`}
+                              className="program-header"
                               onClick={() => {
-                                if (!isLocked) toggleProgram(key);
+                                if (isAuthorized) toggleProgram(key);
                               }}
+                              style={{ cursor: isAuthorized ? 'pointer' : 'default' }}
                           >
-                            {isLocked ? (
-                                <LockIcon fontSize="small" />
+                            {isAuthorized ? (
+                                isInnerExpanded ? (
+                                    <KeyboardArrowDownIcon fontSize="small" />
+                                ) : (
+                                    <KeyboardArrowUpIcon fontSize="small" />
+                                )
                             ) : (
-                                isInnerExpanded ? <KeyboardArrowDownIcon fontSize="small" /> : <KeyboardArrowUpIcon fontSize="small" />
+                                <LockIcon fontSize="small" />
                             )}
-                            <Typography variant="body2">{t(title)}</Typography>
+                            <Typography variant="body2">
+                              {isAuthorized
+                                  ? `${program.marker_1_value}-${program.marker_2_value}-${program.marker_3_value} ${t(program.name)}`
+                                  : t(program.name)}
+                            </Typography>
                           </div>
 
-                          {!isLocked && isInnerExpanded && (
+                          {isAuthorized && isInnerExpanded && (
                               <div className="program-description">
                                 <Typography
                                     variant="body2"
@@ -177,6 +182,8 @@ const Accordions = ({ data, programs }) => {
                         </div>
                     );
                   })}
+
+
                 </div>
               </AccordionDetails>
             </Accordion>
