@@ -16,6 +16,7 @@ const Accordions = ({ data, programs }) => {
   const [expandedPrograms, setExpandedPrograms] = useState([]);
   const [accordionData, setAccordionData] = useState([]);
   const { t } = useTranslation();
+  const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
     if (!data || typeof data !== 'object') return;
@@ -138,32 +139,32 @@ const Accordions = ({ data, programs }) => {
               <AccordionDetails>
                 <div className="program-list">
                   {programs.map((program, idx) => {
-                    const title = `${program.marker_1_value}-${program.marker_2_value}-${program.marker_3_value} ${t(program.name)}`;
                     const key = `program-inner-${idx}`;
+                    const title = program.name || `${program.marker_1_value}-${program.marker_2_value}-${program.marker_3_value} ${t(program.name)}`;
+
+                    const hasIsPaid = typeof program.is_paid !== 'undefined';
+                    const isUnregistered = !accessToken || !hasIsPaid;
+                    const isLocked = program.is_paid === true || isUnregistered;
+
                     const isInnerExpanded = expandedPrograms.includes(key);
-                    const canOpen = !program.is_paid;
 
                     return (
                         <div className="program-item" key={key}>
                           <div
-                              className={`program-header ${!canOpen ? 'locked' : ''}`}
+                              className={`program-header ${isLocked ? 'locked' : ''}`}
                               onClick={() => {
-                                if (canOpen) toggleProgram(key);
+                                if (!isLocked) toggleProgram(key);
                               }}
                           >
-                            {canOpen ? (
-                                isInnerExpanded ? (
-                                    <KeyboardArrowDownIcon fontSize="small" />
-                                ) : (
-                                    <KeyboardArrowUpIcon fontSize="small" />
-                                )
-                            ) : (
+                            {isLocked ? (
                                 <LockIcon fontSize="small" />
+                            ) : (
+                                isInnerExpanded ? <KeyboardArrowDownIcon fontSize="small" /> : <KeyboardArrowUpIcon fontSize="small" />
                             )}
-                            <Typography variant="body2">{title}</Typography>
+                            <Typography variant="body2">{t(title)}</Typography>
                           </div>
 
-                          {canOpen && isInnerExpanded && (
+                          {!isLocked && isInnerExpanded && (
                               <div className="program-description">
                                 <Typography
                                     variant="body2"
