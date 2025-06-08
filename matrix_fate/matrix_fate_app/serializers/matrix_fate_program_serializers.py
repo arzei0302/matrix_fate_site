@@ -15,7 +15,8 @@ class MatrixFateProgramSerializer(serializers.ModelSerializer):
 
         if instance.is_paid:
             if not is_active_paid_user(user):
-                return {"name": data.get("name")}
+                return {"name": data.get("name"),
+                        "is_paid": data.get("is_paid")}
         return data
 
 
