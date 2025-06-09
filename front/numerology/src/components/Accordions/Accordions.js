@@ -128,6 +128,7 @@ const Accordions = ({ data, programs }) => {
               )}
             </Accordion>
         ))}
+
         {/* Программы */}
         {programs && programs.length > 0 && (
             <Accordion expanded={expanded === 'programs'} onChange={handleChange('programs')}>
@@ -142,34 +143,33 @@ const Accordions = ({ data, programs }) => {
                     const key = `program-inner-${idx}`;
                     const isInnerExpanded = expandedPrograms.includes(key);
                     const isAuthorized = !!accessToken;
-                    const title = program.name || `${program.marker_1_value}-${program.marker_2_value}-${program.marker_3_value} ${t(program.name)}`;
+                    const programKeys = Object.keys(program);
+                    const isLockedProgram = programKeys.length === 1 && programKeys[0] === "name";
 
                     return (
                         <div className="program-item" key={key}>
                           <div
                               className="program-header"
                               onClick={() => {
-                                if (isAuthorized) toggleProgram(key);
+                                if (!isLockedProgram && isAuthorized) toggleProgram(key);
                               }}
-                              style={{ cursor: isAuthorized ? 'pointer' : 'default' }}
+                              style={{ cursor: !isLockedProgram && isAuthorized ? 'pointer' : 'default' }}
                           >
-                            {isAuthorized ? (
-                                isInnerExpanded ? (
-                                    <KeyboardArrowDownIcon fontSize="small" />
-                                ) : (
-                                    <KeyboardArrowUpIcon fontSize="small" />
-                                )
-                            ) : (
+                            {isLockedProgram || !isAuthorized ? (
                                 <LockIcon fontSize="small" />
+                            ) : isInnerExpanded ? (
+                                <KeyboardArrowDownIcon fontSize="small" />
+                            ) : (
+                                <KeyboardArrowUpIcon fontSize="small" />
                             )}
                             <Typography variant="body2">
-                              {isAuthorized
-                                  ? `${program.marker_1_value}-${program.marker_2_value}-${program.marker_3_value} ${t(program.name)}`
-                                  : t(program.name)}
+                              {isLockedProgram || !isAuthorized
+                                  ? t(program.name)
+                                  : `${program.marker_1_value}-${program.marker_2_value}-${program.marker_3_value} ${t(program.name)}`}
                             </Typography>
                           </div>
 
-                          {isAuthorized && isInnerExpanded && (
+                          {!isLockedProgram && isAuthorized && isInnerExpanded && (
                               <div className="program-description">
                                 <Typography
                                     variant="body2"
@@ -182,15 +182,10 @@ const Accordions = ({ data, programs }) => {
                         </div>
                     );
                   })}
-
-
                 </div>
               </AccordionDetails>
             </Accordion>
         )}
-
-        {/* Основные таланты */}
-
       </div>
   );
 };
