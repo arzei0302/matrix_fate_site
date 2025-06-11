@@ -190,106 +190,177 @@ export const getMatrixRelationship=async({k,d2,j})=>{
     }
 }
 
-export const getMatrixMoney=async({l,j,c2})=>{
-    try{
-        const params={
-            blocks:j,
-            money:l,
-            unblock:j,
-            tasks2:c2,
-            professions:c2,
-            tasks1:l
+export const getMatrixMoney = async ({ l, j, c2 }) => {
+    try {
+        const params = {
+            blocks: j,
+            money: l,
+            unblock: j,
+            tasks2: c2,
+            professions: c2,
+            tasks1: l
         };
+
         const response = await api.get(`${BASE_URL}/matrix_fate/matrix_money/15/matrix_money/`, { params });
-        return response.data;
+
+        const data = response.data;
+
+        // Проверка на наличие category
+        if (!data.category || typeof data !== 'object') return data;
+
+        // Перенос всех остальных ключей внутрь category
+        const { category, ...rest } = data;
+
+        return {
+            category: {
+                ...category,
+                ...rest
+            }
+        };
+
     } catch (error) {
         return catch403AndReturnData(error);
     }
-}
+};
 
-export const getAncestralTask=async({g,f,i,h})=>{
-    try{
-        const params={
-            ff :g,
-            fm:f,
-            mf:i,
-            mm :h,
+export const getAncestralTask = async ({ g, f, i, h }) => {
+    try {
+        const params = {
+            ff: g,
+            fm: f,
+            mf: i,
+            mm: h
         };
+
         const response = await api.get(`${BASE_URL}/matrix_fate/ancestral_task7/18/ancestral_task7/`, { params });
-        return response.data;
+
+        const data = response.data;
+
+        if (!data.category || typeof data !== 'object') return data;
+
+        const { category, ...rest } = data;
+
+        return {
+            category: {
+                ...category,
+                ...rest
+            }
+        };
+
     } catch (error) {
         return catch403AndReturnData(error);
     }
-}
+};
 
-export const getSoulMission=async({r,s,y,t,u,v,w})=>{
-    try{
-        const params={
-            p1:r,
-            p2:s,
-            p3:y,
-            s1:t,
-            s2:u,
-            s3:v,
-            spiritual:w
+
+export const getSoulMission = async ({ r, s, y, t, u, v, w }) => {
+    try {
+        const params = {
+            p1: r,
+            p2: s,
+            p3: y,
+            s1: t,
+            s2: u,
+            s3: v,
+            spiritual: w
         };
+
         const response = await api.get(`${BASE_URL}/matrix_fate/soul_mission/16/soul_mission/`, { params });
-        return response.data;
+
+        const data = response.data;
+
+        // Перенос всех ключей, кроме category, внутрь category
+        if (!data.category || typeof data !== 'object') return data;
+
+        const { category, ...rest } = data;
+
+        return {
+            category: {
+                ...category,
+                ...rest
+            }
+        };
+
     } catch (error) {
         return catch403AndReturnData(error);
     }
-}
+};
 
-export const getDiseasePredisposition=async({h,i,a,b,c})=>{
-    try{
-        const params={
-            a1:a,
-            a2:b,
-            a3:c,
-            paternal:h,
-            maternal:i, 
+
+export const getDiseasePredisposition = async ({ h, i, a, b, c }) => {
+    try {
+        const params = {
+            a1: a,
+            a2: b,
+            a3: c,
+            paternal: h,
+            maternal: i
         };
+
         const response = await api.get(`${BASE_URL}/matrix_fate/disease_predisposition/17/disease_predisposition/`, { params });
-        return response.data;
-    } catch (error) {
-        return catch403AndReturnData(error);
-    }
-}
 
-export const getHealthMap=async({o6,p6,q6,o4,p4,q4,o3,p3,q3,o1,p1,q1,o7,p7,q7,o2,p2,q2,o,p,q,o5,p5,q5})=>{
-    try{
-        const params={
-            o6:o6,
-            p6:p6,
-            q6:q6,
-            o4:o4,
-            p4:p4,
-            q4:q4,
-            o3:o3,
-            p3:p3,
-            q3:q3,
-            o1:o1,
-            p1:p1,
-            q1:q1,
-            o7:o7,
-            p7:p7,
-            q7:q7,
-            o2:o2,
-            p2:p2,
-            q2:q2,
-            o:o,
-            p:p,
-            q:q,
-            o5:o5,
-            p5:p5,
-            q5:q5  
+        const data = response.data;
+
+        // Перенос всех полей, кроме category, внутрь category
+        if (!data.category || typeof data !== 'object') return data;
+
+        const { category, ...rest } = data;
+
+        return {
+            category: {
+                ...category,
+                ...rest
+            }
         };
-        const response = await api.get(`${BASE_URL}/matrix_fate/health_map/2/health_map/`, { params });
-        return response.data;
+
     } catch (error) {
         return catch403AndReturnData(error);
     }
-}
+};
+
+
+export const getHealthMap = async ({
+                                       o6, p6, q6,
+                                       o4, p4, q4,
+                                       o3, p3, q3,
+                                       o1, p1, q1,
+                                       o7, p7, q7,
+                                       o2, p2, q2,
+                                       o, p, q,
+                                       o5, p5, q5
+                                   }) => {
+    try {
+        const params = {
+            o6, p6, q6,
+            o4, p4, q4,
+            o3, p3, q3,
+            o1, p1, q1,
+            o7, p7, q7,
+            o2, p2, q2,
+            o, p, q,
+            o5, p5, q5
+        };
+
+        const response = await api.get(`${BASE_URL}/matrix_fate/health_map/2/health_map/`, { params });
+
+        const data = response.data;
+
+        if (!data.category || typeof data !== 'object') return data;
+
+        const { category, ...rest } = data;
+
+        return {
+            category: {
+                ...category,
+                ...rest
+            }
+        };
+
+    } catch (error) {
+        return catch403AndReturnData(error);
+    }
+};
+
 
 
 

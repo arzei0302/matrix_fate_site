@@ -25,11 +25,12 @@ const Accordions = ({ data, programs }) => {
       const val = Array.isArray(value) && value.length > 0 ? value[0] : value;
       const realCategory = val?.category?.category || val?.category || {};
       const isPaid = realCategory?.is_paid ?? val?.is_paid ?? false;
+      const description = val?.description || realCategory?.description || '';
 
       return {
         key,
         title: realCategory?.title || val?.title || key,
-        description: val?.description || '',
+        description,
         is_paid: isPaid,
         category: realCategory
       };
@@ -68,7 +69,7 @@ const Accordions = ({ data, programs }) => {
 
   const renderNestedTalents = (content) => {
     if (content.is_paid) return null;
-
+    console.log(content)
     const talents = [];
 
     if (typeof content.category === 'object') {
@@ -102,6 +103,7 @@ const Accordions = ({ data, programs }) => {
               >
                 <Typography component="span" className="accordion-title">
                   {t(content.title)}
+
                 </Typography>
                 {content.is_paid && (
                     <a
@@ -120,14 +122,16 @@ const Accordions = ({ data, programs }) => {
                     <Typography
                         variant="body1"
                         dangerouslySetInnerHTML={{
-                          __html: t(content.description || 'noDescription'),
+                          __html: content?.description || '<p>No description</p>',
                         }}
                     />
+
                     {renderNestedTalents(content)}
                   </AccordionDetails>
               )}
             </Accordion>
         ))}
+
 
         {/* Программы */}
         {programs && programs.length > 0 && (
@@ -142,34 +146,33 @@ const Accordions = ({ data, programs }) => {
                   {programs.map((program, idx) => {
                     const key = `program-inner-${idx}`;
                     const isInnerExpanded = expandedPrograms.includes(key);
-                    const isAuthorized = !!accessToken;
-                    const programKeys = Object.keys(program);
-                    const isLockedProgram = programKeys.length === 1 && programKeys[0] === "name";
+                    const isPaid = program?.is_paid===true;
 
                     return (
                         <div className="program-item" key={key}>
                           <div
                               className="program-header"
                               onClick={() => {
-                                if (!isLockedProgram && isAuthorized) toggleProgram(key);
+                                if (!isPaid) toggleProgram(key);
                               }}
-                              style={{ cursor: !isLockedProgram && isAuthorized ? 'pointer' : 'default' }}
+                              style={{ cursor: !isPaid? 'pointer' : 'default' }}
                           >
-                            {isLockedProgram || !isAuthorized ? (
+                            {isPaid ? (
                                 <LockIcon fontSize="small" />
                             ) : isInnerExpanded ? (
                                 <KeyboardArrowDownIcon fontSize="small" />
                             ) : (
                                 <KeyboardArrowUpIcon fontSize="small" />
                             )}
+
                             <Typography variant="body2">
-                              {isLockedProgram || !isAuthorized
+                              {isPaid
                                   ? t(program.name)
                                   : `${program.marker_1_value}-${program.marker_2_value}-${program.marker_3_value} ${t(program.name)}`}
                             </Typography>
                           </div>
 
-                          {!isLockedProgram && isAuthorized && isInnerExpanded && (
+                          {!isPaid && isInnerExpanded && (
                               <div className="program-description">
                                 <Typography
                                     variant="body2"
@@ -182,6 +185,7 @@ const Accordions = ({ data, programs }) => {
                         </div>
                     );
                   })}
+
                 </div>
               </AccordionDetails>
             </Accordion>
