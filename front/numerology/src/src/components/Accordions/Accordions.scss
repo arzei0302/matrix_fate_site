@@ -2,7 +2,10 @@
 .css-1808mag-MuiPaper-root-MuiAccordion-root::before {
   display: none !important;
 }
-
+.accordion-summary-content{
+  display: flex;
+  justify-content: space-between;
+}
 // Контейнер для всех аккордеонов
 .accordion-container {
   display: flex;

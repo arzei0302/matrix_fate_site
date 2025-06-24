@@ -24,14 +24,12 @@ const Accordions = ({ data, programs }) => {
     const transformedData = Object.entries(data).map(([key, value]) => {
       const val = Array.isArray(value) && value.length > 0 ? value[0] : value;
       const realCategory = val?.category?.category || val?.category || {};
-      const isPaid = realCategory?.is_paid ?? val?.is_paid ?? false;
       const description = val?.description || realCategory?.description || '';
 
       return {
         key,
         title: realCategory?.title || val?.title || key,
         description,
-        is_paid: isPaid,
         category: realCategory
       };
     });
@@ -68,8 +66,6 @@ const Accordions = ({ data, programs }) => {
   };
 
   const renderNestedTalents = (content) => {
-    if (content.is_paid) return null;
-    console.log(content)
     const talents = [];
 
     if (typeof content.category === 'object') {
@@ -88,52 +84,34 @@ const Accordions = ({ data, programs }) => {
         {accordionData.map((content, index) => (
             <Accordion
                 key={index}
-                expanded={expanded === `panel-${index}` && !content.is_paid}
+                expanded={expanded === `panel-${index}`}
                 onChange={handleChange(`panel-${index}`)}
-                className={content.is_paid ? 'locked' : ''}
             >
-              <AccordionSummary
-                  expandIcon={content.is_paid ? <LockIcon /> : <ExpandMoreIcon />}
-                  onClick={(e) => {
-                    if (content.is_paid) {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }
-                  }}
-              >
-                <Typography component="span" className="accordion-title">
-                  {t(content.title)}
-
-                </Typography>
-                {content.is_paid && (
-                    <a
-                        href="#"
-                        className={`unlock-link ${
-                            expanded === `panel-${index}` ? 'active' : ''
-                        }`}
-                    >
-                      {t('unlock')}
-                    </a>
-                )}
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <div className="accordion-summary-content">
+                  <Typography component="span" className="accordion-title">
+                    {t(content.title)}
+                  </Typography>
+                  {!content.description && (
+                      <div className="unlock-wrapper">
+                        <LockIcon fontSize="small" className="lock-icon" />
+                      </div>
+                  )}
+                </div>
               </AccordionSummary>
 
-              {!content.is_paid && (
-                  <AccordionDetails>
-                    <Typography
-                        variant="body1"
-                        dangerouslySetInnerHTML={{
-                          __html: content?.description || '<p>No description</p>',
-                        }}
-                    />
-
-                    {renderNestedTalents(content)}
-                  </AccordionDetails>
-              )}
+              <AccordionDetails>
+                <Typography
+                    variant="body1"
+                    dangerouslySetInnerHTML={{
+                      __html: content?.description || '<p>No description</p>',
+                    }}
+                />
+                {renderNestedTalents(content)}
+              </AccordionDetails>
             </Accordion>
         ))}
 
-
-        {/* Программы */}
         {programs && programs.length > 0 && (
             <Accordion expanded={expanded === 'programs'} onChange={handleChange('programs')}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -146,7 +124,7 @@ const Accordions = ({ data, programs }) => {
                   {programs.map((program, idx) => {
                     const key = `program-inner-${idx}`;
                     const isInnerExpanded = expandedPrograms.includes(key);
-                    const isPaid = program?.is_paid===true;
+                    const isPaid = program?.is_paid === true;
 
                     return (
                         <div className="program-item" key={key}>
@@ -155,7 +133,7 @@ const Accordions = ({ data, programs }) => {
                               onClick={() => {
                                 if (!isPaid) toggleProgram(key);
                               }}
-                              style={{ cursor: !isPaid? 'pointer' : 'default' }}
+                              style={{ cursor: !isPaid ? 'pointer' : 'default' }}
                           >
                             {isPaid ? (
                                 <LockIcon fontSize="small" />
@@ -185,7 +163,6 @@ const Accordions = ({ data, programs }) => {
                         </div>
                     );
                   })}
-
                 </div>
               </AccordionDetails>
             </Accordion>
